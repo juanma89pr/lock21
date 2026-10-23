@@ -1,27 +1,37 @@
 @import "tailwindcss";
 
+/* Dirección "Pista atlántica": cobalto saturado de equipación, amarillo de dorsal
+   y blanco frío de pista. Una sola familia (Archivo) jugando con el eje de anchura:
+   comprimida y pesada para titulares, normal para leer. */
 @theme {
-  --color-bruma: #EAF1F4;
-  --color-papel: #F7FAFB;
-  --color-tinta: #0F2236;
-  --color-tinta-2: #4A5D70;
-  --color-linea: #C6D4DD;
-  --color-sol: #FF5B24;
-  --color-sol-hondo: #C93E0E;
-  --color-marea: #2F6F95;
-  --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
-  --font-texto: "Hanken Grotesk", system-ui, sans-serif;
+  --color-cobalto: #2433D9;
+  --color-cobalto-hondo: #1A25A8;
+  --color-noche: #0B1240;
+  --color-dorsal: #FFD02E;
+  --color-dorsal-hondo: #F2B800;
+  --color-pista: #F4F6FF;
+  --color-gris: #4A5175;
+  --color-lila: #C7CDF7;
+  --font-texto: "Archivo Variable", system-ui, sans-serif;
 }
 
-html { background: var(--color-bruma); color: var(--color-tinta); }
+html { background: var(--color-pista); color: var(--color-noche); scroll-behavior: smooth; scroll-padding-top: 72px; }
 body { font-family: var(--font-texto); -webkit-font-smoothing: antialiased; }
 
-:focus-visible { outline: 3px solid var(--color-marea); outline-offset: 3px; border-radius: 6px; }
+.titular { font-family: var(--font-texto); font-stretch: 64%; font-weight: 860; letter-spacing: -0.01em; line-height: 0.95; text-wrap: balance; }
+.titular-medio { font-family: var(--font-texto); font-stretch: 72%; font-weight: 800; line-height: 0.95; }
+.ancho { font-stretch: 112%; }
 
-.casilla { transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease, transform 220ms ease; }
-.casilla[data-hecha="true"] { transform: translateY(-2px); }
+:focus-visible { outline: 3px solid var(--color-dorsal); outline-offset: 3px; box-shadow: 0 0 0 6px var(--color-noche); border-radius: 4px; }
+
+.boton { display: inline-flex; align-items: center; gap: 0.6rem; font-weight: 750; font-stretch: 108%; border-radius: 999px; padding: 0.95rem 1.6rem; transition: transform 160ms ease, background-color 160ms ease; }
+.boton:hover { transform: translateY(-1px); }
+.boton:active { transform: translateY(1px); }
+
+.dia { transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease; }
 
 @media (prefers-reduced-motion: reduce) {
-  .casilla { transition: none; }
-  .casilla[data-hecha="true"] { transform: none; }
+  html { scroll-behavior: auto; }
+  .boton, .dia { transition: none; }
+  .boton:hover, .boton:active { transform: none; }
 }

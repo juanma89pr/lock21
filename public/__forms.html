@@ -1,11 +1,19 @@
 <!doctype html>
 <html lang="es"><body>
-<!-- Formulario oculto para que Netlify Forms detecte la lista de espera -->
+<!-- Formulario oculto para que Netlify Forms detecte la inscripción al reto -->
 <form name="lista-espera" data-netlify="true" netlify-honeypot="empresa" hidden>
   <input type="text" name="nombre" />
   <input type="email" name="email" />
-  <input type="text" name="reto" />
+  <select name="habito">
+    <option>Entrenar 3 días por semana</option>
+    <option>8.000 pasos al día</option>
+    <option>Acostarme antes de las 23:30</option>
+    <option>10 minutos de movilidad al día</option>
+    <option>Beber 2 litros de agua al día</option>
+    <option>Sin pantalla 30 minutos antes de dormir</option>
+  </select>
   <input type="checkbox" name="privacidad" />
+  <input type="checkbox" name="entrenador" />
   <input type="text" name="empresa" />
 </form>
 </body></html>

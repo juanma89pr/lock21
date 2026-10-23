@@ -2,6 +2,12 @@
 
 Resumen del plan de arquitectura (oct 2026). Detalle completo en la conversación.
 
+## Cambio de enfoque (23/10/2026)
+- Lock21 pasa a ser un reto GRATUITO de 21 días que sirve de captación para el servicio premium de entrenador personal. Se eliminan precios, pagos y Stripe; lo que sigue sobre pagos queda obsoleto.
+- Un hábito de un menú cerrado (`src/datos/habitos.js`), atado a una señal; regla "nunca dos fallos seguidos"; test SRBAI (4 preguntas) los días 0, 7 y 21; mensaje honesto: consolidación hacia el día 66 (Lally 2010, Singh 2024).
+- Primer grupo: 1 de diciembre de 2026, 30 plazas (`src/config.js`).
+- Formulario `lista-espera`: nombre, email, habito, privacidad (obligatoria), entrenador (consentimiento comercial opcional y separado), honeypot `empresa`.
+
 ## Decisiones
 - Marca nueva, proyecto Firebase, sitio Netlify, dominio y cuenta Stripe propios. "Balancet" no aparece en el código del cliente; el servidor lo revela solo tras el consentimiento de derivación.
 - Stack: Vite + React + Tailwind v4 + Firebase (Auth, Firestore) + Netlify Functions (incl. programadas) + API de Anthropic (Haiku) + Stripe Checkout/webhooks (fase 1).

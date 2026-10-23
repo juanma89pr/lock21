@@ -1,16 +1,26 @@
-import { Lock, Check, Footprints, Moon, Brain, Salad, Smartphone, Sparkles, CalendarCheck, Mail } from 'lucide-react';
+import { Lock, Check, X, Dumbbell, Footprints, Moon, PersonStanding, GlassWater, MonitorOff, Bot, UserRound, CalendarDays, Users, ChartSpline, Link2, Mail, ShieldCheck, ArrowDown, Minus, Plus } from 'lucide-react';
 
 var iconos = {
   candado: Lock,
   check: Check,
-  movimiento: Footprints,
-  descanso: Moon,
-  cabeza: Brain,
-  comida: Salad,
-  movil: Smartphone,
-  ia: Sparkles,
-  calendario: CalendarCheck,
-  correo: Mail
+  fallo: X,
+  entrenar: Dumbbell,
+  pasos: Footprints,
+  dormir: Moon,
+  movilidad: PersonStanding,
+  agua: GlassWater,
+  pantalla: MonitorOff,
+  ia: Bot,
+  entrenador: UserRound,
+  calendario: CalendarDays,
+  plazas: Users,
+  curva: ChartSpline,
+  senal: Link2,
+  correo: Mail,
+  escudo: ShieldCheck,
+  abajo: ArrowDown,
+  menos: Minus,
+  mas: Plus
 };
 
 export default function Icono(props) {
