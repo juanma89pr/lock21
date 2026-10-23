@@ -35,3 +35,10 @@ body { font-family: var(--font-texto); -webkit-font-smoothing: antialiased; }
   .boton, .dia { transition: none; }
   .boton:hover, .boton:active { transform: none; }
 }
+
+/* App del reto */
+.girar { animation: girar 900ms linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .girar { animation-duration: 2.4s; }
+}
