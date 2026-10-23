@@ -1,10 +1,9 @@
-// Datos del titular y del primer grupo. El correo de contacto está pendiente de confirmar.
+// Datos del titular y del primer grupo. El correo legal solo aparece en public/privacidad.html.
 var config = {
   marca: 'Lock21',
   titular: 'Juan Manuel Peña',
   nombreCorto: 'Juanma',
   ciudad: 'Las Palmas de Gran Canaria',
-  correoContacto: 'PENDIENTE@lock21.app',
   grupo: {
     fechaTexto: '1 de diciembre de 2026',
     fechaCorta: '1 dic',

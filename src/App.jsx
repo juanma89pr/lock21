@@ -226,7 +226,6 @@ export default function App() {
           <span>{config.marca}, un reto de {config.titular}, desde {config.ciudad}.</span>
           <span className="flex gap-5">
             <a href="/privacidad.html" className="underline">Privacidad</a>
-            <a href={'mailto:' + config.correoContacto} className="underline">Contacto</a>
           </span>
         </Contenedor>
       </footer>

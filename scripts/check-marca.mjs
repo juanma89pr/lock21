@@ -11,6 +11,8 @@ function recorrer(dir) {
     if (statSync(ruta).isDirectory()) { recorrer(ruta); return; }
     if (!/\.(html|js|css|json|webmanifest|txt)$/.test(nombre)) { return; }
     var texto = readFileSync(ruta, 'utf8');
+    // Única excepción: el correo legal de contacto, y solo en la página de privacidad.
+    if (/privacidad\.html$/.test(nombre)) { texto = texto.split('lock21@balancet.org').join(''); }
     prohibidas.forEach(function (re) {
       if (re.test(texto)) { errores.push(ruta + ' contiene ' + re); }
     });
