@@ -7,6 +7,10 @@ var config = {
   grupo: {
     fechaTexto: '1 de diciembre de 2026',
     fechaCorta: '1 dic',
+    // Fecha de inicio común (día 1 del reto) y zona horaria de referencia.
+    inicio: '2026-12-01',
+    zona: 'Atlantic/Canary',
+    duracion: 21,
     // El 1 de diciembre de 2026 es martes.
     diaSemanaInicio: 2,
     plazas: 30
