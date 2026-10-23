@@ -156,10 +156,10 @@ Todos los pies de foto terminan con: **"Pide tu plaza gratis en el enlace de la 
 ## 3. Publicaciones para @juanma89pr
 
 **1. Lunes 27 oct · Reel [J8, 20 s]**
-"He montado un reto. Se llama Lock21: 21 días, un solo hábito, gratis. Lo hice porque llevo años viendo que el problema casi nunca es la información, es sostener algo pequeño cuando se acaba la motivación. El 1 de diciembre empieza el primer grupo, de 30 personas. Te dejo el enlace en mi bio y en @lock21."
+"He montado un reto. Se llama Lock21: 21 días, un solo hábito, gratis. Lo hice porque llevo años viendo que el problema casi nunca es la información, es sostener algo pequeño cuando se acaba la motivación. El 1 de diciembre empieza el primer grupo, de 30 personas. Te dejo el enlace en mi bio y en @reto.lock21."
 
 **2. Miércoles 5 nov · Carrusel personal**
-"Lo que aprendí montando un reto de hábitos". Una diapositiva por idea: "Uno, no seis". "La señal importa más que las ganas". "Fallar un día no es fallar". "21 días es el arranque, no la meta". La última: "Lo pongo en práctica en @lock21, gratis".
+"Lo que aprendí montando un reto de hábitos". Una diapositiva por idea: "Uno, no seis". "La señal importa más que las ganas". "Fallar un día no es fallar". "21 días es el arranque, no la meta". La última: "Lo pongo en práctica en @reto.lock21, gratis".
 Pie: "Esto lo he visto con gente real en el gimnasio. Lo llevé a un reto que cualquiera puede hacer desde casa. ¿Con cuál te quedas?"
 
 **3. Martes 17 nov · Foto entrenando [F2]**
@@ -251,7 +251,7 @@ Consejo: los datos reales de diciembre van siempre en texto sobreimpreso, nunca 
 
 ## Resumen
 
-1. Perfil @lock21 listo: bio de 132 caracteres, nombre de perfil y 3 destacadas (Cómo va, La ciencia, Preguntas).
+1. Perfil @reto.lock21 listo: bio de 132 caracteres, nombre de perfil y 3 destacadas (Cómo va, La ciencia, Preguntas).
 2. 16 publicaciones de inscripción (lunes, miércoles y viernes del 26 oct al 30 nov) que alternan reels con gancho a cámara y carruseles de guardado, con el mensaje honesto "21 días es el arranque, la mediana de Lally es 66".
 3. 4 publicaciones en primera persona para @juanma89pr y 6 mensajes de WhatsApp de 2-4 líneas; el de últimas plazas solo con 25 inscritos.
 4. 7 publicaciones de diciembre como plantillas para rellenar con datos reales y testimonios con permiso. El cierre invita a escribir SEGUIR por privado sin nombrar el servicio premium.
