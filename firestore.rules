@@ -1,0 +1,45 @@
+rules_version = '2';
+
+// Reglas de Lock21.
+// - Cada participante solo puede LEER sus propios datos.
+// - Ninguna escritura desde el cliente: perfil, check-ins, tests, chat y leads los
+//   escriben las Netlify Functions con firebase-admin (que no pasa por estas reglas).
+// - Leads, avisos y datos de otros usuarios: solo el admin (claim admin: true,
+//   que pone scripts/dar-admin.mjs a los correos de netlify/lib/propietarios.js).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function esAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    function esDueno(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /usuarios/{uid} {
+      allow read: if esDueno(uid) || esAdmin();
+      allow write: if false;
+
+      match /{subcoleccion}/{documento} {
+        allow read: if (esDueno(uid) && subcoleccion in ['checkins', 'srbai', 'chat']) || esAdmin();
+        allow write: if false;
+      }
+    }
+
+    match /leads/{id} {
+      allow read: if esAdmin();
+      allow write: if false;
+    }
+
+    match /avisos/{id} {
+      allow read: if esAdmin();
+      allow write: if false;
+    }
+
+    // Todo lo demás, cerrado.
+    match /{documento=**} {
+      allow read, write: if false;
+    }
+  }
+}

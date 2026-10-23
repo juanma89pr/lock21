@@ -12,8 +12,8 @@ export var RESPALDO_CHECKIN = {
     { nivel: 'minimo', mensaje: 'Un fallo suelto no rompe nada: la racha se perdona una vez. La única regla es que mañana no se repita. Baja el listón y haz la versión mínima.', tareaManana: 'Haz tu versión mínima de 2 minutos justo después de tu señal.' },
     { nivel: 'minimo', mensaje: 'Pasa. Lo que cuenta es lo que haces mañana. Ponlo tan fácil que sea imposible decir que no.', tareaManana: 'Solo los 2 minutos de tu versión mínima. Nada más.' }
   ],
-  alerta: [
-    { nivel: 'minimo', mensaje: 'Ojo: ayer ya fue un fallo, así que hoy cuenta doble. Olvídate de hacerlo entero: haz la versión mínima y salvas la racha.', tareaManana: 'Versión mínima de 2 minutos, pase lo que pase.' }
+  reinicio: [
+    { nivel: 'minimo', mensaje: 'Dos fallos seguidos reinician la racha, pero no borran lo que llevas hecho: tu cabeza no olvida en dos días. Empieza otra vez mañana con lo más fácil posible.', tareaManana: 'Versión mínima de 2 minutos, pase lo que pase.' }
   ]
 };
 
@@ -23,8 +23,9 @@ export var RESPALDO_CHAT = [
 ];
 
 // Elige un mensaje de respaldo de forma estable (sin azar, para poder probarlo).
-export function respaldoCheckin(hecho, alerta, dia) {
-  var lista = hecho ? RESPALDO_CHECKIN.hecho : (alerta ? RESPALDO_CHECKIN.alerta : RESPALDO_CHECKIN.fallo);
+// falloAyer: el día programado anterior ya fue un fallo (hoy sería el segundo seguido).
+export function respaldoCheckin(hecho, falloAyer, dia) {
+  var lista = hecho ? RESPALDO_CHECKIN.hecho : (falloAyer ? RESPALDO_CHECKIN.reinicio : RESPALDO_CHECKIN.fallo);
   var elegido = lista[Math.abs(dia || 0) % lista.length];
   return { tareaManana: elegido.tareaManana, nivel: elegido.nivel, mensaje: elegido.mensaje, derivar: false, fuente: 'respaldo' };
 }
