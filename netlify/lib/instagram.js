@@ -450,6 +450,15 @@ export async function ejecutarPublicador(ctx) {
         }
         var clase = clasificar(err);
         if (clase === 'token') { throw err; }
+        if (err && err.api && err.api.error_subcode === 2207027 && r.contenedor) {
+          // "Media ID is not available": el contenedor aún no está listo para publicar. Se reintenta sin gastar intento.
+          r.estado = 'procesando';
+          r.actualizado = reloj().toISOString();
+          estado.piezas[pieza.id] = r;
+          anotar(estado, inicio, pieza.id + ': Instagram aún no tiene listo el contenedor; se publica en la próxima ejecución.');
+          resumen.pendientes.push(pieza.id);
+          continue;
+        }
         if (clase === 'limite') {
           r.actualizado = inicio.toISOString();
           estado.piezas[pieza.id] = r;
