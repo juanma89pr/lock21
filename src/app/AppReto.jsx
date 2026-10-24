@@ -190,7 +190,7 @@ export default function AppReto() {
       </main>
       {conNavegacion ? <Navegacion ruta={ruta} /> : (
         <footer className="mx-auto max-w-xl w-full px-4 pb-6 text-xs text-gris">
-          {config.marca}, un reto de {config.titular}. <a href="/privacidad.html" className="underline">Privacidad</a>
+          {config.marca}. Reto de hábitos de 21 días. <a href="/privacidad.html" className="underline">Privacidad</a>
         </footer>
       )}
     </div>

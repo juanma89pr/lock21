@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Página no encontrada — Lock21</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root { --cobalto: #2433D9; --dorsal: #FFD02E; --noche: #0B1240; --pista: #F4F6FF; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--cobalto);
+    color: var(--pista);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex;
+    align-items: center;
+    padding-block: 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  main { width: 100%; max-width: 640px; margin: 0 auto; }
+  .marca { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.01em; }
+  .marca span { color: var(--dorsal); }
+  h1 {
+    margin: 32px 0 0;
+    font-weight: 900;
+    font-size: clamp(3rem, 14vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    font-stretch: 70%;
+    text-wrap: balance;
+  }
+  p { margin: 20px 0 0; font-size: 1.125rem; line-height: 1.55; max-width: 32em; opacity: 0.9; }
+  a.boton {
+    display: inline-block;
+    margin-top: 32px;
+    background: var(--dorsal);
+    color: var(--noche);
+    font-weight: 800;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 999px;
+  }
+  a.boton:hover { background: var(--pista); }
+  a:focus-visible { outline: 3px solid var(--dorsal); outline-offset: 3px; box-shadow: 0 0 0 6px var(--noche); }
+</style>
+</head>
+<body>
+<main>
+  <div class="marca">Lock<span>21</span></div>
+  <h1>Este día no está en el calendario.</h1>
+  <p>La página que buscas no existe o ha cambiado de sitio. Tu reto sigue en la portada.</p>
+  <a class="boton" href="/">Volver a Lock21</a>
+</main>
+</body>
+</html>
