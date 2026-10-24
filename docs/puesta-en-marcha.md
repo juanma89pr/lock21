@@ -23,7 +23,7 @@ todo en el navegador y responde con los mensajes fijos del coach.
 | `VITE_FIREBASE_PROJECT_ID` | Sí | Ídem; las funciones también la usan para verificar tokens |
 | `VITE_FIREBASE_APP_ID` | Sí | Ídem |
 | `VITE_FIREBASE_MESSAGING_SENDER_ID` | No | Ídem |
-| `FIREBASE_SERVICE_ACCOUNT` | Sí para guardar datos | JSON de la cuenta de servicio en **base64** (`base64 -w0 cuenta.json`; en Mac `base64 -i cuenta.json`). Sin ella las funciones responden pero no guardan nada en Firestore |
+| `FIREBASE_SERVICE_ACCOUNT` | Sí para guardar datos | Contenido del JSON de la cuenta de servicio **pegado tal cual** (también acepta base64). Sin ella las funciones responden pero no guardan nada en Firestore |
 | `FIREBASE_PROJECT_ID` | No | Solo si quieres separarlo de la variable `VITE_` |
 | `ANTHROPIC_API_KEY` | No | Clave de la API (workspace "lock21"). **Nunca con prefijo `VITE_`**. Sin ella el coach usa mensajes fijos |
 | `MODELO_RAPIDO` / `MODELO_CHAT` | No | Por defecto `claude-haiku-5-5` (moderación y check-in) y `claude-sonnet-5-5` (chat y resumen del lead) |

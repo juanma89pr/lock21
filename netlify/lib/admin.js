@@ -1,5 +1,6 @@
 // Acceso a Firestore desde las funciones con firebase-admin.
-// Solo se activa si existe FIREBASE_SERVICE_ACCOUNT (JSON de la cuenta de servicio en base64).
+// Solo se activa si existe FIREBASE_SERVICE_ACCOUNT: el JSON de la cuenta de servicio pegado tal cual
+// (recomendado: ocupa menos) o en base64.
 // Sin ella, las funciones responden igual pero no guardan nada (guardado: false).
 
 var instancia = null;
@@ -11,7 +12,9 @@ export async function obtenerDb() {
   var b64 = process.env.FIREBASE_SERVICE_ACCOUNT;
   if (!b64) { return null; }
   try {
-    var credenciales = JSON.parse(Buffer.from(b64, 'base64').toString('utf8'));
+    var bruto = b64.trim();
+    var texto = bruto.charAt(0) === '{' ? bruto : Buffer.from(bruto, 'base64').toString('utf8');
+    var credenciales = JSON.parse(texto);
     var app = await import('firebase-admin/app');
     var fs = await import('firebase-admin/firestore');
     var existente = app.getApps().length ? app.getApps()[0] : app.initializeApp({ credential: app.cert(credenciales) });

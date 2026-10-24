@@ -10,7 +10,8 @@ if (!b64) {
   console.error('Falta FIREBASE_SERVICE_ACCOUNT (JSON de la cuenta de servicio en base64).');
   process.exit(1);
 }
-initializeApp({ credential: cert(JSON.parse(Buffer.from(b64, 'base64').toString('utf8'))) });
+var bruto = b64.trim();
+initializeApp({ credential: cert(JSON.parse(bruto.charAt(0) === '{' ? bruto : Buffer.from(bruto, 'base64').toString('utf8'))) });
 var auth = getAuth();
 
 for (var i = 0; i < PROPIETARIOS.length; i++) {
