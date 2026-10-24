@@ -448,3 +448,15 @@ Fuera del repositorio (`lock21-contenido/marca/`): hoja de presentación (`hoja/
 - **Todos los reels nuevos se hacen con `herramientas/contenido/dinamico.py`**: palabras que entran de golpe (escala + desenfoque de movimiento), cámara que empuja o se aleja en cada escena, transiciones de zoom y látigo, sacudidas en los impactos, "21" gigante de fondo con paralaje y líneas de pista en movimiento. Cortes en la rejilla de 150 BPM (múltiplos de 0,4 s).
 - **Sonido deportivo guiado por eventos** (`audio.componer_eventos`): pisadas y palmas de grada antes del candado, ritmo con 808 y acordes cortados después, redoble y subida antes del desbloqueo, firma del desbloqueo (clic + muelle + brillo) y efectos sincronizados con cada golpe, barrido, tic y pastilla. Mismo motivo de 4 notas en todos.
 - Cuando entren vídeos de Juanma, se mantienen el candado, el sonido y los rótulos cinéticos encima del vídeo.
+
+## Identidad 2 (desde el 24 oct 2026)
+Aprobada por Juanma el 24 oct 2026. Sustituye para todo contenido nuevo al estilo de la sección anterior (sacudidas, destellos, "21" gigante de fondo y líneas de pista quedan fuera).
+
+- **Mismo candado del logo** como protagonista; se cierra (clac) al empezar y se abre el día 21: **desbloqueado**, ya no empiezas de cero. Nunca "un hábito para siempre" en 21 días (Lally et al. 2010: mediana de 66 días con mucha variación; Singh et al. 2024 en la misma línea).
+- **Letras grandes**, Archivo, frases en minúscula normal. Solo van en mayúsculas las etiquetas pequeñas (`.lab`).
+- **Fondos de color en parejas poco habituales**, siempre dos colores por pieza (fondo + tinta): rosa/cobalto, cobalto/rosa, lila/tomate, mantequilla/bosque, bosque/mantequilla, tomate/mantequilla (hueso/cobalto de apoyo). Se alternan entre piezas y diapositivas para que el perfil quede variado.
+- **Limpio y nórdico**: mucho aire, texto anclado abajo (`margin-top:auto`), sin rayas, sin números gigantes de fondo, sin sacudidas, sin destellos, sin emojis.
+- **Piezas de club deportivo**: insignia circular, dorsal (grupo, cuenta atrás) y línea de 21 días (marcas en 1, 7, 14 y 21).
+- **Tono**: que no parezca cuenta bot, cripto ni de ventas. Nada de urgencia agresiva, nada de "link en bio ya", nada de promesas. Cierre tranquilo: "Próximo grupo: lunes 16 nov. Enlace en la bio."
+- **Reels**: cortes secos de color en la rejilla de 150 BPM (múltiplos de 0,4 s), texto que sube desde su línea, cámara casi quieta, sonido de marca guiado por eventos.
+- **Generadores vigentes**: `herramientas/contenido/identidad2.py` (piezas, paleta, carruseles 1080×1350 e historias 1080×1920) y `herramientas/contenido/dinamico2.py` (reels). Ejemplos: `hoy_24oct.py` y `semana_25_31.py`. Los antiguos `lk.py`, `carruseles.py`, `historias.py`, `reels.py` y `dinamico.py` quedan **obsoletos para contenido nuevo** (se conservan solo como referencia de guiones).

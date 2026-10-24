@@ -1,0 +1,19 @@
+{
+  "tipo": "carrusel",
+  "pie": "Si fallas un día, la racha sigue.\n\nUn día malo le pasa a todo el mundo. Lo que desmonta un hábito no es ese día, es dejarlo estar después. Por eso en Lock21 un fallo suelto no rompe nada: al día siguiente vuelves y ya está.\n\nGuárdalo para el día que lo necesites.\n\n¿Qué te suele pasar a ti después de fallar un día?\n\n#hábitos #reto21días #constancia #GranCanaria #LasPalmasDeGranCanaria",
+  "estado": "programado",
+  "origen": "semana_25_31.py carrusel_fallar",
+  "archivos": [
+    "redes/2026-10-27/carrusel-fallar/01.jpg",
+    "redes/2026-10-27/carrusel-fallar/02.jpg",
+    "redes/2026-10-27/carrusel-fallar/03.jpg",
+    "redes/2026-10-27/carrusel-fallar/04.jpg",
+    "redes/2026-10-27/carrusel-fallar/05.jpg",
+    "redes/2026-10-27/carrusel-fallar/06.jpg",
+    "redes/2026-10-27/carrusel-fallar/07.jpg"
+  ],
+  "colaboradores": [
+    "juanma89pr"
+  ],
+  "fecha": "2026-10-27T19:30:00+00:00"
+}

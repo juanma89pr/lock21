@@ -187,6 +187,106 @@ def reel_que_es_lock21():
     return R
 
 
+def cierre_grupo(R, pareja, t0, t1, uid):
+    """Última escena común: insignia + próximo grupo + enlace en la bio."""
+    f, t = PAREJAS[pareja]
+    R.escena(pareja, t0, t1,
+             F('<div style="width:480px">%s</div>' % insignia(t, f, 480, uid=uid), t0 + 0.05, pop=True, estilo='margin:auto 0 60px') +
+             T(R, 'Próximo grupo:|lunes 16 nov.', t0 + 0.6, 130) +
+             F('<p class="txt" style="font-size:46px">Gratis. 30 plazas. Enlace en la bio.</p>', t0 + 1.5, estilo='margin-top:34px'), der='Salida')
+    R.ev('final', t0)
+    R.ev('pop', t0 + 1.5, 0.6)
+
+
+def reel_lunes():
+    """26 oct · «Antes lo dejaba todo para el lunes» (guion de reels.reel_lunes con la identidad 2)."""
+    R = Reel('reel-lunes', 18.0)
+    R.escena('cobalto', 0, 3.2,
+             T(R, 'Antes lo dejaba|todo para|el lunes.', 0.15, 170, estilo='margin-top:auto;margin-bottom:auto'), der='Lunes')
+    R.escena('mantequilla', 3.2, 6.4,
+             T(R, 'Mis prioridades,|también.', 3.3, 150, estilo='margin-top:auto') +
+             F('<p class="txt" style="font-size:50px;max-width:860px">Fumaba, bebía de más los fines de semana y siempre había otro lunes.</p>', 4.3, estilo='margin-top:50px'), der='Antes')
+    R.escena('bosque', 6.4, 8.0, T(R, 'No me cambió|un lunes.', 6.5, 170, estilo='margin-top:auto;margin-bottom:auto'))
+    R.escena('tomate', 8.0, 10.0,
+             F(candado_anim(P['mantequilla'], 220, cerrar=8.8, inicio='abierto'), 8.0, estilo='margin-top:auto;margin-bottom:70px') +
+             T(R, 'Me cambió un hábito.|Y luego otro.', 8.2, 130), der='Uno')
+    R.ev('candado', 8.8)
+    R.escena('lila', 10.0, 12.4,
+             T(R, 'Lo atas a algo|que ya haces.', 10.1, 130, estilo='margin-top:auto') +
+             F('<p class="med" style="font-size:72px;max-width:880px">«Después de comer, salgo a caminar.»</p>', 10.9, estilo='margin-top:60px'), der='Señal')
+    R.escena('rosa', 12.4, 14.8,
+             T(R, '21 días. Gratis.', 12.5, 140, estilo='margin-top:auto') +
+             F(linea_anim(P['cobalto'], 12.6, 14.2, 1, 21), 12.5, estilo='margin-top:60px') +
+             F('<p class="txt" style="font-size:46px;max-width:880px">Check-in de un minuto con un coach que es una IA, y te lo dice.</p>', 13.2, estilo='margin-top:50px'), der='01—21')
+    for i in range(21):
+        R.ev('tic', 12.6 + 1.6 * (i / 20.0), 0.2)
+    cierre_grupo(R, 'cobalto', 14.8, 18.0, 'rl')
+    R.portada_t = 2.6
+    return R
+
+
+def reel_21_dias():
+    """28 oct · «Por qué 21 días no es magia» (guion de reels.reel_21_dias con la identidad 2)."""
+    R = Reel('reel-21-dias', 19.2)
+    R.escena('lila', 0, 2.8, T(R, 'Por qué 21 días|no es magia.', 0.15, 170, estilo='margin-top:auto;margin-bottom:auto'), der='21')
+    R.escena('mantequilla', 2.8, 5.6,
+             F('<p class="txt" style="font-size:54px">Seguro que lo has oído:</p>', 2.85, estilo='margin-top:auto') +
+             T(R, '«21 días para|crear un hábito».', 3.2, 140, estilo='margin-top:30px') +
+             F('<p class="med" style="font-size:80px">No exactamente.</p>', 4.5, estilo='margin-top:60px'))
+    R.escena('cobalto', 5.6, 9.6,
+             T(R, 'En el estudio más citado,|la mediana fue de', 5.7, 64, clase='med', estilo='margin-top:auto') +
+             '<p class="big" style="font-size:360px;line-height:.82;margin-top:40px"><span data-cuenta="21,66,6.3,7.6">21</span></p>' +
+             T(R, 'días.', 6.3, 140, sonido=False) +
+             F('<p class="txt" style="font-size:40px;max-width:860px">Lally et al. (2010), con mucha diferencia entre personas. Singh et al. (2024) va en la misma línea.</p>', 7.8, estilo='margin-top:40px'), der='Lally 2010')
+    for i in range(12):
+        R.ev('tic', 6.3 + 1.3 * (i / 11.0), 0.2)
+    R.ev('golpe', 7.6, 0.6)
+    R.escena('rosa', 9.6, 11.2, T(R, 'Entonces,|¿por qué 21?', 9.7, 190, estilo='margin-top:auto;margin-bottom:auto'))
+    R.escena('bosque', 11.2, 14.4,
+             F(candado_anim(P['mantequilla'], 220, abrir=12.0), 11.2, estilo='margin-top:auto;margin-bottom:70px') +
+             T(R, 'Porque es|el arranque.', 11.3, 150) +
+             F('<p class="txt" style="font-size:44px;max-width:880px">Lo difícil es empezar y no soltarlo las primeras semanas. El día 21 se desbloquea: ya no empiezas de cero.</p>', 12.6, estilo='margin-top:40px'), der='21')
+    R.ev('desbloqueo', 12.0)
+    R.escena('tomate', 14.4, 16.4,
+             T(R, 'Por eso medimos|los días 0, 7 y 21.', 14.5, 120, estilo='margin-top:auto') +
+             F(linea_anim(P['mantequilla'], 14.6, 15.6, 1, 21), 14.5, estilo='margin-top:60px') +
+             F('<p class="txt" style="font-size:44px;max-width:880px">Un test de 4 preguntas para ver cuánto te sale ya solo.</p>', 15.2, estilo='margin-top:50px'), der='0 · 7 · 21')
+    cierre_grupo(R, 'cobalto', 16.4, 19.2, 'r21')
+    R.portada_t = 1.8
+    return R
+
+
+def reel_dia_1_vs_21():
+    """30 oct · «Día 1 vs día 21»: de pensarlo a hacerlo casi sin pensar."""
+    R = Reel('reel-dia-1-vs-21', 17.2)
+    R.escena('mantequilla', 0, 2.4, T(R, 'Día 1|vs día 21.', 0.15, 230, estilo='margin-top:auto;margin-bottom:auto'), der='01 · 21')
+    R.escena('rosa', 2.4, 5.6,
+             F(candado_anim(P['cobalto'], 200, cerrar=3.2, inicio='abierto'), 2.4, estilo='margin-top:auto;margin-bottom:60px') +
+             '<p class="lab" style="font-size:30px">Día 01</p>' +
+             T(R, 'Te lo piensas.', 2.6, 150, estilo='margin-top:20px') +
+             F('<p class="txt" style="font-size:48px">¿Hoy sí? ¿A qué hora? Mejor mañana.</p>', 3.6, estilo='margin-top:40px') +
+             F(linea(P['cobalto'], 1, 880), 2.5, estilo='margin-top:60px'), der='01')
+    R.ev('candado', 3.2)
+    R.escena('cobalto', 5.6, 8.8,
+             '<p class="lab" style="font-size:30px;margin-top:auto">Día 07</p>' +
+             T(R, 'Te cuesta,|pero lo haces.', 5.7, 150, estilo='margin-top:20px') +
+             F(linea_anim(P['rosa'], 6.0, 7.2, 1, 7), 5.65, estilo='margin-top:70px'), der='07')
+    R.escena('lila', 8.8, 11.2,
+             '<p class="lab" style="font-size:30px;margin-top:auto">Día 14</p>' +
+             T(R, 'Ya sabes|cuándo toca.', 8.9, 150, estilo='margin-top:20px') +
+             F(linea_anim(P['tomate'], 9.1, 10.3, 7, 14), 8.85, estilo='margin-top:70px'), der='14')
+    R.escena('tomate', 11.2, 14.4,
+             F(candado_anim(P['mantequilla'], 200, abrir=12.0), 11.2, estilo='margin-top:auto;margin-bottom:60px') +
+             '<p class="lab" style="font-size:30px">Día 21</p>' +
+             T(R, 'Lo haces casi|sin pensar.', 11.3, 150, estilo='margin-top:20px') +
+             F('<p class="txt" style="font-size:44px;max-width:880px">No es para siempre: es el arranque. Ya no empiezas de cero.</p>', 12.6, estilo='margin-top:36px') +
+             F(linea_anim(P['mantequilla'], 11.3, 11.9, 14, 21), 11.25, estilo='margin-top:50px'), der='21')
+    R.ev('desbloqueo', 12.0)
+    cierre_grupo(R, 'bosque', 14.4, 17.2, 'r121')
+    R.portada_t = 1.6
+    return R
+
+
 if __name__ == '__main__':
     from playwright.sync_api import sync_playwright
     nombres = sys.argv[1:] or ['reel_que_es_lock21']
