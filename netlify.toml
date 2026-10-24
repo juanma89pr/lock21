@@ -3,6 +3,10 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# La clave web de Firebase es pública por diseño; se excluye del escáner de secretos de Netlify.
+[build.environment]
+  SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "AIzaSyCRUHd1K6-MU7mWd1MKoIuMb81YIUvqblE"
+
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["firebase-admin"]

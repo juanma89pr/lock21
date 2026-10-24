@@ -6,7 +6,7 @@ import { json } from './http.js';
 var CLAVES = createRemoteJWKSet(new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com'));
 
 export function proyectoFirebase() {
-  return process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || '';
+  return process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || 'lock21';
 }
 
 export function tokenDeCabecera(req) {
