@@ -1,6 +1,11 @@
 from lk import *
 
 OUT = Path('/home/claude/lock21-contenido/semana-1')
+# Publicación automática por la API: las historias no admiten pegatinas (ni de enlace ni
+# de encuesta), así que con ENLACE_BIO=1 el hueco de la pegatina se cambia por un rótulo.
+# DESDE=AAAA-MM-DD limita el render a los días a partir de esa fecha.
+ENLACE_BIO = os.environ.get('ENLACE_BIO') == '1'
+DESDE = os.environ.get('DESDE', '')
 PAD = 'padding:230px 110px 290px 90px'
 
 
@@ -22,6 +27,9 @@ def P(t, size=48, mt=34):
 
 
 def hueco_enlace(texto='Pide tu plaza aquí'):
+    if ENLACE_BIO:
+        return ('<div style="margin-top:70px;display:flex;justify-content:center">'
+                '<p class="pastilla" style="font-size:40px;padding:26px 44px;background:#0B1240;color:#F4F6FF">%s El enlace está en la bio</p></div>') % icono('link-2', 44, 2.5)
     # Espacio libre para que el propietario coloque la pegatina de enlace desde el móvil.
     return ('<div style="margin-top:70px;display:flex;flex-direction:column;align-items:center;gap:16px">'
             '<p style="font-size:40px;font-weight:750;font-stretch:104%%">%s</p>'
@@ -103,6 +111,8 @@ def historias(r):
                          '<p style="margin-top:70px;font-size:40px;font-weight:750;color:#FFD02E">El reel de la semana, en el feed.</p>')],
     }
     for dia, lst in dias.items():
+        if DESDE and dia < DESDE:
+            continue
         for i, html in enumerate(lst, 1):
             r.png(html, 1080, 1920, OUT / 'historias' / dia / ('%02d.png' % i))
 
@@ -117,5 +127,6 @@ def destacadas(r):
 
 if __name__ == '__main__':
     with Render() as r:
-        destacadas(r)
+        if not DESDE:
+            destacadas(r)
         historias(r)

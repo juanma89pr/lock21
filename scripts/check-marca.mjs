@@ -20,8 +20,15 @@ function recorrer(dir) {
 }
 
 recorrer('dist');
+// Los pies de Instagram van dentro de las funciones, no en dist: se revisan también.
+['netlify/lib/cola-instagram.generada.json', 'contenido/cola'].forEach(function (ruta) {
+  try { statSync(ruta); } catch (e) { return; }
+  if (statSync(ruta).isDirectory()) { recorrer(ruta); return; }
+  var texto = readFileSync(ruta, 'utf8');
+  prohibidas.forEach(function (re) { if (re.test(texto)) { errores.push(ruta + ' contiene ' + re); } });
+});
 if (errores.length) {
   console.error('Fuga de marca detectada:\n' + errores.join('\n'));
   process.exit(1);
 }
-console.log('Marca limpia: ninguna referencia al servicio premium en dist/.');
+console.log('Marca limpia: ninguna referencia al servicio premium en dist/ ni en la cola de Instagram.');

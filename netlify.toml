@@ -1,5 +1,5 @@
 [build]
-  command = "npm run lint && npm run test:frases && npm run test:grupos && npm run build"
+  command = "npm run lint && npm run test:frases && npm run test:grupos && npm run test:publicador && npm run build"
   publish = "dist"
   functions = "netlify/functions"
 
@@ -10,6 +10,13 @@
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["firebase-admin"]
+
+# Publicador de Instagram (docs/publicador-instagram.md). Horas en UTC.
+[functions."publicar-instagram"]
+  schedule = "*/10 * * * *"
+
+[functions."renovar-token-instagram"]
+  schedule = "17 4 * * 1"
 
 # La app del reto vive bajo /app (SPA); la landing sigue en /.
 [[redirects]]

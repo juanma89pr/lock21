@@ -3,3 +3,5 @@ dist
 .env
 .funciones
 .netlify
+netlify/lib/cola-instagram.generada.json
+__pycache__

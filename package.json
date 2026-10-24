@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/check-marca.mjs",
+    "build": "node scripts/generar-cola.mjs && vite build && node scripts/check-marca.mjs",
     "lint": "eslint src netlify tests scripts",
     "preview": "vite preview",
     "test:frases": "node tests/frases.mjs",
     "test:grupos": "node tests/grupos.mjs",
-    "build:funciones": "node scripts/empaquetar-funciones.mjs"
+    "build:funciones": "node scripts/generar-cola.mjs && node scripts/empaquetar-funciones.mjs",
+    "test:publicador": "node tests/publicador.mjs",
+    "encolar": "python3 herramientas/contenido/encolar_semana.py"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",
