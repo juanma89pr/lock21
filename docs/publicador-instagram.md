@@ -102,7 +102,7 @@ Cada pieza aparece con uno de estos estados:
 
 - **Historias sin pegatinas**: ni enlace, ni encuesta, ni pregunta, ni test. Por eso las historias con "Pide tu plaza aquí" se generan con el rótulo "El enlace está en la bio" (`ENLACE_BIO=1` en `historias.py`). Las encuestas y preguntas de `historias/interactivas.md` hay que ponerlas a mano desde el móvil.
 - **Sin música de Instagram ni filtros**: los reels salen con una pista de audio en silencio. Si quieres música, ese reel hay que subirlo a mano. Para que no salga dos veces, en su JSON pon `"estado": "pausado"`.
-- **Los Trial Reels** se publican con `trial_params` y graduación manual (`MANUAL`): si funcionan bien, decides tú desde la app si los compartes con tus seguidores.
+- **Los Trial Reels** se publican con `trial_params` y graduación automática por rendimiento (`SS_PERFORMANCE`): si funcionan bien con quien no te sigue, Instagram los comparte solo con tus seguidores, sin que tengas que hacer nada.
 
 ## Para encolar una semana nueva
 

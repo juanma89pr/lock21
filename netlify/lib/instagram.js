@@ -185,7 +185,7 @@ async function crearContenedores(api, ctx, pieza, registro) {
   if (pieza.tipo === 'reel') {
     var pr = { media_type: 'REELS', video_url: urls[0], caption: pieza.pie || '', share_to_feed: 'true' };
     if (pieza.portada) { pr.cover_url = urlMedio(ctx.base, pieza.portada); }
-    if (pieza.prueba) { pr.trial_params = { graduation_strategy: 'MANUAL' }; delete pr.share_to_feed; }
+    if (pieza.prueba) { pr.trial_params = { graduation_strategy: 'SS_PERFORMANCE' }; delete pr.share_to_feed; }
     r = await api.post(igUser, pr);
     return r.id;
   }

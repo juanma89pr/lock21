@@ -167,11 +167,11 @@ r4b.avanzar(10 * 60 * 1000);
 var res4c = await ejecutarPublicador({ cola: [REEL], store: st4b, fetch: s4b.fetch, env: ENV, ahora: r4b.ahora, esperar: r4b.esperar });
 igual('reel lento: publicado en la siguiente sin crear otro contenedor', [res4c.publicadas, Object.keys(s4b.contenedores).length], [[REEL.id], 1]);
 
-// 4c. Reel de prueba (Trial Reel): trial_params MANUAL.
+// 4c. Reel de prueba (Trial Reel): trial_params SS_PERFORMANCE (se comparte solo si funciona).
 var s4d = api();
 var REEL_PRUEBA = pieza('2026-10-27_1930_reel-prueba-lunes', '2026-10-27T19:30:00+00:00', 'reel', ['redes/2026-10-26/r/reel.mp4'], { prueba: true });
 await ejecutarPublicador({ cola: [REEL_PRUEBA], store: almacen(), fetch: s4d.fetch, env: ENV, ahora: reloj('2026-10-27T19:31:00Z').ahora, esperar: r4.esperar });
-igual('reel de prueba: trial_params', s4d.publicados[0].params.trial_params, '{"graduation_strategy":"MANUAL"}');
+igual('reel de prueba: trial_params', s4d.publicados[0].params.trial_params, '{"graduation_strategy":"SS_PERFORMANCE"}');
 
 // 5. Historia: STORIES con image_url y sin pie.
 var s5 = api();
