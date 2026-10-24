@@ -22,7 +22,7 @@ var MOMENTOS = [
 
 var PREGUNTAS = [
   { p: '¿De verdad es gratis?', r: 'Sí. El reto de 21 días, el coach y el test no cuestan nada y no te pedimos tarjeta.' },
-  { p: '¿Quién está detrás?', r: config.nombreCorto + ', desde Gran Canaria. Se está formando como entrenador personal y, en el camino, creó este reto a partir de su propia experiencia cambiando hábitos uno a uno. No es un programa médico ni científico: es una forma sencilla de aplicar buenos hábitos. El coach del día a día es una IA, y te lo decimos en cada mensaje.' },
+  { p: '¿Quién está detrás?', r: config.nombreCorto + ', desde Gran Canaria. Se está formando como entrenador personal y, en el camino, creó este reto juntando su experiencia cambiando hábitos uno a uno con lo que está aprendiendo en su formación sobre cómo se forman. No es un programa médico: es una forma sencilla de aplicar buenos hábitos. El coach del día a día es una IA, y te lo decimos en cada mensaje.' },
   { p: '¿Me van a intentar vender algo?', r: 'El reto es gratis, entero. Al terminar puedes apuntarte, si quieres, a una lista para saber cómo seguir con acompañamiento personalizado. Es opcional y, cuando exista, será de pago. Si no te apuntas, no te escribimos de eso.' },
   { p: '¿Sirve para dejar de fumar o de beber?', r: 'No. Lock21 trabaja un hábito del menú: moverte, dormir, beber agua o soltar la pantalla. No es un programa para dejar el tabaco, el alcohol ni otras sustancias. Si quieres dejarlo, habla con tu médico de cabecera: te puede orientar sobre la ayuda que hay.' },
   { p: '¿Por qué solo un hábito?', r: 'Porque intentar cambiar cinco cosas a la vez es la forma más rápida de no cambiar ninguna. Uno bien atado arrastra a los demás.' },
@@ -118,7 +118,7 @@ export default function App() {
             <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16">
               <div className="lg:sticky lg:top-24 self-start">
                 <h2 id="metodo" className="titular text-6xl sm:text-8xl uppercase text-cobalto">Cuatro reglas. Ninguna es motivación.</h2>
-                <p className="mt-6 text-lg leading-relaxed text-gris max-w-md">El método sale de mi experiencia: elegir un hábito, atarlo a algo que ya haces y repetirlo en el mismo momento hasta que deja de costar pensarlo.</p>
+                <p className="mt-6 text-lg leading-relaxed text-gris max-w-md">El método junta mi experiencia con lo que estoy aprendiendo en mi formación sobre cómo se forman los hábitos: elegir uno, atarlo a algo que ya haces y repetirlo en el mismo momento hasta que deja de costar pensarlo.</p>
               </div>
               <ol className="grid gap-4">
                 {MOMENTOS.map(function (m) {
@@ -176,7 +176,7 @@ export default function App() {
               <figure className="mt-8 max-w-xl">
                 <blockquote className="grid gap-4 text-xl sm:text-2xl leading-relaxed font-semibold">
                   <p>Me estoy formando como entrenador personal, pero Lock21 no nace de ahí. Nace de cuando fumaba, bebía de más cada fin de semana y dejaba lo importante para luego.</p>
-                  <p>No lo cambié todo de golpe: fue un hábito, después otro. Lock21 no tiene nada de mágico ni de científico. Es mi forma de aplicar buenos hábitos, la que me hubiera gustado tener.</p>
+                  <p>No lo cambié todo de golpe: fue un hábito, después otro. Ahora, en mi formación, estoy aprendiendo qué dice la investigación sobre por qué funcionó. Lock21 junta las dos cosas. No tiene nada de mágico: es la forma de aplicar buenos hábitos que me hubiera gustado tener.</p>
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3 font-bold">
                   <span className="size-11 rounded-full bg-noche text-dorsal flex items-center justify-center"><Icono nombre="persona" size={22} grosor={2} /></span>

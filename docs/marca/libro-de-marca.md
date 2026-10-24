@@ -12,7 +12,7 @@ Archivos de marca en este repositorio: `docs/marca/`. Originales, generadores y 
 
 **Por qué existe.** Casi todos sabemos qué hábito nos vendría bien. Lo difícil es arrancarlo y que no se caiga a la segunda semana. Lock21 existe para ese arranque: un solo hábito, atado a una señal fija, durante 21 días, con alguien (un coach de IA) que te pregunta cada día cómo fue.
 
-**Quién lo crea.** Juanma. Se está formando como entrenador personal (aún no tiene el título, así que nunca se presenta como entrenador); creó el reto desde su experiencia, no como método científico. Fumaba, bebía de más cada fin de semana y dejaba sus prioridades para otro día. Lo cambió hábito a hábito. Lock21 es "el método que me hubiera gustado tener".
+**Quién lo crea.** Juanma. Se está formando como entrenador personal (aún no tiene el título, así que nunca se presenta como entrenador); creó el reto juntando su experiencia de vida con lo que aprende en los talleres de su formación sobre hábitos, ciencia e investigación; se puede hablar de esa formación y de lo que dice la investigación, siempre como aprendizaje propio y sin presentarse como experto. Fumaba, bebía de más cada fin de semana y dejaba sus prioridades para otro día. Lo cambió hábito a hábito. Lock21 es "el método que me hubiera gustado tener".
 
 **A quién sirve.** Personas de 20 a 45 años en España, sobre todo en Canarias, que quieren empezar algo concreto (moverse, dormir mejor, beber agua, soltar la pantalla) y que ya han empezado y dejado otras veces.
 
@@ -389,7 +389,7 @@ Fondo cobalto, círculo dorsal con icono lucide en noche (trazo 2) y nombre en t
 - [ ] Si sale el plazo: "21 para arrancar", nada de hábitos "para siempre" en 21 días; día 66 bien explicado.
 - [ ] La IA se presenta como IA.
 - [ ] Juanma no aparece como experto, entrenador titulado ni médico (sí puede decirse que se está formando como entrenador).
-- [ ] No se presenta Lock21 como método científico: es la forma de aplicar buenos hábitos según la experiencia de Juanma.
+- [ ] Lock21 se presenta como la unión de la experiencia de Juanma y lo que aprende en su formación; se puede citar investigación, pero sin vender el reto como método clínico ni prometer resultados.
 - [ ] Ninguna promesa física, médica ni nutricional.
 - [ ] No se nombra Balancet, MMF ni MOOV.
 - [ ] Datos con fuente; plazas y fechas reales.
