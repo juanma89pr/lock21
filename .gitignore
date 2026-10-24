@@ -5,3 +5,4 @@ dist
 .netlify
 netlify/lib/cola-instagram.generada.json
 __pycache__
+herramientas/contenido/_tmp*.html
