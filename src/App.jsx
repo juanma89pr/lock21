@@ -22,7 +22,9 @@ var MOMENTOS = [
 
 var PREGUNTAS = [
   { p: '¿De verdad es gratis?', r: 'Sí. El reto de 21 días, el coach y el test no cuestan nada y no te pedimos tarjeta.' },
-  { p: '¿Me van a intentar vender algo?', r: 'Te lo decimos desde ya: al terminar, quien quiera seguir con un entrenador personal de carne y hueso puede pedirlo, y ese servicio sí es de pago. Solo te contamos cómo funciona si marcas la casilla opcional del formulario o lo pides tú.' },
+  { p: '¿Quién está detrás?', r: config.nombreCorto + ', desde Gran Canaria. No es médico ni entrenador: es alguien que cambió sus hábitos uno a uno y montó Lock21 con el método que le hubiera gustado tener. El coach del día a día es una IA, y te lo decimos en cada mensaje.' },
+  { p: '¿Me van a intentar vender algo?', r: 'El reto es gratis, entero. Al terminar puedes apuntarte, si quieres, a una lista para saber cómo seguir con acompañamiento personalizado. Es opcional y, cuando exista, será de pago. Si no te apuntas, no te escribimos de eso.' },
+  { p: '¿Sirve para dejar de fumar o de beber?', r: 'No. Lock21 trabaja un hábito del menú: moverte, dormir, beber agua o soltar la pantalla. No es un programa para dejar el tabaco, el alcohol ni otras sustancias. Si quieres dejarlo, habla con tu médico de cabecera: te puede orientar sobre la ayuda que hay.' },
   { p: '¿Por qué solo un hábito?', r: 'Porque intentar cambiar cinco cosas a la vez es la forma más rápida de no cambiar ninguna. Uno bien atado arrastra a los demás.' },
   { p: '¿En 21 días queda el hábito hecho?', r: 'No te lo vamos a prometer. En los estudios, la mayoría de la gente tarda de media unos 66 días en que un hábito le salga solo, y hay mucha variación entre personas. Los 21 días son el arranque: la parte en la que más gente abandona.' },
   { p: '¿Cuándo empiezo?', r: 'Cada dos semanas arranca un grupo nuevo, siempre en lunes. El próximo es el ' + PROXIMO_TEXTO + '. Al entrar en la app puedes elegir ese o el siguiente.' },
@@ -81,7 +83,7 @@ export default function App() {
                 Elige un hábito. Los próximos 21 días son para él.
               </h1>
               <p className="mt-6 text-lg sm:text-xl leading-relaxed text-white/90 max-w-xl">
-                Un solo hábito, atado a una señal fija, con un coach de IA cada día y un test que mide cuánto te sale solo. Y si al terminar quieres consolidarlo con un entrenador personal de verdad, puedes pedirlo.
+                Un solo hábito, atado a una señal fija, con un coach de IA cada día y un test que mide cuánto te sale solo. Sin cambiarlo todo de golpe: un hábito, después otro.
               </p>
 
               <fieldset className="mt-8">
@@ -101,7 +103,7 @@ export default function App() {
 
               <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <BotonPlaza />
-                <a href="#despues" className="font-semibold underline underline-offset-4 decoration-2 decoration-white/50 hover:decoration-dorsal">Qué pasa después del día 21</a>
+                <a href="#historia" className="font-semibold underline underline-offset-4 decoration-2 decoration-white/50 hover:decoration-dorsal">Por qué existe Lock21</a>
               </div>
               <DatosGrupo className="mt-8 text-white/90" />
             </div>
@@ -161,36 +163,46 @@ export default function App() {
               <h2 id="coach" className="titular text-5xl sm:text-7xl uppercase">Tu coach diario es una IA. Te lo decimos claro.</h2>
               <div className="mt-6 grid md:grid-cols-2 gap-6 text-lg leading-relaxed text-gris">
                 <p>Te escribe cada día, recuerda tu señal y cómo vas, y te ayuda a no encadenar dos fallos. Cada mensaje va marcado como respuesta de inteligencia artificial, como pide el Reglamento europeo de IA.</p>
-                <p>No da dietas, calorías, cantidades ni consejos médicos. Si le preguntas algo así, te lo dice y te orienta hacia un profesional en persona.</p>
+                <p>No da dietas, calorías, cantidades ni consejos médicos. Si le preguntas algo así, te lo dice y te orienta hacia tu médico u otro profesional sanitario.</p>
               </div>
             </div>
           </Contenedor>
         </section>
 
-        <section id="despues" className="bg-dorsal text-noche py-20 sm:py-28" aria-labelledby="entrenador">
-          <Contenedor className="grid lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 items-end">
+        <section id="historia" className="bg-dorsal text-noche py-20 sm:py-28" aria-labelledby="por-que">
+          <Contenedor className="grid lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 items-start">
             <div>
-              <h2 id="entrenador" className="titular text-6xl sm:text-8xl uppercase">Después del día 21, un entrenador de carne y hueso.</h2>
-              <p className="mt-6 text-lg sm:text-xl leading-relaxed max-w-xl">
-                El reto es gratis y lo puedes hacer entero por tu cuenta. Pero si al terminar quieres llegar al día 66 y más allá con alguien que te conozca, puedes pedir el acompañamiento personalizado de {config.nombreCorto}, entrenador personal en {config.ciudad}: plan a tu medida, seguimiento cercano y una persona real al otro lado.
-              </p>
+              <h2 id="por-que" className="titular text-6xl sm:text-8xl uppercase">Por qué existe Lock21</h2>
+              <figure className="mt-8 max-w-xl">
+                <blockquote className="grid gap-4 text-xl sm:text-2xl leading-relaxed font-semibold">
+                  <p>No soy médico ni entrenador. Soy alguien que fumaba, bebía de más cada fin de semana y dejaba lo importante para luego.</p>
+                  <p>No lo cambié todo de golpe: fue un hábito, después otro. Lock21 es el método que me hubiera gustado tener.</p>
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3 font-bold">
+                  <span className="size-11 rounded-full bg-noche text-dorsal flex items-center justify-center"><Icono nombre="persona" size={22} grosor={2} /></span>
+                  {config.nombreCorto}, creador de {config.marca}
+                </figcaption>
+              </figure>
+            </div>
+            <div id="despues">
+              <h3 className="titular-medio text-3xl sm:text-4xl">Y después del día 21</h3>
+              <ul className="mt-5 grid gap-3">
+                {[
+                  { icono: 'escudo', texto: 'El reto es gratis y lo puedes hacer entero por tu cuenta.' },
+                  { icono: 'curva', texto: 'Terminas con tu señal, tu método y tu curva medida.' },
+                  { icono: 'lista', texto: 'Si quieres seguir acompañado, te apuntas a una lista y te contamos cómo funciona cuando haya plazas.' },
+                  { icono: 'persona', texto: 'Ese acompañamiento es opcional y será de pago. Solo te escribimos si tú lo pides.' }
+                ].map(function (item) {
+                  return (
+                    <li key={item.texto} className="flex items-start gap-3 rounded-2xl bg-noche text-pista px-5 py-4">
+                      <Icono nombre={item.icono} size={22} grosor={2} className="shrink-0 mt-0.5 text-dorsal" />
+                      <span className="font-semibold leading-snug">{item.texto}</span>
+                    </li>
+                  );
+                })}
+              </ul>
               <div className="mt-8"><BotonPlaza tono="oscuro">Empezar por el reto gratis</BotonPlaza></div>
             </div>
-            <ul className="grid gap-3">
-              {[
-                { icono: 'entrenador', texto: 'Un entrenador personal real, no un chat.' },
-                { icono: 'plazas', texto: 'Plazas limitadas cada mes, porque se atiende a cada persona en serio.' },
-                { icono: 'curva', texto: 'Parte de tu curva de los 21 días: no se empieza de cero.' },
-                { icono: 'escudo', texto: 'Solo si tú lo pides. Sin llamadas sorpresa.' }
-              ].map(function (item) {
-                return (
-                  <li key={item.texto} className="flex items-start gap-3 rounded-2xl bg-noche text-pista px-5 py-4">
-                    <Icono nombre={item.icono} size={22} grosor={2} className="shrink-0 mt-0.5 text-dorsal" />
-                    <span className="font-semibold leading-snug">{item.texto}</span>
-                  </li>
-                );
-              })}
-            </ul>
           </Contenedor>
         </section>
 

@@ -1,3 +1,5 @@
+> **Cambio de enfoque (24/10/2026):** Juanma no se presenta como entrenador personal ni como profesional. En Lock21 es solo el creador del reto: alguien que cambió sus hábitos uno a uno. Al terminar no hay "entrenador de carne y hueso", sino una lista de interesados en el acompañamiento personalizado (opcional y de pago cuando exista). Cualquier pieza de este documento que diga lo contrario hay que reescribirla antes de publicarla. Lock21 no es un programa para dejar de fumar ni de beber.
+
 > **Sustituido el 24/10/2026 por `docs/campana-instagram.md`** (grupos cada dos semanas desde el lunes 16 de noviembre). Este plan se conserva solo como banco de piezas reutilizables; sus fechas del 1 de diciembre ya no valen.
 
 # Plan de contenido Lock21: inscripción y primer grupo (oct-dic 2026)

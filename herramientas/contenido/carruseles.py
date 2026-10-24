@@ -89,7 +89,7 @@ def seis_habitos(r):
 def diapo_p(n, total, cuerpo, tema='t-pista', ultima=False):
     firma = ('<div style="display:flex;align-items:center;gap:20px">'
              '<span style="width:76px;height:76px;border-radius:50%;background:#2433D9;color:#FFD02E;display:flex;align-items:center;justify-content:center;font-stretch:64%;font-weight:860;font-size:46px">J</span>'
-             '<span style="font-size:30px;line-height:1.2"><b style="font-weight:780">Juanma</b><br><span style="color:var(--suave)">Entrenador personal · Las Palmas de GC</span></span></div>')
+             '<span style="font-size:30px;line-height:1.2"><b style="font-weight:780">Juanma</b><br><span style="color:var(--suave)">Creador de Lock21 · Las Palmas de GC</span></span></div>')
     if ultima:
         pie = ('<div style="display:flex;align-items:center;justify-content:space-between;border-radius:999px;padding:30px 44px;background:#2433D9;color:#fff">'
                '<span style="font-size:40px;font-weight:780;font-stretch:104%%">Pide tu plaza gratis: enlace en mi bio</span>%s</div>' % icono('arrow-right', 46, 2.75))
@@ -127,7 +127,7 @@ def personal(r):
         ('¿Cuesta algo?', 'No. El reto, el coach y el test son gratis, y no te pido tarjeta.'),
         ('¿El coach es una persona?', 'No. Es una IA y lo dice. No da dietas, calorías ni consejos médicos.'),
         ('¿Y si fallo un día?', 'La racha lo perdona. La única regla es no fallar dos días seguidos.'),
-        ('¿Y cuando acabe?', 'Sigues por tu cuenta con tu señal. Y si quieres, con un entrenador personal de carne y hueso. Solo si tú lo pides.'),
+        ('¿Y cuando acabe?', 'Sigues por tu cuenta con tu señal. Y si quieres seguir acompañado, te apuntas a una lista. Opcional y de pago.'),
     ]
     d = [diapo_p(1, tot, PT('Lo que seguramente te estás preguntando <span class="p-mark">de mi reto.</span>', 124) + P('Cuatro respuestas cortas.', 46, 44))]
     for i, (q, a) in enumerate(preg):

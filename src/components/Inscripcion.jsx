@@ -11,7 +11,7 @@ function codificar(datos) {
 var CAMPO = 'w-full rounded-xl border-2 border-lila bg-white px-3.5 py-3 text-base font-normal text-noche focus:border-cobalto';
 
 export default function Inscripcion(props) {
-  var est = useState({ nombre: '', email: '', privacidad: false, entrenador: false, empresa: '' });
+  var est = useState({ nombre: '', email: '', privacidad: false, acompanamiento: false, empresa: '' });
   var datos = est[0];
   var setDatos = est[1];
   var est2 = useState('listo');
@@ -50,7 +50,7 @@ export default function Inscripcion(props) {
         habito: buscarHabito(props.habito).nombre,
         grupo: props.grupo,
         privacidad: 'si',
-        entrenador: datos.entrenador ? 'si' : 'no',
+        acompanamiento: datos.acompanamiento ? 'si' : 'no',
         empresa: datos.empresa
       })
     }).then(function (r) {
@@ -96,8 +96,8 @@ export default function Inscripcion(props) {
           <span>Acepto que {config.titular} use mis datos para gestionar mi participación en el reto {config.marca}, según la <a href="/privacidad.html" className="underline font-semibold text-cobalto">política de privacidad</a>. Obligatoria.</span>
         </label>
         <label className="flex gap-3 items-start text-sm leading-relaxed text-gris">
-          <input type="checkbox" name="entrenador" checked={datos.entrenador} onChange={cambiar} className="mt-0.5 size-5 shrink-0 accent-cobalto" />
-          <span>Quiero que me cuenten cómo funciona el acompañamiento con entrenador personal. Opcional: si no la marcas, solo recibes lo del reto.</span>
+          <input type="checkbox" name="acompanamiento" checked={datos.acompanamiento} onChange={cambiar} className="mt-0.5 size-5 shrink-0 accent-cobalto" />
+          <span>Quiero que me cuenten cómo funcionará el acompañamiento personalizado cuando haya plazas (será de pago). Opcional: si no la marcas, solo recibes lo del reto.</span>
         </label>
       </div>
       {error ? <p className="text-sm font-bold text-cobalto-hondo bg-lila/50 rounded-lg px-3 py-2" role="alert">{error}</p> : null}

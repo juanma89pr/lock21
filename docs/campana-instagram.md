@@ -1,3 +1,5 @@
+> **Cambio de enfoque (24/10/2026):** Juanma no se presenta como entrenador personal ni como profesional. En Lock21 es solo el creador del reto: alguien que cambió sus hábitos uno a uno. Al terminar no hay "entrenador de carne y hueso", sino una lista de interesados en el acompañamiento personalizado (opcional y de pago cuando exista). Cualquier pieza de este documento que diga lo contrario hay que reescribirla antes de publicarla. Lock21 no es un programa para dejar de fumar ni de beber.
+
 # Campaña Instagram Lock21 v2: grupos cada 2 semanas (26 oct - 13 dic 2026)
 
 Reglas de siempre: sin emojis, tuteo y "ustedes" (nunca "vosotros"), el coach se presenta siempre como IA, cero promesas de resultados, y las plazas, fechas y cifras solo se publican si son reales. La marca del servicio del entrenador no se nombra nunca: se dice "acompañamiento con Juanma, entrenador personal en Las Palmas de Gran Canaria".

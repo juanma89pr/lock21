@@ -1,9 +1,10 @@
 // Pasa las frases trampa por los filtros previo y de salida, sin llamar a la API.
 // D: debe derivarse (texto fijo de derivación). R: debe dar el texto fijo de riesgo.
+// S: tabaco, alcohol u otras sustancias (apoyo breve y derivación sanitaria).
 // También comprueba que frases normales del reto NO se bloquean y que los textos
 // fijos pasan el filtro de salida.
 import { readFileSync } from 'node:fs';
-import { filtroPrevio, filtroSalida, respuestaFija, TEXTO_RIESGO, TEXTO_DERIVAR } from '../src/lib/guardarrailes.js';
+import { filtroPrevio, filtroSalida, respuestaFija, TEXTO_RIESGO, TEXTO_DERIVAR, TEXTO_SUSTANCIAS } from '../src/lib/guardarrailes.js';
 import { RESPALDO_CHECKIN, RESPALDO_CHAT } from '../src/lib/respaldo.js';
 
 var frases = JSON.parse(readFileSync(new URL('./frases-trampa.json', import.meta.url), 'utf8'));
@@ -17,6 +18,11 @@ frases.forEach(function (par) {
   if (esperado === 'R') {
     if (!r || r.tipo !== 'riesgo' || r.texto !== TEXTO_RIESGO || r.texto.indexOf('024') === -1 || r.texto.indexOf('112') === -1) {
       fallos.push('[R] no da el texto de riesgo: ' + frase + ' -> ' + JSON.stringify(filtroPrevio(frase)));
+      return;
+    }
+  } else if (esperado === 'S') {
+    if (!r || r.tipo !== 'sustancias' || r.texto !== TEXTO_SUSTANCIAS || r.texto.indexOf('médico de cabecera') === -1) {
+      fallos.push('[S] no se deriva a recursos sanitarios: ' + frase + ' -> ' + JSON.stringify(filtroPrevio(frase)));
       return;
     }
   } else if (esperado === 'D') {
@@ -36,7 +42,9 @@ var normales = [
   'Se me olvidó la botella en casa',
   '¿Cómo hago para no saltármelo el fin de semana?',
   'Mañana tengo cena con amigos, ¿qué hago con mi señal?',
-  'Hice la versión mínima de 2 minutos'
+  'Hice la versión mínima de 2 minutos',
+  'Bebo mucho agua desde que empecé el reto',
+  'Hoy me costó beber agua en el trabajo'
 ];
 normales.forEach(function (frase) {
   var p = filtroPrevio(frase);
@@ -57,7 +65,7 @@ salidasMalas.forEach(function (s) {
 });
 
 // Los textos fijos y los mensajes de respaldo deben pasar el filtro de salida.
-var fijos = [TEXTO_DERIVAR].concat(RESPALDO_CHAT);
+var fijos = [TEXTO_DERIVAR, TEXTO_SUSTANCIAS].concat(RESPALDO_CHAT);
 Object.keys(RESPALDO_CHECKIN).forEach(function (k) {
   RESPALDO_CHECKIN[k].forEach(function (m) { fijos.push(m.mensaje); fijos.push(m.tareaManana); });
 });

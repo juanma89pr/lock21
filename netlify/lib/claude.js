@@ -60,7 +60,7 @@ export async function llamarClaude(opciones) {
 }
 
 // Capa 1 completa: expresiones regulares y, si pasan y hay IA, moderación con Haiku.
-// Devuelve 'ok' | 'derivar' | 'riesgo'.
+// Devuelve 'ok' | 'derivar' | 'sustancias' | 'riesgo'.
 export async function clasificarEntrada(texto) {
   var previo = filtroPrevio(texto);
   if (previo.tipo !== 'ok') { return previo.tipo; }
@@ -75,5 +75,5 @@ export async function clasificarEntrada(texto) {
   });
   if (!r || !r.datos) { return 'ok'; }
   var c = String(r.datos.categoria || 'ok').toLowerCase();
-  return c === 'riesgo' || c === 'derivar' ? c : 'ok';
+  return c === 'riesgo' || c === 'derivar' || c === 'sustancias' ? c : 'ok';
 }

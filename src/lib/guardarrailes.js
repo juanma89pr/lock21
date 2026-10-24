@@ -7,7 +7,11 @@
 
 export var TEXTO_RIESGO = 'Lo que me cuentas es importante y mereces apoyo de una persona ahora mismo. Soy una IA y no puedo ayudarte con esto. Llama al 024 (atención a la conducta suicida, gratuito, 24 h) o, si estás en peligro, al 112. También puedes hablarlo con alguien de confianza o con tu médico de cabecera.';
 
-export var TEXTO_DERIVAR = 'Eso no te lo puedo responder: soy una IA y no doy pautas de comida, cantidades, productos ni consejos de salud. Para eso lo mejor es un profesional en persona: tu médico, un dietista-nutricionista o un fisioterapeuta, según el caso. Yo sigo contigo con tu hábito.';
+export var TEXTO_DERIVAR = 'Eso no te lo puedo responder: soy una IA y no doy pautas de comida, cantidades, productos ni consejos de salud. Para eso lo mejor es un profesional sanitario en persona: tu médico, un dietista-nutricionista o un fisioterapeuta, según el caso. Yo sigo contigo con tu hábito.';
+
+// Tabaco, alcohol u otras sustancias: apoyo breve y derivación sanitaria, sin pautas
+// de deshabituación ni promesas. Lock21 no es un programa para dejar nada de eso.
+export var TEXTO_SUSTANCIAS = 'Que quieras dejarlo o reducirlo es importante, y merece buena ayuda. Soy una IA y Lock21 no es un programa para dejar el tabaco, el alcohol ni otras sustancias, así que no te voy a dar pautas para eso. Habla con tu médico de cabecera o con los recursos sanitarios de tu zona: te pueden orientar y acompañar. Yo sigo contigo con tu hábito.';
 
 function normalizar(texto) {
   return String(texto || '')
@@ -42,6 +46,23 @@ var RIESGO = [
   /\bautolesi/,
   /\bme\s+corto\b/,
   /\bme\s+odio\b/
+];
+
+// Tabaco, alcohol y otras sustancias. Se comprueban después del riesgo y antes que
+// el resto de temas fuera de alcance. "Beber" solo cuenta si no es agua.
+var SUSTANCIAS = [
+  /\bfum(ar|o|as|a|amos|ando|aba|ador|adora)\b/,
+  /\btabaco\b/,
+  /\bcigarr/,
+  /\bnicotina\b/,
+  /\bvape(ar|o|r|s)?\b/,
+  /\bporros?\b|\bcannabis\b|\bmarihuana\b|\bhachis\b|\bcocaina\b/,
+  /\bdrogas?\b|\bsustancias?\b/,
+  /\balcohol/,
+  /\bborrach/,
+  /\bcubatas?\b|\bchupitos?\b|\bbotellon\b|\bcopas\b/,
+  /\b(dejar|dejo|deje|parar|paro)\s+de\s+beber\b(?!\s+agua)/,
+  /\bbeb(o|er|emos|iendo|i)\s+(demasiado|mucho|de\s+mas|cada\s+fin)(?!\s+agua)/
 ];
 
 // Temas fuera de alcance: alimentación con cifras, suplementos, salud, lesiones,
@@ -90,12 +111,15 @@ var DERIVAR = [
   /\bmodo\s+desarrollador\b|\bjailbreak\b|\bprompt\s+de\s+sistema\b/
 ];
 
-// Clasifica un texto del usuario. Devuelve { tipo: 'riesgo' | 'derivar' | 'ok', regla }.
+// Clasifica un texto del usuario. Devuelve { tipo: 'riesgo' | 'sustancias' | 'derivar' | 'ok', regla }.
 export function filtroPrevio(texto) {
   var t = normalizar(texto);
   if (!t) { return { tipo: 'ok', regla: null }; }
   for (var i = 0; i < RIESGO.length; i++) {
     if (RIESGO[i].test(t)) { return { tipo: 'riesgo', regla: String(RIESGO[i]) }; }
+  }
+  for (var k = 0; k < SUSTANCIAS.length; k++) {
+    if (SUSTANCIAS[k].test(t)) { return { tipo: 'sustancias', regla: String(SUSTANCIAS[k]) }; }
   }
   for (var j = 0; j < DERIVAR.length; j++) {
     if (DERIVAR[j].test(t)) { return { tipo: 'derivar', regla: String(DERIVAR[j]) }; }
@@ -132,6 +156,7 @@ export function filtroSalida(texto) {
 export function respuestaFija(texto) {
   var previo = filtroPrevio(texto);
   if (previo.tipo === 'riesgo') { return { tipo: 'riesgo', texto: TEXTO_RIESGO, derivar: true }; }
+  if (previo.tipo === 'sustancias') { return { tipo: 'sustancias', texto: TEXTO_SUSTANCIAS, derivar: true }; }
   if (previo.tipo === 'derivar') { return { tipo: 'derivar', texto: TEXTO_DERIVAR, derivar: true }; }
   return null;
 }

@@ -17,8 +17,9 @@ export var AVISO_IA = {
   texto: 'Entiendo que el coach del reto es una inteligencia artificial, que no da dietas, cantidades ni consejos médicos, y que mis registros se le envían con un seudónimo, sin mi nombre ni mi correo.'
 };
 
-// Consentimiento separado para compartir el resumen con el entrenador.
+// Consentimiento separado para apuntarse a la lista de interesados en el
+// acompañamiento personalizado al terminar el reto (casilla sin marcar).
 export var COMPARTIR = {
-  version: 'compartir-2026-10-23',
-  texto: 'Quiero que ' + config.titular + ', entrenador personal, reciba el resumen de mis 21 días (hábito, adherencia, racha, curva del test y notas) y mi correo para contactarme sobre su servicio de entrenamiento personal, que es de pago. Puedo retirar este consentimiento cuando quiera escribiendo al correo de contacto de la política de privacidad.'
+  version: 'compartir-2026-10-24',
+  texto: 'Quiero apuntarme a la lista de interesados en el acompañamiento personalizado de ' + config.titular + '. Acepto que reciba el resumen de mis 21 días (hábito, adherencia, racha, curva del test y notas) y mi correo para escribirme cuando haya plazas. Sé que es opcional y que será de pago. Puedo retirar este consentimiento cuando quiera escribiendo al correo de contacto de la política de privacidad.'
 };

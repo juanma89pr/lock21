@@ -450,7 +450,7 @@ export function crearServicioDemo(opciones) {
       await esperar(600);
       var fija = respuestaFija(mensaje);
       var texto = fija ? fija.texto : respaldoChat(datos.chat.length);
-      datos = Object.assign({}, datos, { chat: datos.chat.concat([{ rol: 'persona', texto: mensaje }, { rol: 'coach', texto: texto, fuente: fija ? fija.tipo : 'respaldo' }]) });
+      datos = Object.assign({}, datos, { chat: datos.chat.concat([{ rol: 'persona', texto: mensaje }, { rol: 'coach', texto: texto, fuente: fija ? (fija.tipo === 'riesgo' ? 'riesgo' : 'filtro') : 'respaldo' }]) });
       publicar();
       return { respuesta: texto, quedan: 20 - datos.chat.length / 2 };
     },

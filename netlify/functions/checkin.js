@@ -12,7 +12,7 @@ import { llamarClaude, clasificarEntrada, MODELO_RAPIDO } from '../lib/claude.js
 import { SISTEMA_CHECKIN, ESQUEMA_CHECKIN } from '../lib/prompts.js';
 import { avisarRiesgo } from '../lib/avisos.js';
 import { estadoReto, calcularRacha, toca, mediaSrbai, testAbierto } from '../../src/lib/reto.js';
-import { filtroSalida, TEXTO_RIESGO, TEXTO_DERIVAR } from '../../src/lib/guardarrailes.js';
+import { filtroSalida, TEXTO_RIESGO, TEXTO_DERIVAR, TEXTO_SUSTANCIAS } from '../../src/lib/guardarrailes.js';
 import { respaldoCheckin } from '../../src/lib/respaldo.js';
 import HABITOS, { buscarHabito } from '../../src/datos/habitos.js';
 import { misionDelDia } from '../../src/datos/calentamiento.js';
@@ -122,6 +122,8 @@ async function diario(usuario, datos, estado, fire, guardado) {
   if (categoria === 'riesgo') {
     coach = { mensaje: TEXTO_RIESGO, tareaManana: 'Habla hoy con alguien de confianza.', nivel: 'minimo', derivar: true, fuente: 'riesgo' };
     await avisarRiesgo(fire, usuario.uid, 'nota del check-in');
+  } else if (categoria === 'sustancias') {
+    coach = { mensaje: TEXTO_SUSTANCIAS, tareaManana: base.tareaManana, nivel: base.nivel, derivar: true, fuente: 'filtro' };
   } else if (categoria === 'derivar') {
     coach = { mensaje: TEXTO_DERIVAR, tareaManana: base.tareaManana, nivel: base.nivel, derivar: true, fuente: 'filtro' };
   } else {

@@ -56,7 +56,7 @@ export default function Alta(props) {
       <h1 className="titular uppercase text-5xl mt-1" tabIndex={-1}>Antes de empezar</h1>
       <div className="mt-5 rounded-2xl bg-noche text-pista p-5">
         <p className="flex items-center gap-2 font-bold text-dorsal"><Icono nombre="ia" size={20} grosor={2.25} />Estás hablando con una IA</p>
-        <p className="mt-2 text-sm leading-relaxed text-pista/90">El coach del reto es una inteligencia artificial. Te acompaña con tu hábito, pero no da dietas, cantidades, productos ni consejos médicos: para eso te dirá que acudas a un profesional en persona. Sus mensajes llevan siempre la etiqueta "Coach IA".</p>
+        <p className="mt-2 text-sm leading-relaxed text-pista/90">El coach del reto es una inteligencia artificial. Te acompaña con tu hábito, pero no da dietas, cantidades, productos ni consejos médicos: para eso te dirá que acudas a tu médico o a otro profesional sanitario. Sus mensajes llevan siempre la etiqueta "Coach IA".</p>
       </div>
       {opciones && opciones.opciones.length ? (
         <fieldset className="mt-5">

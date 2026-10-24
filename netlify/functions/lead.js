@@ -1,5 +1,5 @@
-// Crea un lead cuando la persona acepta, con su casilla separada, compartir su
-// resumen con el entrenador. POST { acepto: true, version, texto }.
+// Apunta a la persona a la lista de interesados en el acompañamiento personalizado
+// cuando lo acepta con su casilla separada. POST { acepto: true, version, texto }.
 // Guarda versión y hash del texto aceptado; genera el resumen (IA o plantilla);
 // avisa por correo si hay RESEND_API_KEY y, si no, lo deja en Firestore.
 import { createHash } from 'node:crypto';
@@ -89,14 +89,16 @@ export default async function handler(req) {
       datos: datos,
       resumen: resumenIa || resumen,
       resumenFuente: resumenIa ? 'ia' : 'plantilla',
+      lista: 'interesados-acompanamiento',
       estado: 'nuevo'
     };
     if (fire) {
       await fire.db.collection('leads').doc(u.uid).set(lead, { merge: true });
       await fire.db.collection('usuarios').doc(u.uid).set({ compartir: lead.consentimiento }, { merge: true });
     }
-    var correo = await enviarCorreo('Lock21: nuevo lead (' + habito.corto + ')', [
-      'Alguien ha terminado el reto y ha pedido que le contactes.',
+    var correo = await enviarCorreo('Lock21: nueva persona en la lista de interesados (' + habito.corto + ')', [
+      'Alguien ha terminado el reto y se ha apuntado a la lista de interesados en el acompañamiento personalizado.',
+      'Se le ha dicho que es opcional, que será de pago y que le escribiremos cuando haya plazas.',
       'Correo: ' + u.email,
       'Resumen: ' + lead.resumen,
       'Consentimiento ' + COMPARTIR.version + ' aceptado el ' + lead.fecha + '.'

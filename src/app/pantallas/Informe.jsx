@@ -5,7 +5,6 @@ import CurvaReal from '../componentes/CurvaReal.jsx';
 import { calcularRacha, formatoNumero } from '../../lib/reto.js';
 import { buscarHabito } from '../../datos/habitos.js';
 import { COMPARTIR } from '../../lib/consentimientos.js';
-import config from '../../config.js';
 
 function lectura(inicio, final) {
   if (inicio === null || final === null) { return 'Haz el test del día 21 para cerrar tu curva.'; }
@@ -15,7 +14,7 @@ function lectura(inicio, final) {
   return 'La curva no ha subido todavía. No es un fracaso: hay hábitos que necesitan más tiempo o una señal más clara.';
 }
 
-// Día 21: informe y oferta de consolidar con un entrenador personal, con
+// Día 21: informe y lista de interesados en el acompañamiento personalizado, con
 // consentimiento explícito y separado (casilla sin marcar, texto versionado).
 export default function Informe(props) {
   var estado = props.estado;
@@ -35,7 +34,7 @@ export default function Informe(props) {
 
   function compartir(e) {
     e.preventDefault();
-    if (!e1[0]) { e3[1]('Marca la casilla si quieres que te contacten. Si no, no pasa nada: el reto es tuyo.'); return; }
+    if (!e1[0]) { e3[1]('Marca la casilla si quieres apuntarte. Si no, no pasa nada: el reto es tuyo.'); return; }
     e3[1]('');
     e2[1](true);
     props.servicio.crearLead().then(function (r) {
@@ -73,12 +72,13 @@ export default function Informe(props) {
       </section>
 
       <section aria-labelledby="titulo-oferta" className="rounded-[24px] bg-dorsal text-noche p-5">
-        <h2 id="titulo-oferta" className="titular uppercase text-4xl">Consolídalo con un entrenador personal de verdad</h2>
-        <p className="mt-3 leading-relaxed">Puedes seguir por tu cuenta: tienes la señal y el método. Si prefieres llegar al día 66 con alguien que te conozca, {config.titular} ({config.nombreCorto}), entrenador personal en {config.ciudad}, puede revisar tus 21 días y proponerte cómo seguir. Es un servicio de pago y solo te contactará si lo pides aquí.</p>
+        <h2 id="titulo-oferta" className="titular uppercase text-4xl">¿Quieres seguir acompañado después del día 21?</h2>
+        <p className="mt-3 leading-relaxed">Apúntate y te contaremos cómo funciona el acompañamiento personalizado cuando haya plazas. Es opcional y será de pago.</p>
+        <p className="mt-2 leading-relaxed">Y si prefieres seguir por tu cuenta, perfecto: ya tienes la señal y el método.</p>
 
         {compartido || e4[0] ? (
           <div className="mt-4 rounded-2xl bg-noche text-pista p-4" role="status">
-            <p className="flex items-center gap-2 font-bold text-dorsal"><Icono nombre="check" size={20} grosor={3} />Hecho. {config.nombreCorto} te escribirá a tu correo.</p>
+            <p className="flex items-center gap-2 font-bold text-dorsal"><Icono nombre="check" size={20} grosor={3} />Hecho. Te escribiremos cuando haya plazas.</p>
             <p className="mt-1 text-sm text-pista/85">Puedes retirar este permiso cuando quieras escribiendo al correo de la política de privacidad.</p>
             {e4[0] && e4[0].servicioUrl ? <a href={e4[0].servicioUrl} className="mt-3 inline-block underline font-semibold text-dorsal">Conoce {e4[0].servicio || 'el servicio'}</a> : null}
           </div>
@@ -90,7 +90,7 @@ export default function Informe(props) {
             </label>
             <p className="text-xs">Versión del texto: {COMPARTIR.version}. Esta casilla es independiente de la que aceptaste al entrar.</p>
             {e3[0] ? <Aviso tono="error">{e3[0]}</Aviso> : null}
-            <Boton type="submit" tono="noche" cargando={e2[0]} disabled={!disponible} icono="entrenador">Quiero que me contacte</Boton>
+            <Boton type="submit" tono="noche" cargando={e2[0]} disabled={!disponible} icono="lista">Apuntarme a la lista</Boton>
             {!disponible ? <p className="text-xs text-center">Disponible a partir del día 21.</p> : null}
           </form>
         )}

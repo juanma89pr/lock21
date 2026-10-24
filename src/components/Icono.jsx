@@ -1,4 +1,4 @@
-import { Lock, Check, X, Dumbbell, Footprints, Moon, PersonStanding, GlassWater, MonitorOff, Bot, UserRound, CalendarDays, Users, ChartSpline, Link2, Mail, ShieldCheck, ArrowDown, Minus, Plus, Flame, MessageCircle, House, ChartColumn, LogOut, TriangleAlert, Send, Hourglass, Info, LoaderCircle, ArrowLeft, ArrowRight, Brain, Smile, BedDouble, ClipboardList, LayoutDashboard, Download, Sparkles, Timer, Share, SquarePlus, Smartphone, CalendarClock } from 'lucide-react';
+import { Lock, Check, X, Dumbbell, Footprints, Moon, PersonStanding, GlassWater, MonitorOff, Bot, UserRound, ListChecks, CalendarDays, Users, ChartSpline, Link2, Mail, ShieldCheck, ArrowDown, Minus, Plus, Flame, MessageCircle, House, ChartColumn, LogOut, TriangleAlert, Send, Hourglass, Info, LoaderCircle, ArrowLeft, ArrowRight, Brain, Smile, BedDouble, ClipboardList, LayoutDashboard, Download, Sparkles, Timer, Share, SquarePlus, Smartphone, CalendarClock } from 'lucide-react';
 
 var iconos = {
   candado: Lock,
@@ -11,7 +11,8 @@ var iconos = {
   agua: GlassWater,
   pantalla: MonitorOff,
   ia: Bot,
-  entrenador: UserRound,
+  persona: UserRound,
+  lista: ListChecks,
   calendario: CalendarDays,
   plazas: Users,
   curva: ChartSpline,

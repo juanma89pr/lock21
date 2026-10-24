@@ -10,7 +10,7 @@ import { llamarClaude, clasificarEntrada, MODELO_CHAT } from '../lib/claude.js';
 import { SISTEMA_CHAT } from '../lib/prompts.js';
 import { avisarRiesgo } from '../lib/avisos.js';
 import { calcularRacha } from '../../src/lib/reto.js';
-import { filtroSalida, TEXTO_RIESGO, TEXTO_DERIVAR } from '../../src/lib/guardarrailes.js';
+import { filtroSalida, TEXTO_RIESGO, TEXTO_DERIVAR, TEXTO_SUSTANCIAS } from '../../src/lib/guardarrailes.js';
 import { respaldoChat } from '../../src/lib/respaldo.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
 
@@ -84,6 +84,10 @@ export default async function handler(req) {
       fuente = 'riesgo';
       derivar = true;
       await avisarRiesgo(fire, uid, 'chat del coach');
+    } else if (categoria === 'sustancias') {
+      respuesta = TEXTO_SUSTANCIAS;
+      fuente = 'filtro';
+      derivar = true;
     } else if (categoria === 'derivar') {
       respuesta = TEXTO_DERIVAR;
       fuente = 'filtro';
