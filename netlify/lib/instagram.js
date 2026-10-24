@@ -181,8 +181,7 @@ async function crearContenedores(api, ctx, pieza, registro) {
       hijos.push(r.id);
     }
     registro.hijos = hijos;
-    r = await api.post(igUser, { media_type: 'CAROUSEL', children: hijos.join(','), caption: pieza.pie || '' });
-    return r.id;
+    return conColaboradores(api, igUser, { media_type: 'CAROUSEL', children: hijos.join(','), caption: pieza.pie || '' }, pieza, registro);
   }
   if (pieza.tipo === 'reel') {
     var pr = { media_type: 'REELS', video_url: urls[0], caption: pieza.pie || '', share_to_feed: 'true' };
@@ -205,8 +204,22 @@ async function crearContenedores(api, ctx, pieza, registro) {
     r = await api.post(igUser, esVideo(urls[0]) ? { media_type: 'STORIES', video_url: urls[0] } : { media_type: 'STORIES', image_url: urls[0] });
     return r.id;
   }
-  r = await api.post(igUser, { image_url: urls[0], caption: pieza.pie || '' });
-  return r.id;
+  return conColaboradores(api, igUser, { image_url: urls[0], caption: pieza.pie || '' }, pieza, registro);
+}
+
+// Invitación de colaboración (sale también en el perfil invitado). Si Instagram la rechaza, se publica sin ella.
+async function conColaboradores(api, igUser, params, pieza, registro) {
+  if (pieza.colaboradores && pieza.colaboradores.length && !pieza.prueba) { params.collaborators = pieza.colaboradores.slice(0, 3); }
+  try {
+    var r = await api.post(igUser, params);
+    return r.id;
+  } catch (err) {
+    if (!params.collaborators) { throw err; }
+    delete params.collaborators;
+    registro.sinColaboradores = textoError(err);
+    var r2 = await api.post(igUser, params);
+    return r2.id;
+  }
 }
 
 // ---------- publicador ----------
