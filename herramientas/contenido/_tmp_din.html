@@ -1,0 +1,124 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
+@font-face { font-family: 'Archivo Variable'; font-weight: 100 900; font-stretch: 62% 125%;
+  src: url(archivo-latin-ext-wdth-normal.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo Variable'; font-weight: 100 900; font-stretch: 62% 125%;
+  src: url(archivo-latin-wdth-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #000; }
+body { font-family: 'Archivo Variable', sans-serif; font-stretch: 100%; -webkit-font-smoothing: antialiased; }
+.lienzo { position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.t-cobalto { background: #2433D9; color: #fff; --acento: #FFD02E; --suave: rgba(255,255,255,.86); --linea: rgba(255,255,255,.28); --caja: rgba(11,18,64,.35); }
+.t-pista { background: #F4F6FF; color: #0B1240; --acento: #2433D9; --suave: #4A5175; --linea: #C7CDF7; --caja: #fff; }
+.t-noche { background: #0B1240; color: #F4F6FF; --acento: #FFD02E; --suave: rgba(244,246,255,.84); --linea: rgba(244,246,255,.22); --caja: #2433D9; }
+.t-dorsal { background: #FFD02E; color: #0B1240; --acento: #2433D9; --suave: #0B1240; --linea: rgba(11,18,64,.3); --caja: #0B1240; }
+.tit { font-stretch: 64%; font-weight: 860; text-transform: uppercase; line-height: .92; letter-spacing: -0.01em; text-wrap: balance; }
+.medio { font-stretch: 72%; font-weight: 800; line-height: .98; }
+.ac { color: var(--acento); }
+.kicker { font-stretch: 108%; font-weight: 750; text-transform: uppercase; letter-spacing: .06em; color: var(--acento); }
+.texto { font-weight: 500; line-height: 1.32; color: var(--suave); text-wrap: pretty; }
+.texto b { color: inherit; font-weight: 750; }
+.ico { display: inline-block; vertical-align: middle; }
+.marca { display: flex; align-items: center; gap: 10px; font-stretch: 64%; font-weight: 860; font-size: 44px; text-transform: uppercase; letter-spacing: .01em; }
+.marca svg { color: var(--acento); }
+.t-dorsal .marca svg { color: #0B1240; }
+.pastilla { display: inline-flex; align-items: center; gap: 14px; border-radius: 999px; font-weight: 750; font-stretch: 108%; }
+/* Tablero */
+.tablero { display: grid; grid-template-columns: repeat(7, 1fr); }
+.celda { position: relative; aspect-ratio: 1; border-radius: 22%; display: flex; align-items: center; justify-content: center; border: 4px solid #C7CDF7; background: #fff; color: #4A5175; font-stretch: 72%; font-weight: 800; }
+.celda.hecho { background: #2433D9; border-color: #2433D9; color: #F4F6FF; }
+.celda.fallo { background: #F4F6FF; border: 4px dashed #4A5175; color: #4A5175; }
+.celda.candado { background: #0B1240; border-color: #0B1240; color: #FFD02E; }
+.celda .punto { position: absolute; top: -9px; right: -9px; width: 26px; height: 26px; border-radius: 50%; background: #FFD02E; box-shadow: 0 0 0 5px #F4F6FF; }
+.marco-tablero { background: #F4F6FF; color: #0B1240; border-radius: 40px; }
+/* Personal */
+.p-mark { background: linear-gradient(transparent 58%, #FFD02E 58%, #FFD02E 92%, transparent 92%); padding: 0 .08em; }
+ 
+#cam { position:absolute; inset:0; will-change:transform; }
+.esc { position:absolute; inset:0; display:none; flex-direction:column; justify-content:center; overflow:hidden; will-change:transform,filter; }
+.esc > .contenido { position:relative; z-index:2; display:flex; flex-direction:column; }
+.pistas { position:absolute; inset:-200px; z-index:0; opacity:.08;
+  background: repeating-linear-gradient(115deg, currentColor 0 7px, transparent 7px 120px); }
+.gigante { position:absolute; z-index:1; left:50%; top:50%; font-stretch:62%; font-weight:900; line-height:.8; white-space:nowrap;
+  -webkit-text-fill-color:transparent; -webkit-text-stroke:6px currentColor; opacity:.14; pointer-events:none; }
+.k { display:inline-block; will-change:transform,filter,opacity; opacity:0; }
+.fila { display:block; }
+#flash { position:absolute; inset:0; background:#fff; opacity:0; z-index:50; pointer-events:none; }
+.burst line { stroke:#FFD02E; stroke-width:10; stroke-linecap:round; }
+.logo-marca { display:flex; align-items:center; gap:22px; }
+ .lienzo{width:1080px;height:1920px}</style></head><body><div class="lienzo" style="width:1080px;height:1920px;position:relative;background:#0B1240"><div id="cam" data-shake="0.900:0.80,7.200:1.00,9.800:0.80,12.000:1.20,17.300:0.60" data-flash="12.000:0.50"><div class="esc lienzo t-noche" data-t0="0.000" data-t1="2.400" data-in="atras" data-cam="in" data-out="si" style="padding:250px 130px 300px 90px;justify-content:center"><div class="pistas"></div><div class="gigante" style="font-size:1500px" data-vel="-40">21</div><div class="contenido"><p class="tit" style="font-size:190px;"><span class="fila"><span class="k" data-t0="0.100" data-fx="slam" style="">Por</span> <span class="k" data-t0="0.200" data-fx="slam" style="">qué</span></span><span class="fila"><span class="k" data-t0="0.300" data-fx="slam" style="">21</span> <span class="k" data-t0="0.400" data-fx="slam" style="">días</span></span></p><p class="tit" style="font-size:190px;"><span class="fila"><span class="k" data-t0="0.900" data-fx="zoom" style="color:var(--acento);">no</span> <span class="k" data-t0="1.000" data-fx="zoom" style="color:var(--acento);">es</span> <span class="k" data-t0="1.100" data-fx="zoom" style="color:var(--acento);">magia.</span></span></p></div></div><div class="esc lienzo t-pista" data-t0="2.400" data-t1="5.600" data-in="latigo" data-cam="in" data-out="si" style="padding:250px 130px 300px 90px;justify-content:center"><div class="pistas"></div><div class="contenido"><p class="texto" style="font-size:56px;"><span class="fila"><span class="k" data-t0="2.500" data-fx="sube" style="">Seguro</span> <span class="k" data-t0="2.540" data-fx="sube" style="">que</span> <span class="k" data-t0="2.580" data-fx="sube" style="">oíste</span> <span class="k" data-t0="2.620" data-fx="sube" style="">lo</span> <span class="k" data-t0="2.660" data-fx="sube" style="">de</span></span></p><p class="tit" style="font-size:160px;margin-top:20px"><span class="k" data-t0="2.9" data-fx="slam"><span style="position:relative;display:inline-block">21 días<span data-tachar="4.1,4.5" style="position:absolute;left:-2%;top:44%;height:18px;width:0;background:#2433D9;border-radius:9px"></span></span></span> <span class="k" data-t0="3.1" data-fx="slam">para crear un hábito.</span></p></div></div><div class="esc lienzo t-cobalto" data-t0="5.600" data-t1="9.600" data-in="punch" data-cam="in" data-out="si" style="padding:250px 130px 300px 90px;justify-content:center"><div class="pistas"></div><div class="gigante" style="font-size:1500px" data-vel="-50">66</div><div class="contenido"><p class="tit" style="font-size:100px;"><span class="fila"><span class="k" data-t0="5.700" data-fx="sube" style="">En</span> <span class="k" data-t0="5.740" data-fx="sube" style="">el</span> <span class="k" data-t0="5.780" data-fx="sube" style="">estudio</span> <span class="k" data-t0="5.820" data-fx="sube" style="">más</span> <span class="k" data-t0="5.860" data-fx="sube" style="">citado,</span> <span class="k" data-t0="5.900" data-fx="sube" style="">la</span> <span class="k" data-t0="5.940" data-fx="sube" style="">mediana</span> <span class="k" data-t0="5.980" data-fx="sube" style="">fue</span> <span class="k" data-t0="6.020" data-fx="sube" style="">de</span></span></p><p class="tit" style="font-size:440px;line-height:.85;margin-top:30px;color:#FFD02E"><span class="k" data-t0="6.2" data-fx="zoom" data-late="7.2"><span data-count="21,66,6.3,7.2">21</span></span></p><p class="tit" style="font-size:150px"><span class="k" data-t0="6.4" data-fx="slam">días</span></p><p class="texto" style="font-size:38px;margin-top:34px;"><span class="fila"><span class="k" data-t0="7.800" data-fx="sube" style="">Lally</span> <span class="k" data-t0="7.820" data-fx="sube" style="">et</span> <span class="k" data-t0="7.840" data-fx="sube" style="">al.</span> <span class="k" data-t0="7.860" data-fx="sube" style="">(2010).</span> <span class="k" data-t0="7.880" data-fx="sube" style="">Con</span> <span class="k" data-t0="7.900" data-fx="sube" style="">mucha</span> <span class="k" data-t0="7.920" data-fx="sube" style="">diferencia</span> <span class="k" data-t0="7.940" data-fx="sube" style="">entre</span> <span class="k" data-t0="7.960" data-fx="sube" style="">personas.</span></span></p></div></div><div class="esc lienzo t-dorsal" data-t0="9.600" data-t1="11.200" data-in="latigo" data-cam="in" data-out="si" style="padding:250px 130px 300px 90px;justify-content:center"><div class="pistas"></div><div class="gigante" style="font-size:1800px" data-vel="50">?</div><div class="contenido"><p class="tit" style="font-size:200px;"><span class="fila"><span class="k" data-t0="9.700" data-fx="zoom" style="">Entonces,</span></span><span class="fila"><span class="k" data-t0="9.800" data-fx="zoom" style="">¿por</span> <span class="k" data-t0="9.900" data-fx="zoom" style="">qué</span> <span class="k" data-t0="10.000" data-fx="zoom" style="color:var(--acento);">21?</span></span></p></div></div><div class="esc lienzo t-noche" data-t0="11.200" data-t1="14.800" data-in="punch" data-cam="in" data-out="si" style="padding:250px 130px 300px 90px;justify-content:center"><div class="pistas"></div><div class="gigante" style="font-size:1500px" data-vel="-50">21</div><div class="contenido"><div style="margin-bottom:40px"><svg class="candado" data-inicio="cerrado" data-abrir="12.000" width="520" height="557" viewBox="-40 -40 280 300" style="overflow:visible;margin:-74px 0 -37px -74px"><circle class="halo" cx="100" cy="150" r="90" fill="none" stroke="#FFD02E" stroke-width="8" style="opacity:0"/><g class="burst" style="opacity:0"><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(0 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(30 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(60 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(90 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(120 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(150 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(180 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(210 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(240 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(270 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(300 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(330 100 150)"/></g><g class="arco"><path d="M62 150 V78 a38 38 0 0 1 76 0 V118" fill="none" stroke="#FFD02E" stroke-width="26" stroke-linecap="round"/></g><g class="cuerpo"><rect x="22" y="104" width="156" height="136" rx="30" fill="#FFD02E"/><text x="100" y="207" text-anchor="middle" font-family="Archivo Variable" font-weight="900" font-stretch="62%" font-size="104" fill="#0B1240">21</text></g></svg></div><p class="tit" style="font-size:120px;"><span class="fila"><span class="k" data-t0="12.200" data-fx="sube" style="">Porque</span> <span class="k" data-t0="12.260" data-fx="sube" style="">el</span> <span class="k" data-t0="12.320" data-fx="sube" style="">día</span> <span class="k" data-t0="12.380" data-fx="sube" style="">21</span></span></p><p class="tit" style="font-size:130px;"><span class="fila"><span class="k" data-t0="12.700" data-fx="slam" style="">se</span> <span class="k" data-t0="12.780" data-fx="slam" style="">desbloquea</span> <span class="k" data-t0="12.860" data-fx="slam" style="color:var(--acento);">el</span> <span class="k" data-t0="12.940" data-fx="slam" style="color:var(--acento);">arranque.</span></span></p><p class="texto" style="font-size:44px;margin-top:30px;"><span class="fila"><span class="k" data-t0="13.500" data-fx="sube" style="">Lo</span> <span class="k" data-t0="13.520" data-fx="sube" style="">difícil</span> <span class="k" data-t0="13.540" data-fx="sube" style="">es</span> <span class="k" data-t0="13.560" data-fx="sube" style="">empezar</span> <span class="k" data-t0="13.580" data-fx="sube" style="">y</span> <span class="k" data-t0="13.600" data-fx="sube" style="">no</span> <span class="k" data-t0="13.620" data-fx="sube" style="">soltarlo</span> <span class="k" data-t0="13.640" data-fx="sube" style="">en</span> <span class="k" data-t0="13.660" data-fx="sube" style="">las</span> <span class="k" data-t0="13.680" data-fx="sube" style="">primeras</span> <span class="k" data-t0="13.700" data-fx="sube" style="">semanas.</span></span></p></div></div><div class="esc lienzo t-pista" data-t0="14.800" data-t1="17.200" data-in="atras" data-cam="in" data-out="si" style="padding:250px 130px 300px 90px;justify-content:center"><div class="pistas"></div><div class="contenido"><p class="tit" style="font-size:130px;"><span class="fila"><span class="k" data-t0="14.900" data-fx="slam" style="">Por</span> <span class="k" data-t0="14.980" data-fx="slam" style="">eso</span> <span class="k" data-t0="15.060" data-fx="slam" style="">medimos</span></span></p><div style="display:flex;gap:24px;margin-top:50px"><span class="k" data-t0="15.20" data-fx="pop" style="flex:1;border-radius:36px;background:#2433D9;color:#fff;padding:34px 0;text-align:center"><span class="tit" style="font-size:120px;display:block;color:#FFD02E">0</span><span style="font-size:34px;font-weight:650">día</span></span><span class="k" data-t0="15.36" data-fx="pop" style="flex:1;border-radius:36px;background:#2433D9;color:#fff;padding:34px 0;text-align:center"><span class="tit" style="font-size:120px;display:block;color:#FFD02E">7</span><span style="font-size:34px;font-weight:650">día</span></span><span class="k" data-t0="15.52" data-fx="pop" style="flex:1;border-radius:36px;background:#2433D9;color:#fff;padding:34px 0;text-align:center"><span class="tit" style="font-size:120px;display:block;color:#FFD02E">21</span><span style="font-size:34px;font-weight:650">día</span></span></div><p class="texto" style="font-size:46px;margin-top:40px;"><span class="fila"><span class="k" data-t0="15.900" data-fx="sube" style="">Un</span> <span class="k" data-t0="15.920" data-fx="sube" style="">test</span> <span class="k" data-t0="15.940" data-fx="sube" style="">de</span> <span class="k" data-t0="15.960" data-fx="sube" style="">4</span> <span class="k" data-t0="15.980" data-fx="sube" style="">preguntas</span> <span class="k" data-t0="16.000" data-fx="sube" style="">para</span> <span class="k" data-t0="16.020" data-fx="sube" style="">ver</span> <span class="k" data-t0="16.040" data-fx="sube" style="">cuánto</span> <span class="k" data-t0="16.060" data-fx="sube" style="">te</span> <span class="k" data-t0="16.080" data-fx="sube" style="">sale</span> <span class="k" data-t0="16.100" data-fx="sube" style="">solo.</span></span></p></div></div><div class="esc lienzo t-cobalto" data-t0="17.200" data-t1="19.600" data-in="punch" data-cam="in" data-out="no" style="padding:250px 130px 300px 90px;justify-content:center"><div class="pistas"></div><div class="gigante" style="font-size:900px" data-vel="-70">LOCK21</div><div class="contenido"><div class="logo-marca"><span class="k" data-t0="17.300" data-fx="zoom"><svg class="candado" data-inicio="cerrado" width="123" height="131" viewBox="-40 -40 280 300" style="overflow:visible;margin:-17px 0 -8px -17px"><circle class="halo" cx="100" cy="150" r="90" fill="none" stroke="#FFD02E" stroke-width="8" style="opacity:0"/><g class="burst" style="opacity:0"><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(0 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(30 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(60 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(90 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(120 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(150 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(180 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(210 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(240 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(270 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(300 100 150)"/><line x1="100" y1="30" x2="100" y2="-10" transform="rotate(330 100 150)"/></g><g class="arco"><path d="M62 150 V78 a38 38 0 0 1 76 0 V118" fill="none" stroke="#FFD02E" stroke-width="26" stroke-linecap="round"/></g><g class="cuerpo"><rect x="22" y="104" width="156" height="136" rx="30" fill="#FFD02E"/><text x="100" y="207" text-anchor="middle" font-family="Archivo Variable" font-weight="900" font-stretch="62%" font-size="104" fill="#0B1240">21</text></g></svg></span><span class="k tit" data-t0="17.360" data-fx="zoom" style="font-size:130px">Lock21</span></div><p class="tit" style="font-size:120px;margin-top:40px;"><span class="fila"><span class="k" data-t0="17.800" data-fx="sube" style="">Próximo</span> <span class="k" data-t0="17.860" data-fx="sube" style="">grupo:</span></span><span class="fila"><span class="k" data-t0="17.920" data-fx="sube" style="color:var(--acento);">lunes</span> <span class="k" data-t0="17.980" data-fx="sube" style="color:var(--acento);">16</span> <span class="k" data-t0="18.040" data-fx="sube" style="color:var(--acento);">nov</span></span></p><div style="margin-top:56px"><span class="k" data-t0="18.400" data-fx="pop" style="display:inline-flex;align-items:center;gap:18px;border-radius:999px;background:#FFD02E;color:#0B1240;padding:26px 40px;font-size:42px;white-space:nowrap;font-weight:780;font-stretch:104%"><svg class="ico" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>Pide tu plaza: enlace en la bio</span></div></div></div></div><div id="flash"></div></div><script>
+function cl(x){ return Math.max(0, Math.min(1, x)); }
+function eo(x){ x=cl(x); return 1-Math.pow(1-x,3); }
+function ei(x){ x=cl(x); return x*x*x; }
+function back(x){ x=cl(x); var c=1.9; return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2); }
+function eio(x){ x=cl(x); return x<.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+function pinta(t){
+  // Cámara: sacudidas en los impactos.
+  var cam=document.getElementById('cam'), sx=0, sy=0, rz=0;
+  (cam.dataset.shake||'').split(',').filter(Boolean).forEach(function(s){
+    var p=s.split(':'), t0=+p[0], a=+(p[1]||1), d=t-t0;
+    if(d>=0 && d<0.35){ var k=Math.pow(1-d/0.35,2)*a; sx+=Math.sin(d*93)*22*k; sy+=Math.cos(d*71)*16*k; rz+=Math.sin(d*57)*0.7*k; }
+  });
+  cam.style.transform='translate('+sx+'px,'+sy+'px) rotate('+rz+'deg)';
+  // Flash blanco.
+  var fl=0; (cam.dataset.flash||'').split(',').filter(Boolean).forEach(function(s){ var p=s.split(':'), d=t-(+p[0]); if(d>=0&&d<0.22){ fl=Math.max(fl,(+(p[1]||0.7))*(1-d/0.22)); } });
+  document.getElementById('flash').style.opacity=fl;
+  // Escenas: entrada, empuje lento de cámara y salida en zoom.
+  document.querySelectorAll('.esc').forEach(function(e){
+    var a=+e.dataset.t0, b=+e.dataset.t1, on=t>=a&&t<b; e.style.display=on?'flex':'none'; if(!on) return;
+    var d=t-a, dur=b-a, s=1, x=0, y=0, bl=0, op=1, rot=0;
+    var ent=e.dataset.in||'punch', kin=eo(d/0.32);
+    if(ent==='punch'){ s*=1.45-0.45*kin; bl=16*(1-kin); }
+    else if(ent==='atras'){ s*=0.72+0.28*eo(d/0.36); bl=10*(1-eo(d/0.36)); }
+    else if(ent==='latigo'){ x=(1-kin)*1080; bl=26*(1-kin); rot=(1-kin)*-4; }
+    else if(ent==='sube'){ y=(1-kin)*1920; bl=20*(1-kin); }
+    var cam2=e.dataset.cam||'in'; var p=d/dur;
+    if(cam2==='in') s*=1+0.07*p; else if(cam2==='out') s*=1.08-0.08*p; else if(cam2==='deriva'){ s*=1.03; x+=-30+60*p; }
+    var sal=b-t; if(sal<0.14 && e.dataset.out!=='no'){ var k=1-sal/0.14; s*=1+0.35*ei(k); bl=Math.max(bl,12*k); }
+    e.style.transform='translate('+x+'px,'+y+'px) scale('+s+') rotate('+rot+'deg)';
+    e.style.filter=bl>0.3?'blur('+bl.toFixed(1)+'px)':'none';
+    var g=e.querySelector('.gigante'); if(g){ var v=+(g.dataset.vel||-60); g.style.transform='translate(calc(-50% + '+(v*d)+'px),-50%) scale('+(1+0.12*p)+')'; }
+    var ps=e.querySelector('.pistas'); if(ps){ ps.style.transform='translateX('+((d*260)%120)+'px)'; }
+  });
+  // Palabras cinéticas.
+  document.querySelectorAll('.k').forEach(function(w){
+    var t0=+w.dataset.t0, fx=w.dataset.fx||'slam', d=t-t0, k;
+    if(d<0){ w.style.opacity=0; return; }
+    if(fx==='slam'){ k=cl(d/0.24); var s=2.5-1.5*back(k); w.style.opacity=cl(d/0.08); w.style.transform='scale('+s+')'; w.style.filter=k<1?'blur('+(12*(1-k)).toFixed(1)+'px)':'none'; }
+    else if(fx==='sube'){ k=eo(d/0.34); w.style.opacity=k; w.style.transform='translateY('+((1-k)*110)+'%) rotate('+((1-k)*4)+'deg)'; w.style.filter='none'; }
+    else if(fx==='pop'){ k=cl(d/0.3); w.style.opacity=cl(d/0.1); w.style.transform='scale('+(0.4+0.6*back(k))+')'; w.style.filter='none'; }
+    else if(fx==='zoom'){ k=eo(d/0.45); w.style.opacity=cl(d/0.15); w.style.transform='scale('+(4-3*k)+')'; w.style.filter=k<1?'blur('+(18*(1-k)).toFixed(1)+'px)':'none'; }
+    else if(fx==='izq'){ k=eo(d/0.3); w.style.opacity=k; w.style.transform='translateX('+((1-k)*-140)+'px) skewX('+((1-k)*-12)+'deg)'; w.style.filter=k<1?'blur('+(10*(1-k)).toFixed(1)+'px)':'none'; }
+    var lat=w.dataset.late; if(lat){ var q=(t-(+lat)); if(q>=0){ var z=1+0.1*Math.sin(cl(q/0.3)*Math.PI); w.style.transform+=' scale('+z+')'; } }
+  });
+  // Candado: cierre (cae el arco y rebota) y apertura (tiembla, salta y gira).
+  document.querySelectorAll('.candado').forEach(function(c){
+    var arco=c.querySelector('.arco'), cuerpo=c.querySelector('.cuerpo'), burst=c.querySelector('.burst'), halo=c.querySelector('.halo');
+    var tc=c.dataset.cerrar?+c.dataset.cerrar:null, ta=c.dataset.abrir?+c.dataset.abrir:null, abierto=c.dataset.inicio==='abierto';
+    var dy=abierto?-46:0, rot=abierto?-24:0, sq=1, wig=0;
+    if(tc!==null && t>=tc-0.2){ var k=ei((t-(tc-0.2))/0.2); dy=-46*(1-k); rot=-24*(1-eo((t-(tc-0.32))/0.2)); if(t>=tc){ var b=t-tc; sq=1+0.09*Math.sin(cl(b/0.18)*Math.PI)*(1-cl(b/0.4)); dy=Math.sin(cl(b/0.16)*Math.PI)*-7; } }
+    if(ta!==null && t>=ta-0.45){ var w2=t-(ta-0.45); if(t<ta){ wig=Math.sin(w2*60)*4*(w2/0.45); dy=0; rot=0; } else { var o=t-ta; dy=-52*back(cl(o/0.28)); rot=-30*eo(cl((o-0.05)/0.35)); sq=1+0.07*Math.sin(cl(o/0.2)*Math.PI); } }
+    arco.setAttribute('transform','translate(0 '+dy.toFixed(2)+') rotate('+rot.toFixed(2)+' 62 112)');
+    cuerpo.setAttribute('transform','translate(100 172) rotate('+wig.toFixed(2)+') scale('+(1/sq).toFixed(3)+' '+sq.toFixed(3)+') translate(-100 -172)');
+    var ev=ta!==null?ta:tc, d2=t-ev;
+    if(burst){ if(ta!==null && d2>=0 && d2<0.6){ var kb=eo(d2/0.6); burst.style.opacity=1-kb; burst.setAttribute('transform','translate(100 150) scale('+(0.5+1.1*kb)+') translate(-100 -150)'); } else { burst.style.opacity=0; } }
+    if(halo){ if(ev!==null && d2>=0 && d2<0.5){ var kh=eo(d2/0.5); halo.style.opacity=0.7*(1-kh); halo.setAttribute('r', 90+110*kh); } else { halo.style.opacity=0; } }
+  });
+  // Anillo de progreso con contador de días (pulso en cada día).
+  document.querySelectorAll('.anillo').forEach(function(a){
+    var v=a.dataset.anillo.split(','), t0=+v[0], t1=+v[1], p=eio((t-t0)/(t1-t0));
+    var arc=a.querySelector('.prog'), L=+arc.dataset.l; arc.style.strokeDashoffset=L*(1-p);
+    var n=Math.max(1, Math.min(21, Math.floor(1+20*p+1e-6))); var num=a.querySelector('.num'); num.textContent=n;
+    var fr=(1+20*p)-Math.floor(1+20*p); var z=t<t0?1:1+0.14*(1-cl(fr*3)); if(n===21&&t>=t1){ z=1+0.2*Math.sin(cl((t-t1)/0.3)*Math.PI); }
+    num.style.transform='scale('+z+')';
+  });
+  document.querySelectorAll('[data-count]').forEach(function(e){
+    var v=e.dataset.count.split(','), a=+v[0], b=+v[1], t0=+v[2], t1=+v[3];
+    e.textContent=Math.round(a+(b-a)*eo((t-t0)/(t1-t0)));
+  });
+  document.querySelectorAll('[data-tachar]').forEach(function(e){
+    var v=e.dataset.tachar.split(','); e.style.width=(eo((t-v[0])/(v[1]-v[0]))*100)+'%';
+  });
+}
+</script></body></html>

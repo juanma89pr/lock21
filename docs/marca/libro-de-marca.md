@@ -441,3 +441,10 @@ Fuera del repositorio (`lock21-contenido/marca/`): hoja de presentación (`hoja/
 - En la cola: `"audio": "Lock21 · Sonido del reto"` (nombra el audio original) y `"colaboradores": ["juanma89pr"]` para que el reel salga también en el perfil de Juanma (él acepta la invitación).
 - La llamada a la acción en pantalla es "Pide tu plaza: enlace en la bio". Nada de "Comenta LOCK" mientras no haya respuesta automática a comentarios.
 - Los audios en tendencia de la biblioteca de Instagram no se pueden poner por API: solo si Juanma quiere hacerlo a mano, nunca como requisito.
+
+## Reels dinámicos y concepto del candado (desde el 24 oct 2026, petición de Juanma)
+- **Qué significa Lock21:** 21 días poniéndole candado a las excusas con un solo hábito. El día 21 el candado se abre: **desbloqueado**, ya no empiezas de cero y eliges tu siguiente hábito. Nunca se promete un hábito "para siempre" en 21 días (la evidencia habla de una mediana de 66).
+- **El candado es el protagonista y va con tono deportivo**, no de taquilla: se cierra con golpe y sacudida al principio, el anillo de progreso cuenta del día 1 al 21 como un reloj deportivo y el día 21 salta el arco con estallido y destello.
+- **Todos los reels nuevos se hacen con `herramientas/contenido/dinamico.py`**: palabras que entran de golpe (escala + desenfoque de movimiento), cámara que empuja o se aleja en cada escena, transiciones de zoom y látigo, sacudidas en los impactos, "21" gigante de fondo con paralaje y líneas de pista en movimiento. Cortes en la rejilla de 150 BPM (múltiplos de 0,4 s).
+- **Sonido deportivo guiado por eventos** (`audio.componer_eventos`): pisadas y palmas de grada antes del candado, ritmo con 808 y acordes cortados después, redoble y subida antes del desbloqueo, firma del desbloqueo (clic + muelle + brillo) y efectos sincronizados con cada golpe, barrido, tic y pastilla. Mismo motivo de 4 notas en todos.
+- Cuando entren vídeos de Juanma, se mantienen el candado, el sonido y los rótulos cinéticos encima del vídeo.

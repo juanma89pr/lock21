@@ -279,6 +279,186 @@ def componer(duracion, cortes, cta):
     return mezcla[:int(duracion * SR)]
 
 
+# ---------- v2: sonido deportivo guiado por eventos (reels dinámicos) ----------
+
+def palmas_estadio(g=1.0, n=6):
+    # Varias palmas desfasadas unos milisegundos: suena a grupo, a grada.
+    largo = int(0.45 * SR)
+    x = np.zeros(largo)
+    for i in range(n):
+        d = int(abs(RNG.normal(0, 0.009)) * SR)
+        p = palmada(1.0)
+        p = bp(p, 700 + RNG.random() * 500, 6000)
+        x[d:d + len(p)] += p[:largo - d] * (0.6 + 0.4 * RNG.random())
+    return g * x / n * 2.2
+
+
+def bombo_duro(g=1.0):
+    n = int(0.5 * SR)
+    t = np.arange(n) / SR
+    f = 48 + 160 * np.exp(-t * 35)
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 6)
+    clic = hp(RNG.standard_normal(n), 2500) * np.exp(-t * 300) * 0.5
+    return g * np.tanh(2.2 * (x + clic))
+
+
+def bajo808(nota, dur, g=1.0):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = hz(nota) * (1 + 0.5 * np.exp(-t * 40))
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR)
+    x = np.tanh(2.0 * x) * 0.8 + 0.2 * np.sin(4 * np.pi * np.cumsum(f) / SR)
+    return g * x * env_adsr(n, 0.004, 0.2, 0.75, 0.06)
+
+
+def stab(notas, g=1.0, brillo=4200):
+    n = int(0.32 * SR)
+    t = np.arange(n) / SR
+    x = np.zeros(n)
+    for m in notas[1:]:
+        for det in (-0.12, 0.12):
+            x += saw(hz(m + 12) * 2 ** (det / 12), t, RNG.random())
+    x = lp(x, brillo) / (len(notas) * 2)
+    return g * x * np.exp(-t * 11) * env_adsr(n, 0.003, 0.05, 1.0, 0.04)
+
+
+def tic(g=1.0):
+    n = int(0.06 * SR)
+    t = np.arange(n) / SR
+    x = np.sin(2 * np.pi * 1850 * t) * np.exp(-t * 120) + 0.4 * hp(RNG.standard_normal(n), 5000) * np.exp(-t * 400)
+    return g * x
+
+
+def pop_sonido(g=1.0):
+    n = int(0.18 * SR)
+    t = np.arange(n) / SR
+    f = 500 + 1400 * (t / 0.18) ** 0.5
+    return g * np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 22)
+
+
+def golpe_seco(g=1.0):
+    n = int(0.7 * SR)
+    t = np.arange(n) / SR
+    sub = np.sin(2 * np.pi * (42 + 70 * np.exp(-t * 20)) * t) * np.exp(-t * 6)
+    snap = bp(RNG.standard_normal(n), 1200, 7000) * np.exp(-t * 45) * 0.5
+    return g * np.tanh(1.5 * (sub + snap))
+
+
+def desbloqueo(g=1.0):
+    """Firma del día 21: clic, el arco que salta (muelle hacia arriba) y un brillo que sube."""
+    n = int(1.6 * SR)
+    t = np.arange(n) / SR
+    x = np.zeros(n)
+    c = candado(0.7)
+    x[:min(n, len(c))] += c[:n]
+    i = int(0.05 * SR)
+    tt = t[:n - i]
+    f = 520 * (2.6 ** cl_np(tt / 0.14))
+    muelle = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 14) * 0.5
+    x[i:] += muelle
+    for k, nota in enumerate((86, 93, 98, 105)):
+        j = int((0.09 + 0.06 * k) * SR)
+        ff = hz(nota)
+        tj = t[:n - j]
+        x[j:] += 0.22 * (np.sin(2 * np.pi * ff * tj) + 0.3 * np.sin(2 * np.pi * 2.01 * ff * tj)) * np.exp(-tj * 4.5)
+    return g * x
+
+
+def cl_np(x):
+    return np.clip(x, 0, 1)
+
+
+def componer_eventos(duracion, eventos):
+    n = int((duracion + 0.05) * SR)
+    mus = np.zeros(n)
+    seco = np.zeros(n)
+    fx = np.zeros(n)
+    tiempos = {}
+    for e in eventos:
+        tiempos.setdefault(e['tipo'], []).append(e['t'])
+    entra = min(tiempos.get('candado', [COMPAS * 2]))
+    drop = min(tiempos.get('desbloqueo', [duracion + 1]))
+    final = min(tiempos.get('final', [duracion + 1]))
+    nbar = int(np.ceil(duracion / COMPAS)) + 1
+    for k in range(nbar):
+        tc = k * COMPAS
+        if tc >= duracion:
+            break
+        acorde = ACORDES[k % 4]
+        fase = 'intro' if tc < entra - 0.01 else ('pausa' if drop - COMPAS / 2 - 0.01 <= tc < drop - 0.01 else 'ritmo')
+        energia = 1.25 if tc >= drop - 0.01 else 1.0
+        brillo = 900 if fase == 'intro' else 2400 * energia
+        poner(mus, pad(acorde, COMPAS + 0.3, brillo), tc, 0.38)
+        for b in range(4):
+            tb = tc + b * BEAT
+            if tb >= duracion:
+                break
+            en_pausa = drop - COMPAS / 2 - 0.01 <= tb < drop - 0.01
+            if fase == 'intro' or tb < entra - 0.01:
+                # Pisada de grada que va creciendo hacia el candado.
+                crece = 0.35 + 0.65 * (tb / max(entra, 0.01))
+                poner(seco, bombo_duro(0.45 * crece), tb)
+                if b % 2 == 1:
+                    poner(seco, palmas_estadio(0.5 * crece), tb)
+                continue
+            if en_pausa:
+                continue
+            # Ritmo deportivo: bombo en 1, "y del 2" y 3; palmas de grada en 2 y 4; charles a semicorcheas.
+            if b in (0, 2):
+                poner(seco, bombo_duro(0.8), tb)
+            if b == 1:
+                poner(seco, bombo_duro(0.55), tb + OCT)
+            if b in (1, 3):
+                poner(seco, palmas_estadio(0.62 * energia), tb)
+            for q in range(4):
+                poner(seco, charles(0.11 * (1.0 if q % 2 == 0 else 0.55) * energia, abierto=(q == 2 and b == 3)), tb + q * OCT / 2)
+            # 808 y acordes cortados a contratiempo.
+            poner(seco, bajo808(BAJOS[k % 4] + 12 if b == 3 else BAJOS[k % 4], BEAT * 0.9, 0.42), tb)
+            poner(mus, stab(acorde, 0.3 * energia), tb + OCT)
+        # Motivo de marca cada 2 compases, más brillante tras el desbloqueo.
+        if k % 2 == 0:
+            for pulso, nota, d in MOTIVO:
+                tn = tc + pulso * BEAT
+                if not (drop - COMPAS / 2 - 0.01 <= tn < drop - 0.01):
+                    poner(mus, pluck(nota + (12 if tc >= drop else 0), d * BEAT, 0.34, 0.4 if fase == 'intro' else 1.0), tn)
+    # Pausa antes del desbloqueo: redoble y subida.
+    if drop < duracion:
+        ini = drop - COMPAS / 2
+        for i in range(16):
+            poner(seco, palmada(0.1 + 0.4 * i / 16), ini + i * (COMPAS / 2) / 16)
+        poner(fx, subida(COMPAS / 2, 0.4), ini)
+    # Eventos de la animación.
+    for e in eventos:
+        t0, g, tipo = e['t'], e.get('g', 1.0), e['tipo']
+        if tipo == 'barrido':
+            poner(fx, whoosh(0.42, 0.26 * g), t0 - 0.42)
+        elif tipo == 'golpe':
+            poner(fx, golpe_seco(0.42 * g), t0)
+        elif tipo == 'tic':
+            poner(fx, tic(0.25 * g), t0)
+        elif tipo == 'pop':
+            poner(fx, pop_sonido(0.3 * g), t0)
+        elif tipo == 'candado':
+            poner(fx, candado(0.8 * g), t0)
+            poner(fx, impacto(0.6 * g), t0)
+        elif tipo == 'desbloqueo':
+            poner(fx, desbloqueo(0.85 * g), t0)
+            poner(fx, impacto(0.75 * g), t0)
+        elif tipo == 'final':
+            poner(fx, impacto(0.45 * g), t0)
+    mezcla = con_reverb(mus, 0.3) + seco + con_reverb(fx, 0.22)
+    mezcla = hp(mezcla, 30)
+    mezcla /= np.max(np.abs(mezcla)) + 1e-9
+    rms = np.sqrt(np.mean(mezcla ** 2))
+    mezcla *= 0.21 / (rms + 1e-9)
+    mezcla = np.tanh(mezcla * 1.15) / np.tanh(1.15)
+    mezcla *= 0.89 / (np.max(np.abs(mezcla)) + 1e-9)
+    fi, fo = int(0.01 * SR), int(0.6 * SR)
+    mezcla[:fi] *= np.linspace(0, 1, fi)
+    mezcla[-fo:] *= np.linspace(1, 0, fo) ** 1.5
+    return mezcla[:int(duracion * SR)]
+
+
 def guardar_wav(ruta, x):
     from scipy.io import wavfile
     estereo = np.stack([x, x], axis=1)
