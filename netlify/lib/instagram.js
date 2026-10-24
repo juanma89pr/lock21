@@ -15,6 +15,7 @@ export var MAX_INTENTOS = 3;
 export var VENTANA_MS = 6 * 60 * 60 * 1000;      // no se publica nada con más de 6 h de retraso
 export var CONTENEDOR_MS = 23 * 60 * 60 * 1000;  // los contenedores caducan a las 24 h
 export var LIMITE_POR_DEFECTO = 50;              // quota_total de content_publishing_limit
+export var ADELANTO_VIDEO_MS = 15 * 60 * 1000;   // los vídeos se suben antes para que salgan a su hora
 var CLAVE_ESTADO = 'estado';
 var CLAVE_TOKEN = 'token';
 var CLAVE_BLOQUEO = 'bloqueo';
@@ -201,7 +202,8 @@ async function crearContenedores(api, ctx, pieza, registro) {
 
 function piezasVencidas(cola, ahora) {
   return cola.filter(function (p) {
-    return (p.estado || 'programado') === 'programado' && Date.parse(p.fecha) <= ahora.getTime();
+    var adelanto = (p.tipo === 'reel' || p.archivos.some(esVideo)) ? ADELANTO_VIDEO_MS : 0;
+    return (p.estado || 'programado') === 'programado' && Date.parse(p.fecha) - adelanto <= ahora.getTime();
   }).sort(function (a, b) {
     var d = Date.parse(a.fecha) - Date.parse(b.fecha);
     return d !== 0 ? d : (a.id < b.id ? -1 : 1);
@@ -374,6 +376,14 @@ export async function ejecutarPublicador(ctx) {
           estado.piezas[pieza.id] = r;
           estado.publicaciones.push(r.publicadoEn);
           resumen.publicadas.push(pieza.id);
+          continue;
+        }
+        if (codigo === 'FINISHED' && reloj().getTime() < Date.parse(pieza.fecha)) {
+          // Vídeo ya procesado antes de su hora: se publica en la ejecución que toque.
+          r.estado = 'listo';
+          r.actualizado = reloj().toISOString();
+          estado.piezas[pieza.id] = r;
+          resumen.pendientes.push(pieza.id);
           continue;
         }
         if (codigo !== 'FINISHED') {
