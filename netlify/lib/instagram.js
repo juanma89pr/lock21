@@ -174,11 +174,20 @@ async function crearContenedores(api, ctx, pieza, registro) {
   var urls = pieza.archivos.map(function (a) { return urlMedio(ctx.base, a); });
   var r;
   if (pieza.tipo === 'carrusel') {
-    var hijos = [];
-    for (var i = 0; i < urls.length; i++) {
+    // Se guarda el avance tras cada diapositiva: si se acaba el tiempo, la siguiente ejecución continúa.
+    var hijos = (registro.hijos || []).slice();
+    for (var i = hijos.length; i < urls.length; i++) {
+      if (ctx.quedaTiempo && !ctx.quedaTiempo(9000)) {
+        var pausa = new Error('pausa');
+        pausa.pausa = true;
+        throw pausa;
+      }
       var p = esVideo(urls[i]) ? { video_url: urls[i], media_type: 'VIDEO', is_carousel_item: 'true' } : { image_url: urls[i], is_carousel_item: 'true' };
       r = await api.post(igUser, p);
       hijos.push(r.id);
+      registro.hijos = hijos.slice();
+      registro.hijosCreados = registro.hijosCreados || new Date().toISOString();
+      if (ctx.guardar) { await ctx.guardar(); }
     }
     registro.hijos = hijos;
     return conColaboradores(api, igUser, { media_type: 'CAROUSEL', children: hijos.join(','), caption: pieza.pie || '' }, pieza, registro);
@@ -319,6 +328,7 @@ export async function ejecutarPublicador(ctx) {
         resumen.omitidas.push(pieza.id);
         continue;
       }
+      if (!r.contenedor && r.hijos && r.hijosCreados && inicio.getTime() - Date.parse(r.hijosCreados) > CONTENEDOR_MS) { r.hijos = null; r.hijosCreados = null; }
       if (r.contenedor && inicio.getTime() - Date.parse(r.contenedorCreado) > CONTENEDOR_MS) {
         r.contenedor = null;
         r.hijos = null;
@@ -352,8 +362,9 @@ export async function ejecutarPublicador(ctx) {
         if (!r.contenedor) {
           var todos = pieza.archivos.concat(pieza.portada ? [pieza.portada] : []);
           var noAccesibles = [];
-          for (var k = 0; k < todos.length; k++) {
-            if (!(await medioDisponible(cctx, urlMedio(base, todos[k])))) { noAccesibles.push(todos[k]); }
+          if (!r.hijos || !r.hijos.length) {
+            var oks = await Promise.all(todos.map(function (a) { return medioDisponible(cctx, urlMedio(base, a)); }));
+            todos.forEach(function (a, x) { if (!oks[x]) { noAccesibles.push(a); } });
           }
           if (noAccesibles.length) {
             // No cuenta como intento: suele ser que el despliegue aún no ha terminado.
@@ -364,6 +375,9 @@ export async function ejecutarPublicador(ctx) {
             resumen.errores.push(pieza.id);
             continue;
           }
+          estado.piezas[pieza.id] = r;
+          cctx.quedaTiempo = quedaTiempo;
+          cctx.guardar = function () { return guardarEstado(store, estado); };
           r.contenedor = await crearContenedores(api, cctx, pieza, r);
           r.contenedorCreado = inicio.toISOString();
           r.estado = 'procesando';
@@ -425,6 +439,15 @@ export async function ejecutarPublicador(ctx) {
         resumen.publicadas.push(pieza.id);
         await guardarEstado(store, estado);
       } catch (err) {
+        if (err && err.pausa) {
+          r.estado = 'procesando';
+          r.actualizado = reloj().toISOString();
+          estado.piezas[pieza.id] = r;
+          anotar(estado, inicio, pieza.id + ': ' + (r.hijos ? r.hijos.length : 0) + ' diapositivas subidas; sigue en la próxima ejecución.');
+          resumen.pendientes.push(pieza.id);
+          resumen.parada = 'tiempo';
+          break;
+        }
         var clase = clasificar(err);
         if (clase === 'token') { throw err; }
         if (clase === 'limite') {
@@ -438,6 +461,7 @@ export async function ejecutarPublicador(ctx) {
         r.ultimoError = textoError(err);
         r.contenedor = null;
         r.hijos = null;
+        r.hijosCreados = null;
         r.estado = r.intentos >= MAX_INTENTOS ? 'fallido' : 'error';
         r.actualizado = inicio.toISOString();
         estado.piezas[pieza.id] = r;
