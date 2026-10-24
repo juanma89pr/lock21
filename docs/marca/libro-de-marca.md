@@ -434,3 +434,10 @@ docs/marca/
 ```
 
 Fuera del repositorio (`lock21-contenido/marca/`): hoja de presentación (`hoja/00-portada.png` a `03-aplicaciones.png`), PNG de logos, pruebas de legibilidad, ejemplo de portada de carrusel y scripts generadores en `_build/` (`marca.py`, `hoja.py`, `plantillas.py`, `direcciones.py`).
+
+## Identidad sonora (desde el 24 oct 2026)
+- Todos los reels llevan el **sonido de marca** "Lock21 · Sonido del reto" (audio original del perfil, sintetizado por nosotros, sin derechos de terceros): 150 BPM a medio tiempo, Re menor/Fa mayor (Dm-Bb-F-C), motivo de 4 notas La-Do-Re-La y el **clac del candado** como firma cuando aparece la llamada a la acción.
+- Se genera y se adapta a los cortes de cada reel con `herramientas/contenido/audio.py` (la batería entra en el primer corte, golpe en cada corte, subida antes de la última escena). Volumen aprox. -13 LUFS, pico -1 dBFS.
+- En la cola: `"audio": "Lock21 · Sonido del reto"` (nombra el audio original) y `"colaboradores": ["juanma89pr"]` para que el reel salga también en el perfil de Juanma (él acepta la invitación).
+- La llamada a la acción en pantalla es "Pide tu plaza: enlace en la bio". Nada de "Comenta LOCK" mientras no haya respuesta automática a comentarios.
+- Los audios en tendencia de la biblioteca de Instagram no se pueden poner por API: solo si Juanma quiere hacerlo a mano, nunca como requisito.
