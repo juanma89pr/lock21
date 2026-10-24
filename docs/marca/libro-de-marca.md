@@ -12,7 +12,7 @@ Archivos de marca en este repositorio: `docs/marca/`. Originales, generadores y 
 
 **Por qué existe.** Casi todos sabemos qué hábito nos vendría bien. Lo difícil es arrancarlo y que no se caiga a la segunda semana. Lock21 existe para ese arranque: un solo hábito, atado a una señal fija, durante 21 días, con alguien (un coach de IA) que te pregunta cada día cómo fue.
 
-**Quién lo crea.** Juanma. No es entrenador ni médico. Fumaba, bebía de más cada fin de semana y dejaba sus prioridades para otro día. Lo cambió hábito a hábito. Lock21 es "el método que me hubiera gustado tener".
+**Quién lo crea.** Juanma. Se está formando como entrenador personal (aún no tiene el título, así que nunca se presenta como entrenador); creó el reto desde su experiencia, no como método científico. Fumaba, bebía de más cada fin de semana y dejaba sus prioridades para otro día. Lo cambió hábito a hábito. Lock21 es "el método que me hubiera gustado tener".
 
 **A quién sirve.** Personas de 20 a 45 años en España, sobre todo en Canarias, que quieren empezar algo concreto (moverse, dormir mejor, beber agua, soltar la pantalla) y que ya han empezado y dejado otras veces.
 
@@ -55,7 +55,7 @@ Lock21 es **directo, honesto, constante y cercano**. Suena como un amigo que se 
 | Constante | "Mañana, misma señal: después de comer." | "¡Hoy es el día que lo cambia todo!" |
 | Cercano | "¿Cuál sería el tuyo?" | "Querido usuario, le invitamos a..." |
 | Sin culpa | "Fallaste un día. La racha sigue." | "No falles o perderás todo tu progreso." |
-| Humilde | "No soy entrenador. Soy alguien que tuvo que cambiar." | "Como experto en hábitos, te garantizo..." |
+| Humilde | "Me estoy formando como entrenador, pero esto nace de mi experiencia: tuve que cambiar." | "Como experto en hábitos, te garantizo..." |
 
 ---
 
@@ -388,7 +388,8 @@ Fondo cobalto, círculo dorsal con icono lucide en noche (trazo 2) y nombre en t
 - [ ] Si sale el reto: gratis, 21 días, un hábito, coach de IA.
 - [ ] Si sale el plazo: "21 para arrancar", nada de hábitos "para siempre" en 21 días; día 66 bien explicado.
 - [ ] La IA se presenta como IA.
-- [ ] Juanma no aparece como experto, entrenador ni médico.
+- [ ] Juanma no aparece como experto, entrenador titulado ni médico (sí puede decirse que se está formando como entrenador).
+- [ ] No se presenta Lock21 como método científico: es la forma de aplicar buenos hábitos según la experiencia de Juanma.
 - [ ] Ninguna promesa física, médica ni nutricional.
 - [ ] No se nombra Balancet, MMF ni MOOV.
 - [ ] Datos con fuente; plazas y fechas reales.
