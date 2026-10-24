@@ -7,6 +7,7 @@ import { configurado, faltan } from '../lib/firebase.js';
 import { crearServicioReal, crearServicioDemo } from './servicio.js';
 import { testAbierto } from '../lib/reto.js';
 import { Cargando } from './componentes/ui.jsx';
+import Instalar from './componentes/Instalar.jsx';
 import Entrar from './pantallas/Entrar.jsx';
 import SinConfig from './pantallas/SinConfig.jsx';
 import Alta from './pantallas/Alta.jsx';
@@ -186,6 +187,7 @@ export default function AppReto() {
       <a href="#principal" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-dorsal focus:text-noche focus:px-4 focus:py-2 focus:rounded-full font-bold">Saltar al contenido</a>
       <Cabecera usuario={verSinConfig[0] ? null : estado.usuario} demo={demo && !verSinConfig[0]} onSalir={salir} />
       <main id="principal" className={'flex-1 mx-auto w-full max-w-xl px-4 pt-5 ' + (conNavegacion ? 'pb-28' : 'pb-10')}>
+        {verSinConfig[0] || estado.cargando || ruta === '/app/admin' ? null : <Instalar />}
         {contenido}
       </main>
       {conNavegacion ? <Navegacion ruta={ruta} /> : (

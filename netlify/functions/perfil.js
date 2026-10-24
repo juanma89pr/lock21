@@ -1,13 +1,18 @@
 // Alta y perfil del participante. Todas las escrituras pasan por aquí (el cliente
 // no escribe en Firestore). POST { tipo: 'alta', ... } registra mayoría de edad,
 // privacidad y aviso de IA con versión y hash. POST { tipo: 'habito', ... } guarda
-// el hábito, la señal y la versión mínima (solo hasta el día 1 del reto).
+// el hábito, la señal y la versión mínima (solo hasta el día 1 de su grupo).
+// POST { tipo: 'grupo', grupo } cambia a otro de los próximos grupos con plazas.
+// GET (sin sesión): próximos grupos que se pueden elegir y plazas libres.
+// Grupos: uno cada dos semanas (src/lib/grupos.js), 30 plazas cada uno.
 import { createHash } from 'node:crypto';
 import { json, leerJson, recortar } from '../lib/http.js';
 import { verificarUsuario } from '../lib/auth.js';
-import { obtenerDb } from '../lib/admin.js';
+import { obtenerDb, leerUsuario } from '../lib/admin.js';
 import { esPropietario } from '../lib/propietarios.js';
+import { opcionesConPlazas, elegirGrupo, grupoDePersona } from '../lib/grupos.js';
 import { estadoReto } from '../../src/lib/reto.js';
+import { fechaEnZona, esGrupoValido } from '../../src/lib/grupos.js';
 import { PRIVACIDAD, MAYOR_EDAD, AVISO_IA } from '../../src/lib/consentimientos.js';
 import config from '../../src/config.js';
 import HABITOS from '../../src/datos/habitos.js';
@@ -21,6 +26,17 @@ function registro(c, ahora) {
 }
 
 export default async function handler(req) {
+  var fire = await obtenerDb();
+  var hoy = fechaEnZona(new Date());
+  if (req.method === 'GET') {
+    try {
+      var opciones = await opcionesConPlazas(fire, hoy);
+      return json(200, { hoy: hoy, plazas: config.grupos.plazas, opciones: opciones, exacto: Boolean(fire) });
+    } catch (e) {
+      console.error('perfil: error en opciones', e && e.message);
+      return json(500, { error: 'interno' });
+    }
+  }
   if (req.method !== 'POST') { return json(405, { error: 'metodo' }); }
   var acceso = await verificarUsuario(req);
   if (acceso.error) { return acceso.error; }
@@ -28,51 +44,60 @@ export default async function handler(req) {
   var cuerpo = await leerJson(req, 4000);
   if (cuerpo.error) { return json(400, { error: cuerpo.error }); }
   var d = cuerpo.datos;
-  var estado = estadoReto(new Date());
   var ahora = new Date().toISOString();
-  var fire = await obtenerDb();
   var cambios = null;
-
-  if (d.tipo === 'alta') {
-    if (d.mayorEdad !== true || d.privacidad !== true || d.avisoIa !== true) {
-      return json(400, { error: 'faltan_aceptaciones' });
-    }
-    if (d.versiones && (d.versiones.privacidad !== PRIVACIDAD.version || d.versiones.edad !== MAYOR_EDAD.version || d.versiones.ia !== AVISO_IA.version)) {
-      return json(409, { error: 'version_desfasada' });
-    }
-    cambios = {
-      email: u.email,
-      alta: ahora,
-      grupo: config.grupo.inicio,
-      aceptaciones: {
-        edad: registro(MAYOR_EDAD, ahora),
-        privacidad: registro(PRIVACIDAD, ahora),
-        avisoIa: registro(AVISO_IA, ahora)
-      }
-    };
-    if (fire) {
-      // Cupo del grupo: los propietarios no cuentan.
-      var ref = fire.db.collection('usuarios').doc(u.uid);
-      var actual = await ref.get();
-      if (!actual.exists && !esPropietario(u)) {
-        var total = await fire.db.collection('usuarios').where('grupo', '==', config.grupo.inicio).count().get();
-        if (total.data().count >= config.grupo.plazas) { return json(409, { error: 'grupo_completo' }); }
-      }
-    }
-  } else if (d.tipo === 'habito') {
-    var valido = false;
-    HABITOS.forEach(function (h) { if (h.id === d.habito) { valido = true; } });
-    var senal = recortar(d.senal, 160);
-    var accion = recortar(d.accion, 160);
-    var minima = recortar(d.minima, 160);
-    if (!valido || !senal || !accion || !minima) { return json(400, { error: 'datos_incompletos' }); }
-    if (estado.dia > 1) { return json(409, { error: 'habito_cerrado', estado: estado }); }
-    cambios = { habito: d.habito, senal: senal, accion: accion, minima: minima, habitoFecha: ahora };
-  } else {
-    return json(400, { error: 'tipo' });
-  }
+  var estado = null;
 
   try {
+    var guardado = await leerUsuario(fire, u.uid);
+    var actual = guardado ? guardado.perfil : (d.perfil || {});
+
+    if (d.tipo === 'alta') {
+      if (d.mayorEdad !== true || d.privacidad !== true || d.avisoIa !== true) {
+        return json(400, { error: 'faltan_aceptaciones' });
+      }
+      if (d.versiones && (d.versiones.privacidad !== PRIVACIDAD.version || d.versiones.edad !== MAYOR_EDAD.version || d.versiones.ia !== AVISO_IA.version)) {
+        return json(409, { error: 'version_desfasada' });
+      }
+      // Quien ya tiene grupo válido lo conserva; si no, el elegido si le quedan plazas
+      // o, si se ha llenado, el siguiente con plazas.
+      var grupo = esGrupoValido(actual.grupo) && guardado ? actual.grupo : await elegirGrupo(fire, u, hoy, d.grupo);
+      if (!grupo) { return json(409, { error: 'grupo_completo' }); }
+      cambios = {
+        email: u.email,
+        alta: actual.alta || ahora,
+        grupo: grupo,
+        aceptaciones: {
+          edad: registro(MAYOR_EDAD, ahora),
+          privacidad: registro(PRIVACIDAD, ahora),
+          avisoIa: registro(AVISO_IA, ahora)
+        }
+      };
+      if (d.grupo && d.grupo !== grupo) { cambios.grupoPedido = String(d.grupo).slice(0, 10); }
+      estado = estadoReto(new Date(), grupo);
+    } else if (d.tipo === 'grupo') {
+      if (!actual.alta) { return json(409, { error: 'sin_alta' }); }
+      var previo = await grupoDePersona(fire, u, actual);
+      var sinEmpezar = previo.estado.fase === 'antes' || !guardado || Object.keys(guardado.checkins).length === 0;
+      if (!sinEmpezar) { return json(409, { error: 'grupo_en_marcha', estado: previo.estado }); }
+      var nuevo = await elegirGrupo(fire, u, hoy, d.grupo);
+      if (!nuevo || nuevo !== d.grupo) { return json(409, { error: 'grupo_completo', estado: previo.estado }); }
+      cambios = { grupo: nuevo, grupoCambiado: ahora, grupoOrigen: 'elegido' };
+      estado = estadoReto(new Date(), nuevo);
+    } else if (d.tipo === 'habito') {
+      var valido = false;
+      HABITOS.forEach(function (h) { if (h.id === d.habito) { valido = true; } });
+      var senal = recortar(d.senal, 160);
+      var accion = recortar(d.accion, 160);
+      var minima = recortar(d.minima, 160);
+      if (!valido || !senal || !accion || !minima) { return json(400, { error: 'datos_incompletos' }); }
+      estado = (await grupoDePersona(fire, u, actual)).estado;
+      if (estado.dia > 1) { return json(409, { error: 'habito_cerrado', estado: estado }); }
+      cambios = { habito: d.habito, senal: senal, accion: accion, minima: minima, habitoFecha: ahora };
+    } else {
+      return json(400, { error: 'tipo' });
+    }
+
     if (fire) {
       await fire.db.collection('usuarios').doc(u.uid).set(cambios, { merge: true });
     }

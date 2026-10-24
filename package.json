@@ -9,6 +9,7 @@
     "lint": "eslint src netlify tests scripts",
     "preview": "vite preview",
     "test:frases": "node tests/frases.mjs",
+    "test:grupos": "node tests/grupos.mjs",
     "build:funciones": "node scripts/empaquetar-funciones.mjs"
   },
   "dependencies": {

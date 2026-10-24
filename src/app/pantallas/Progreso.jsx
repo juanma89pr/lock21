@@ -19,7 +19,7 @@ export default function Progreso(props) {
   var d = estado.datos;
   var reto = estado.reto;
   var dia = reto.fase === 'antes' ? 0 : reto.dia;
-  var racha = calcularRacha(d.perfil.habito, d.checkins, dia);
+  var racha = calcularRacha(d.perfil.habito, d.checkins, dia, reto.grupo);
 
   return (
     <div className="grid gap-4">
@@ -32,7 +32,7 @@ export default function Progreso(props) {
       <section aria-labelledby="titulo-cal" className="rounded-[24px] bg-white p-5 shadow-[0_2px_0_var(--color-lila)]">
         <h2 id="titulo-cal" className="titular-medio text-2xl mb-1">Tus 21 días</h2>
         <p className="text-sm text-gris mb-4">Regla: nunca dos fallos seguidos. Un fallo suelto se perdona y la racha sigue.</p>
-        <Calendario estados={racha.estados} diaActual={reto.dia} />
+        <Calendario estados={racha.estados} diaActual={reto.dia} grupo={reto.grupo} />
       </section>
       <section aria-labelledby="titulo-curva" className="rounded-[24px] bg-noche text-pista p-5">
         <h2 id="titulo-curva" className="titular-medio text-2xl text-dorsal">Tu automaticidad</h2>

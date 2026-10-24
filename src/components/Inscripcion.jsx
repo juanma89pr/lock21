@@ -48,6 +48,7 @@ export default function Inscripcion(props) {
         nombre: datos.nombre.trim(),
         email: datos.email.trim(),
         habito: buscarHabito(props.habito).nombre,
+        grupo: props.grupo,
         privacidad: 'si',
         entrenador: datos.entrenador ? 'si' : 'no',
         empresa: datos.empresa
@@ -65,7 +66,7 @@ export default function Inscripcion(props) {
     return (
       <div className="rounded-[28px] bg-dorsal text-noche p-6 sm:p-8" role="status">
         <p className="titular text-5xl sm:text-6xl">Plaza pedida, {datos.nombre.trim()}.</p>
-        <p className="mt-4 max-w-md leading-relaxed">Te escribimos a {datos.email.trim()} antes del {config.grupo.fechaTexto} con tu hábito, {buscarHabito(props.habito).corto.toLowerCase()}, y el test del día 0. Si las 30 plazas ya estaban cubiertas, te avisamos y pasas al siguiente grupo.</p>
+        <p className="mt-4 max-w-md leading-relaxed">Te escribimos a {datos.email.trim()} antes del {props.grupoTexto} con tu hábito, {buscarHabito(props.habito).corto.toLowerCase()}, y el test del día 0. Si las {config.grupos.plazas} plazas ya estaban cubiertas, pasas al grupo siguiente, dos semanas después.</p>
       </div>
     );
   }
@@ -73,6 +74,7 @@ export default function Inscripcion(props) {
   return (
     <form name="lista-espera" onSubmit={enviar} noValidate className="rounded-[28px] bg-pista text-noche p-5 sm:p-8 grid gap-5">
       <p className="hidden"><label>No rellenar <input name="empresa" value={datos.empresa} onChange={cambiar} tabIndex={-1} autoComplete="off" /></label></p>
+      <input type="hidden" name="grupo" value={props.grupo} />
       <div className="grid sm:grid-cols-2 gap-4">
         <label className="grid gap-1.5 text-sm font-semibold">Tu nombre
           <input name="nombre" required value={datos.nombre} onChange={cambiar} autoComplete="given-name" className={CAMPO} />

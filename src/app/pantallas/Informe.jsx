@@ -23,7 +23,7 @@ export default function Informe(props) {
   var perfil = d.perfil;
   var habito = buscarHabito(perfil.habito);
   var reto = estado.reto;
-  var racha = calcularRacha(perfil.habito, d.checkins, Math.min(reto.dia, reto.duracion));
+  var racha = calcularRacha(perfil.habito, d.checkins, Math.min(reto.dia, reto.duracion), reto.grupo);
   var ini = d.srbai['0'] ? d.srbai['0'].media : null;
   var fin = d.srbai['21'] ? d.srbai['21'].media : null;
   var e1 = useState(false);

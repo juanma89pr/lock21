@@ -5,10 +5,11 @@ import { getStore } from '@netlify/blobs';
 import { json, leerJson, recortar } from '../lib/http.js';
 import { verificarUsuario } from '../lib/auth.js';
 import { obtenerDb, leerUsuario, leerChatReciente } from '../lib/admin.js';
+import { grupoDePersona } from '../lib/grupos.js';
 import { llamarClaude, clasificarEntrada, MODELO_CHAT } from '../lib/claude.js';
 import { SISTEMA_CHAT } from '../lib/prompts.js';
 import { avisarRiesgo } from '../lib/avisos.js';
-import { estadoReto, calcularRacha } from '../../src/lib/reto.js';
+import { calcularRacha } from '../../src/lib/reto.js';
 import { filtroSalida, TEXTO_RIESGO, TEXTO_DERIVAR } from '../../src/lib/guardarrailes.js';
 import { respaldoChat } from '../../src/lib/respaldo.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
@@ -67,9 +68,10 @@ export default async function handler(req) {
   var mensaje = recortar(cuerpo.datos.mensaje, 800);
   if (!mensaje) { return json(400, { error: 'mensaje_vacio' }); }
 
-  var estado = estadoReto(new Date());
   var fire = await obtenerDb();
   try {
+    var guardado = await leerUsuario(fire, uid);
+    var estado = (await grupoDePersona(fire, acceso.usuario, guardado ? guardado.perfil : (cuerpo.datos.perfil || {}))).estado;
     var quedan = await sumarUso(uid, estado.hoy, fire);
     if (quedan < 0) { return json(429, { error: 'limite_diario', limite: LIMITE_DIA }); }
 
@@ -87,9 +89,8 @@ export default async function handler(req) {
       fuente = 'filtro';
       derivar = true;
     } else {
-      var guardado = await leerUsuario(fire, uid);
       var perfil = (guardado && guardado.perfil && guardado.perfil.habito) ? guardado.perfil : (cuerpo.datos.perfil || {});
-      var racha = guardado && perfil.habito ? calcularRacha(perfil.habito, guardado.checkins, estado.dia) : null;
+      var racha = guardado && perfil.habito ? calcularRacha(perfil.habito, guardado.checkins, estado.dia, estado.grupo) : null;
       // Perfil compacto + últimos 6 turnos.
       var previos = fire ? await leerChatReciente(fire, uid, 6) : (Array.isArray(cuerpo.datos.historial) ? cuerpo.datos.historial.slice(-6) : []);
       var mensajes = [];

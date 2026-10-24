@@ -3,6 +3,7 @@ import Icono from '../../components/Icono.jsx';
 import { Boton, Aviso, CAMPO } from '../componentes/ui.jsx';
 import HABITOS, { buscarHabito } from '../../datos/habitos.js';
 import { navegar } from '../AppReto.jsx';
+import CambiarGrupo from '../componentes/CambiarGrupo.jsx';
 
 // Paso 2: un hábito del menú, su señal ("después de X, hago Y") y su versión mínima.
 export default function ElegirHabito(props) {
@@ -60,7 +61,13 @@ export default function ElegirHabito(props) {
       {editando ? null : <p className="text-sm font-bold text-cobalto">Paso 2 de 3</p>}
       <h1 className="titular uppercase text-5xl mt-1" tabIndex={-1}>{editando ? 'Tu hábito y tu señal' : 'Elige tu hábito'}</h1>
       <p className="mt-3 leading-relaxed text-gris">Uno solo. Lo vas a repetir 21 días seguidos, siempre después de la misma señal.</p>
-      {cerrado ? <Aviso tono="alerta" className="mt-4">El reto ya ha empezado: puedes ver tu hábito, pero ya no cambiarlo.</Aviso> : null}
+      {cerrado && editando ? <Aviso tono="alerta" className="mt-4">El reto ya ha empezado: puedes ver tu hábito, pero ya no cambiarlo.</Aviso> : null}
+      {cerrado && !editando ? (
+        <div className="mt-4 grid gap-3">
+          <Aviso tono="alerta">Tu grupo ya ha empezado y aún no tenías hábito. Pásate a uno de los próximos grupos para empezar con buen pie.</Aviso>
+          <CambiarGrupo servicio={props.servicio} reto={props.reto} abierto={true} />
+        </div>
+      ) : null}
 
       <fieldset className="mt-5" disabled={cerrado}>
         <legend className="sr-only">Hábito del reto</legend>

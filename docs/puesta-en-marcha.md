@@ -43,17 +43,24 @@ Las variables `VITE_` se leen al compilar: tras cambiarlas, **redesplegar**.
   `FIREBASE_SERVICE_ACCOUNT=... node scripts/dar-admin.mjs` (después de que cada propietario haya entrado una vez).
 
 ## 4. Comprobaciones
-- `npx eslint src netlify` · `npm run build` (incluye `check-marca`) · `npm run test:frases` · `npm run build:funciones` (esbuild).
-- El build de Netlify ejecuta lint, test de frases y build.
+- `npx eslint src netlify` · `npm run build` (incluye `check-marca`) · `npm run test:frases` · `npm run test:grupos` · `npm run build:funciones` (esbuild).
+- El build de Netlify ejecuta lint, test de frases, test de grupos y build.
 
-## 5. Funciones
+## 5. Grupos
+- Uno cada dos semanas, siempre en lunes, desde el 16/11/2026 (`src/config.js` → `grupos`; cálculo en `src/lib/grupos.js`). Se generan solos: no hay que tocar código.
+- 30 plazas por grupo, contadas en el servidor (`usuarios` con `grupo == fecha`). Los propietarios no se quedan fuera.
+- Al darse de alta se elige entre los dos próximos grupos con plazas; si el elegido se llena, pasa al siguiente.
+- Compatibilidad: quien se inscribió antes (sin `grupo` o con `grupo: '2026-12-01'`) recibe el primer grupo con plazas la primera vez que abre la app; se guarda con merge en `grupo`, con `grupoPrevio` y `grupoOrigen: 'automatico'`. Mientras tanto, en métricas sale como «Sin grupo».
+
+## 6. Funciones
 | Función | Método | Qué hace |
 | --- | --- | --- |
-| `checkin` | GET | Estado del reto (día calculado en `Atlantic/Canary`, inicio 1/12/2026) |
-| `checkin` | POST | `tipo: 'diario'` guarda check-in + respuesta del coach (JSON `{tareaManana, nivel, mensaje, derivar}`); `tipo: 'srbai'` guarda el test (días 0, 7, 21) |
-| `perfil` | POST | Alta (18+, privacidad, aviso IA con versión y hash) y hábito/señal/versión mínima; controla las 30 plazas |
+| `checkin` | GET | Estado del reto (día calculado en `Atlantic/Canary`). Sin sesión: el del próximo grupo. Con sesión: el del grupo de la persona (si no tiene grupo válido, se le asigna aquí) |
+| `checkin` | POST | `tipo: 'calentamiento'` marca la misión de hoy (solo antes de que empiece su grupo; se guarda en `usuarios/{uid}.calentamiento`). `tipo: 'diario'` guarda check-in + respuesta del coach (JSON `{tareaManana, nivel, mensaje, derivar}`); `tipo: 'srbai'` guarda el test (días 0, 7, 21) |
+| `perfil` | GET | Próximos grupos que se pueden elegir y plazas libres (sin sesión) |
+| `perfil` | POST | Alta (18+, privacidad, aviso IA con versión y hash, grupo elegido), `tipo: 'grupo'` (cambiar de grupo antes de empezar) y hábito/señal/versión mínima; controla las 30 plazas por grupo |
 | `coach` | POST | Chat (20/día, 350 tokens) con las tres capas de guardarraíles |
 | `lead` | POST | Consentimiento separado y versionado → lead + resumen + correo |
-| `metricas` | GET | Inscritos, check-ins, adherencia media, SRBAI medio por día, leads |
+| `metricas` | GET | Inscritos, check-ins, adherencia media, SRBAI medio por día, leads; `porGrupo` con el desglose de cada grupo |
 
 Ninguna escritura sale del cliente: todo pasa por las funciones con firebase-admin.

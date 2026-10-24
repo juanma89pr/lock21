@@ -8,6 +8,8 @@ import { sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAu
 import { doc, collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 import { obtenerAuth, obtenerDb } from '../lib/firebase.js';
 import { estadoReto, calcularRacha, mediaSrbai, testAbierto, toca } from '../lib/reto.js';
+import { esGrupoValido, fechaEnZona, opcionesGrupo, proximoGrupo, sumarDias } from '../lib/grupos.js';
+import { misionDelDia } from '../datos/calentamiento.js';
 import { respuestaFija, TEXTO_RIESGO } from '../lib/guardarrailes.js';
 import { respaldoCheckin, respaldoChat } from '../lib/respaldo.js';
 import { PRIVACIDAD, MAYOR_EDAD, AVISO_IA, COMPARTIR } from '../lib/consentimientos.js';
@@ -55,6 +57,18 @@ function mezclar(local, remoto) {
   };
 }
 
+// Lo mínimo del perfil que necesitan las funciones cuando no hay Firestore.
+function perfilMinimo(p) {
+  var x = p || {};
+  return { alta: x.alta, grupo: x.grupo, habito: x.habito, senal: x.senal, accion: x.accion, minima: x.minima, calentamiento: x.calentamiento };
+}
+
+// Opciones de grupo calculadas en el navegador (sin plazas reales) por si falla el servidor.
+function opcionesLocales(ocupacion) {
+  var hoy = fechaEnZona(new Date());
+  return { hoy: hoy, plazas: config.grupos.plazas, opciones: opcionesGrupo(hoy, ocupacion || {}), exacto: false };
+}
+
 function historial(checkins) {
   return Object.keys(checkins).map(function (k) { return { dia: Number(k), hecho: checkins[k].hecho === true }; });
 }
@@ -65,15 +79,24 @@ export function crearServicioReal() {
   var auth = obtenerAuth();
   var db = obtenerDb();
   var emisor = crearEmisor();
-  var estado = { cargando: true, modo: 'real', usuario: null, datos: vacio(), reto: estadoReto(new Date()), remoto: false, errorEnlace: '' };
+  var estado = { cargando: true, modo: 'real', usuario: null, datos: vacio(), reto: estadoReto(new Date(), null), remoto: false, errorEnlace: '' };
   var local = vacio();
   var remoto = vacio();
   var bajas = [];
+  // Último estado del reto calculado por el servidor (manda sobre el cálculo local).
+  var retoServidor = null;
+
+  function retoActual(datos) {
+    var g = datos.perfil.grupo;
+    if (retoServidor && (!esGrupoValido(g) || retoServidor.grupo === g)) { return retoServidor; }
+    return estadoReto(new Date(), g);
+  }
 
   function claveCache() { return 'lock21-cache-' + (estado.usuario ? estado.usuario.uid : 'nadie'); }
 
   function publicar(cambios) {
-    estado = Object.assign({}, estado, cambios || {}, { datos: mezclar(local, remoto) });
+    var datos = mezclar(local, remoto);
+    estado = Object.assign({}, estado, cambios || {}, { datos: datos, reto: retoActual(datos) });
     emisor.emitir(estado);
   }
 
@@ -120,7 +143,7 @@ export function crearServicioReal() {
     });
     var datos = {};
     try { datos = await res.json(); } catch (e) { datos = {}; }
-    if (datos.estado) { publicar({ reto: datos.estado }); }
+    if (datos.estado) { retoServidor = datos.estado; publicar(); }
     if (!res.ok) {
       var error = new Error(datos.error || ('estado_' + res.status));
       error.codigo = datos.error || ('estado_' + res.status);
@@ -134,7 +157,7 @@ export function crearServicioReal() {
       var res = await fetch('/.netlify/functions/checkin');
       if (res.ok) {
         var d = await res.json();
-        if (d.estado) { publicar({ reto: d.estado }); }
+        if (d.estado && !retoServidor) { retoServidor = d.estado; publicar(); }
       }
     } catch (e) { /* se queda con el cálculo local */ }
   }
@@ -163,10 +186,13 @@ export function crearServicioReal() {
           local = Object.assign(vacio(), leerLocal(claveCache()) || {});
           escucharFirestore(u.uid);
           publicar({ cargando: false, usuario: estado.usuario });
+          // Estado del reto de SU grupo (si se inscribió antes de los grupos, aquí se le asigna).
+          llamar('checkin').catch(function () { /* se queda con el cálculo local */ });
         } else {
           cancelarEscuchas();
           local = vacio();
           remoto = vacio();
+          retoServidor = null;
           publicar({ cargando: false, usuario: null });
         }
       });
@@ -180,23 +206,45 @@ export function crearServicioReal() {
     },
     completarEnlace: completarEnlace,
     salir: function () { return signOut(auth); },
-    alta: async function () {
+    opcionesGrupo: async function () {
+      try {
+        var res = await fetch('/.netlify/functions/perfil');
+        if (!res.ok) { throw new Error('estado_' + res.status); }
+        return await res.json();
+      } catch (e) {
+        return opcionesLocales();
+      }
+    },
+    alta: async function (grupo) {
       var r = await llamar('perfil', {
-        tipo: 'alta', mayorEdad: true, privacidad: true, avisoIa: true,
+        tipo: 'alta', mayorEdad: true, privacidad: true, avisoIa: true, grupo: grupo || null,
         versiones: { privacidad: PRIVACIDAD.version, edad: MAYOR_EDAD.version, ia: AVISO_IA.version }
       });
       local.perfil = Object.assign({}, local.perfil, r.perfil);
       guardarCache();
       publicar();
     },
+    cambiarGrupo: async function (grupo) {
+      var r = await llamar('perfil', { tipo: 'grupo', grupo: grupo, perfil: perfilMinimo(estado.datos.perfil) });
+      local.perfil = Object.assign({}, local.perfil, r.perfil);
+      guardarCache();
+      publicar();
+    },
+    marcarCalentamiento: async function () {
+      var r = await llamar('checkin', { tipo: 'calentamiento', perfil: perfilMinimo(estado.datos.perfil) });
+      local.perfil = Object.assign({}, local.perfil, { calentamiento: r.calentamiento });
+      guardarCache();
+      publicar();
+      return r;
+    },
     guardarHabito: async function (datos) {
-      var r = await llamar('perfil', Object.assign({ tipo: 'habito' }, datos));
+      var r = await llamar('perfil', Object.assign({ tipo: 'habito', perfil: perfilMinimo(estado.datos.perfil) }, datos));
       local.perfil = Object.assign({}, local.perfil, r.perfil);
       guardarCache();
       publicar();
     },
     enviarSrbai: async function (dia, respuestas) {
-      var r = await llamar('checkin', { tipo: 'srbai', dia: dia, respuestas: respuestas });
+      var r = await llamar('checkin', { tipo: 'srbai', dia: dia, respuestas: respuestas, perfil: perfilMinimo(estado.datos.perfil) });
       local.srbai = Object.assign({}, local.srbai);
       local.srbai[String(dia)] = r.srbai;
       guardarCache();
@@ -205,7 +253,7 @@ export function crearServicioReal() {
     },
     enviarCheckin: async function (datos) {
       var d = estado.datos;
-      var r = await llamar('checkin', Object.assign({ tipo: 'diario', perfil: d.perfil, historial: historial(d.checkins) }, datos));
+      var r = await llamar('checkin', Object.assign({ tipo: 'diario', perfil: perfilMinimo(d.perfil), historial: historial(d.checkins) }, datos));
       local.checkins = Object.assign({}, local.checkins);
       local.checkins[String(r.checkin.dia)] = r.checkin;
       guardarCache();
@@ -214,7 +262,7 @@ export function crearServicioReal() {
     },
     chatear: async function (mensaje) {
       var d = estado.datos;
-      var r = await llamar('coach', { mensaje: mensaje, perfil: d.perfil, historial: d.chat.slice(-6) });
+      var r = await llamar('coach', { mensaje: mensaje, perfil: perfilMinimo(d.perfil), historial: d.chat.slice(-6) });
       if (!r.guardado) {
         local.chat = d.chat.concat([{ rol: 'persona', texto: mensaje }, { rol: 'coach', texto: r.respuesta, fuente: r.fuente }]);
         guardarCache();
@@ -241,8 +289,9 @@ function sembrar(escenario, diaActual) {
   var d = vacio();
   if (escenario === 'nuevo') { return d; }
   var ahora = new Date().toISOString();
+  var hoy = fechaEnZona(new Date());
   d.perfil = {
-    email: 'demo@lock21.app', alta: ahora,
+    email: 'demo@lock21.app', alta: new Date(Date.now() - 2 * 86400000).toISOString(), grupo: proximoGrupo(hoy),
     aceptaciones: { edad: { version: MAYOR_EDAD.version }, privacidad: { version: PRIVACIDAD.version }, avisoIa: { version: AVISO_IA.version } }
   };
   if (escenario === 'alta') { return d; }
@@ -253,7 +302,13 @@ function sembrar(escenario, diaActual) {
   d.perfil.minima = h.minima;
   if (escenario === 'habito') { return d; }
   d.srbai['0'] = { dia: 0, respuestas: [2, 2, 3, 1], media: 2 };
-  if (escenario === 'listo') { return d; }
+  if (escenario === 'listo') {
+    // Dos días de calentamiento ya hechos.
+    d.perfil.calentamiento = {};
+    d.perfil.calentamiento[sumarDias(hoy, -2)] = { mision: 'porque', fecha: ahora };
+    d.perfil.calentamiento[sumarDias(hoy, -1)] = { mision: 'detente', fecha: ahora };
+    return d;
+  }
   var animos = [4, 3, 4, 2, 3, 4, 5, 4, 3, 2, 4, 4, 5, 4, 3, 4, 5, 5, 4, 4, 5];
   for (var n = 1; n < Math.min(diaActual, 22); n++) {
     var hecho = n !== 5 && n !== 12;
@@ -279,7 +334,7 @@ export function crearServicioDemo(opciones) {
   var diaForzado = params.dia === undefined || params.dia === null ? null : Number(params.dia);
 
   function reto() {
-    var base = estadoReto(new Date());
+    var base = estadoReto(new Date(), datos ? datos.perfil.grupo : null);
     if (diaForzado === null || isNaN(diaForzado)) { return base; }
     var dia = diaForzado;
     return Object.assign({}, base, {
@@ -319,11 +374,37 @@ export function crearServicioDemo(opciones) {
       estado = Object.assign({}, estado, { usuario: { uid: 'demo-usuario', email: 'demo@lock21.app' } });
       publicar();
     },
-    alta: async function () {
+    opcionesGrupo: async function () {
+      await esperar(200);
+      var hoy = fechaEnZona(new Date());
+      var ocupacion = {};
+      ocupacion[proximoGrupo(hoy)] = 18;
+      return Object.assign(opcionesLocales(ocupacion), { exacto: true });
+    },
+    alta: async function (grupo) {
       await esperar(250);
       var ahora = new Date().toISOString();
-      datos = Object.assign({}, datos, { perfil: Object.assign({}, datos.perfil, { alta: ahora, aceptaciones: { edad: { version: MAYOR_EDAD.version, fecha: ahora }, privacidad: { version: PRIVACIDAD.version, fecha: ahora }, avisoIa: { version: AVISO_IA.version, fecha: ahora } } }) });
+      var opciones = opcionesLocales().opciones.map(function (o) { return o.fecha; });
+      var elegido = opciones.indexOf(grupo) !== -1 ? grupo : opciones[0];
+      datos = Object.assign({}, datos, { perfil: Object.assign({}, datos.perfil, { alta: ahora, grupo: elegido, aceptaciones: { edad: { version: MAYOR_EDAD.version, fecha: ahora }, privacidad: { version: PRIVACIDAD.version, fecha: ahora }, avisoIa: { version: AVISO_IA.version, fecha: ahora } } }) });
       publicar();
+    },
+    cambiarGrupo: async function (grupo) {
+      await esperar(250);
+      var opciones = opcionesLocales().opciones.map(function (o) { return o.fecha; });
+      if (opciones.indexOf(grupo) === -1) { var e = new Error('grupo_completo'); e.codigo = 'grupo_completo'; throw e; }
+      datos = Object.assign({}, datos, { perfil: Object.assign({}, datos.perfil, { grupo: grupo }) });
+      publicar();
+    },
+    marcarCalentamiento: async function () {
+      await esperar(250);
+      var r = reto();
+      if (r.fase !== 'antes') { var e = new Error('reto_empezado'); e.codigo = 'reto_empezado'; throw e; }
+      var hechos = Object.assign({}, datos.perfil.calentamiento || {});
+      hechos[r.hoy] = { mision: misionDelDia(datos.perfil, r.hoy).id, fecha: new Date().toISOString() };
+      datos = Object.assign({}, datos, { perfil: Object.assign({}, datos.perfil, { calentamiento: hechos }) });
+      publicar();
+      return { calentamiento: hechos, dias: Object.keys(hechos).length };
     },
     guardarHabito: async function (d) {
       await esperar(250);
@@ -350,7 +431,7 @@ export function crearServicioDemo(opciones) {
       if (r.fase !== 'curso') { var e = new Error('reto_no_empezado'); e.codigo = 'reto_no_empezado'; throw e; }
       var previos = Object.assign({}, datos.checkins);
       delete previos[String(r.dia)];
-      var falloAyer = calcularRacha(datos.perfil.habito, previos, r.dia).alerta;
+      var falloAyer = calcularRacha(datos.perfil.habito, previos, r.dia, r.grupo).alerta;
       var coach = respaldoCheckin(d.hecho, falloAyer, r.dia);
       var fija = d.nota ? respuestaFija(d.nota) : null;
       if (fija) {
@@ -389,11 +470,18 @@ export function crearServicioDemo(opciones) {
 function metricasDemo() {
   var nombres = ['Pasos', 'Cama antes de 23:30', 'Entrenar 3 días', '2 litros de agua', 'Sin pantalla al dormir', '10 min de movilidad'];
   var inscritos = [];
+  var hoy = fechaEnZona(new Date());
+  var g1 = proximoGrupo(hoy);
+  var g2 = sumarDias(g1, config.grupos.cadaDias);
   for (var i = 0; i < 12; i++) {
-    inscritos.push({ uid: 'a1b2c3' + i, email: 'persona' + (i + 1) + '@correo.es', habito: nombres[i % 6], racha: (i * 3) % 9, adherencia: 60 + (i * 7) % 38, checkins: 7 + (i % 3), srbai: { '0': 2 + (i % 3) * 0.5, '7': 3 + (i % 4) * 0.5 } });
+    inscritos.push({ uid: 'a1b2c3' + i, email: 'persona' + (i + 1) + '@correo.es', grupo: i < 9 ? g1 : g2, calentamiento: i % 4, habito: nombres[i % 6], racha: (i * 3) % 9, adherencia: 60 + (i * 7) % 38, checkins: 7 + (i % 3), srbai: { '0': 2 + (i % 3) * 0.5, '7': 3 + (i % 4) * 0.5 } });
   }
   return {
-    estado: estadoReto(new Date()),
+    estado: estadoReto(new Date(), null),
+    porGrupo: [
+      { grupo: g1, fase: 'antes', dia: estadoReto(new Date(), g1).dia, diasHastaInicio: estadoReto(new Date(), g1).diasHastaInicio, plazas: 30, registrados: 10, inscritos: 9, checkins: 0, calentamiento: 14, leads: 0, adherenciaMedia: null, srbaiMedio: { '0': 2.4, '7': null, '21': null } },
+      { grupo: g2, fase: 'antes', dia: estadoReto(new Date(), g2).dia, diasHastaInicio: estadoReto(new Date(), g2).diasHastaInicio, plazas: 30, registrados: 4, inscritos: 3, checkins: 0, calentamiento: 3, leads: 0, adherenciaMedia: null, srbaiMedio: { '0': 2.2, '7': null, '21': null } }
+    ],
     inscritos: 12,
     registrados: 14,
     checkins: 96,

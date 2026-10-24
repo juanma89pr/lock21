@@ -1,19 +1,19 @@
-// Datos del titular y del primer grupo. El correo legal solo aparece en public/privacidad.html.
+// Datos de la marca y del calendario de grupos. El correo legal solo aparece en public/privacidad.html.
 var config = {
   marca: 'Lock21',
   titular: 'Juan Manuel Peña',
   nombreCorto: 'Juanma',
   ciudad: 'Las Palmas de Gran Canaria',
-  grupo: {
-    fechaTexto: '1 de diciembre de 2026',
-    fechaCorta: '1 dic',
-    // Fecha de inicio común (día 1 del reto) y zona horaria de referencia.
-    inicio: '2026-12-01',
+  grupos: {
+    // Primer grupo (lunes) y, a partir de ahí, uno nuevo cada 14 días, sin tocar código:
+    // 16 nov, 30 nov, 14 dic, 28 dic, 11 ene 2027...
+    primero: '2026-11-16',
+    cadaDias: 14,
+    plazas: 30,
+    // Al inscribirse se puede elegir entre los dos próximos grupos con plazas.
+    elegibles: 2,
     zona: 'Atlantic/Canary',
-    duracion: 21,
-    // El 1 de diciembre de 2026 es martes.
-    diaSemanaInicio: 2,
-    plazas: 30
+    duracion: 21
   }
 };
 

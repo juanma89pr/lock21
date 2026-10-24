@@ -1,4 +1,4 @@
-import { Lock, Check, X, Dumbbell, Footprints, Moon, PersonStanding, GlassWater, MonitorOff, Bot, UserRound, CalendarDays, Users, ChartSpline, Link2, Mail, ShieldCheck, ArrowDown, Minus, Plus, Flame, MessageCircle, House, ChartColumn, LogOut, TriangleAlert, Send, Hourglass, Info, LoaderCircle, ArrowLeft, ArrowRight, Brain, Smile, BedDouble, ClipboardList, LayoutDashboard, Download, Sparkles } from 'lucide-react';
+import { Lock, Check, X, Dumbbell, Footprints, Moon, PersonStanding, GlassWater, MonitorOff, Bot, UserRound, CalendarDays, Users, ChartSpline, Link2, Mail, ShieldCheck, ArrowDown, Minus, Plus, Flame, MessageCircle, House, ChartColumn, LogOut, TriangleAlert, Send, Hourglass, Info, LoaderCircle, ArrowLeft, ArrowRight, Brain, Smile, BedDouble, ClipboardList, LayoutDashboard, Download, Sparkles, Timer, Share, SquarePlus, Smartphone, CalendarClock } from 'lucide-react';
 
 var iconos = {
   candado: Lock,
@@ -39,7 +39,12 @@ var iconos = {
   informe: ClipboardList,
   admin: LayoutDashboard,
   descargar: Download,
-  minima: Sparkles
+  minima: Sparkles,
+  calentamiento: Timer,
+  compartir: Share,
+  anadir: SquarePlus,
+  movil: Smartphone,
+  grupo: CalendarClock
 };
 
 export default function Icono(props) {

@@ -6,10 +6,11 @@ import { createHash } from 'node:crypto';
 import { json, leerJson, recortar } from '../lib/http.js';
 import { verificarUsuario } from '../lib/auth.js';
 import { obtenerDb, leerUsuario } from '../lib/admin.js';
+import { grupoDePersona } from '../lib/grupos.js';
 import { llamarClaude, MODELO_CHAT } from '../lib/claude.js';
 import { SISTEMA_RESUMEN } from '../lib/prompts.js';
 import { enviarCorreo } from '../lib/avisos.js';
-import { estadoReto, calcularRacha } from '../../src/lib/reto.js';
+import { calcularRacha } from '../../src/lib/reto.js';
 import { filtroSalida } from '../../src/lib/guardarrailes.js';
 import { COMPARTIR } from '../../src/lib/consentimientos.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
@@ -41,13 +42,13 @@ export default async function handler(req) {
     return json(400, { error: 'consentimiento_invalido', version: COMPARTIR.version });
   }
 
-  var estado = estadoReto(new Date());
   var fire = await obtenerDb();
   try {
     var guardado = await leerUsuario(fire, u.uid);
     var perfil = (guardado && guardado.perfil) || {};
+    var estado = (await grupoDePersona(fire, u, perfil)).estado;
     var habito = buscarHabito(perfil.habito);
-    var racha = calcularRacha(perfil.habito, guardado ? guardado.checkins : {}, estado.dia);
+    var racha = calcularRacha(perfil.habito, guardado ? guardado.checkins : {}, estado.dia, estado.grupo);
     var curva = [];
     var notas = [];
     if (fire) {
@@ -83,6 +84,7 @@ export default async function handler(req) {
       email: u.email,
       fecha: new Date().toISOString(),
       diaReto: estado.dia,
+      grupo: estado.grupo,
       consentimiento: { version: COMPARTIR.version, hash: hash(COMPARTIR.texto), fecha: new Date().toISOString() },
       datos: datos,
       resumen: resumenIa || resumen,

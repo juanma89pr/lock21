@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Icono from './Icono.jsx';
-import config from '../config.js';
+import { diaSemanaDe, fechaLarga } from '../lib/grupos.js';
 
 var NOMBRES_DIA = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'];
 var DIAS = [];
@@ -10,24 +10,22 @@ function prefiereSinMovimiento() {
   return typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function diaSemana(n) {
-  return (config.grupo.diaSemanaInicio + n - 1) % 7;
-}
-
-function toca(habito, n) {
+function toca(habito, n, base) {
   if (habito.dias === 'todos') { return true; }
-  return habito.dias.indexOf(diaSemana(n)) !== -1;
+  return habito.dias.indexOf((base + n - 1) % 7) !== -1;
 }
 
 // Recorrido de ejemplo: un fallo suelto en la segunda semana que no rompe la racha.
-function estadoEjemplo(habito, n) {
-  if (!toca(habito, n)) { return 'libre'; }
+function estadoEjemplo(habito, n, base) {
+  if (!toca(habito, n, base)) { return 'libre'; }
   var fallo = habito.dias === 'todos' ? 10 : 9;
   return n === fallo ? 'fallo' : 'hecho';
 }
 
 export default function Tablero(props) {
   var habito = props.habito;
+  // El tablero arranca en la fecha del próximo grupo (siempre lunes).
+  var base = diaSemanaDe(props.inicio);
   var est = useState(prefiereSinMovimiento() ? 21 : 0);
   var hasta = est[0];
   var setHasta = est[1];
@@ -45,7 +43,7 @@ export default function Tablero(props) {
   }, [habito.id]);
 
   var cabecera = [];
-  for (var d = 0; d < 7; d++) { cabecera.push(NOMBRES_DIA[(config.grupo.diaSemanaInicio + d) % 7]); }
+  for (var d = 0; d < 7; d++) { cabecera.push(NOMBRES_DIA[(base + d) % 7]); }
 
   return (
     <figure className="w-full rounded-[28px] bg-pista text-noche p-4 sm:p-6 shadow-[0_24px_0_-12px_var(--color-noche)]">
@@ -53,7 +51,7 @@ export default function Tablero(props) {
         <span className="shrink-0 size-11 rounded-full bg-dorsal text-noche flex items-center justify-center"><Icono nombre={habito.icono} size={22} grosor={2} /></span>
         <div className="min-w-0">
           <p className="titular-medio text-2xl sm:text-3xl leading-none">{habito.nombre}</p>
-          <p className="mt-1 text-sm text-gris">Desde el {config.grupo.fechaTexto}</p>
+          <p className="mt-1 text-sm text-gris">Desde el {fechaLarga(props.inicio)}</p>
         </div>
       </div>
 
@@ -68,7 +66,7 @@ export default function Tablero(props) {
         })}
         {DIAS.map(function (n) {
           var visible = n <= hasta;
-          var estado = visible ? estadoEjemplo(habito, n) : 'pendiente';
+          var estado = visible ? estadoEjemplo(habito, n, base) : 'pendiente';
           var test = n === 7 || n === 21;
           var clases = 'dia relative aspect-square rounded-xl border-2 flex items-center justify-center ';
           var contenido = <span className="titular-medio text-lg sm:text-2xl">{n}</span>;

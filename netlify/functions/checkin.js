@@ -1,9 +1,13 @@
-// GET: estado del reto calculado en el servidor (zona Atlantic/Canary).
+// GET: estado del reto calculado en el servidor (zona Atlantic/Canary). Sin sesión, el del
+// próximo grupo; con sesión, el del grupo de la persona (y se le asigna uno si no lo tiene).
+// POST { tipo: 'calentamiento' }: marca hecha la misión de calentamiento de hoy (solo antes
+// de que empiece su grupo; no cuenta para el reto ni para la racha).
 // POST { tipo: 'diario', ... }: guarda el check-in del día y devuelve la respuesta del coach.
 // POST { tipo: 'srbai', dia, respuestas }: guarda el test de automaticidad (días 0, 7 y 21).
 import { json, leerJson, recortar, entero } from '../lib/http.js';
-import { verificarUsuario } from '../lib/auth.js';
+import { verificarUsuario, tokenDeCabecera } from '../lib/auth.js';
 import { obtenerDb, leerUsuario } from '../lib/admin.js';
+import { grupoDePersona } from '../lib/grupos.js';
 import { llamarClaude, clasificarEntrada, MODELO_RAPIDO } from '../lib/claude.js';
 import { SISTEMA_CHECKIN, ESQUEMA_CHECKIN } from '../lib/prompts.js';
 import { avisarRiesgo } from '../lib/avisos.js';
@@ -11,6 +15,7 @@ import { estadoReto, calcularRacha, toca, mediaSrbai, testAbierto } from '../../
 import { filtroSalida, TEXTO_RIESGO, TEXTO_DERIVAR } from '../../src/lib/guardarrailes.js';
 import { respaldoCheckin } from '../../src/lib/respaldo.js';
 import HABITOS, { buscarHabito } from '../../src/datos/habitos.js';
+import { misionDelDia } from '../../src/datos/calentamiento.js';
 
 function habitoValido(id) {
   var ok = false;
@@ -47,7 +52,7 @@ function textoUsuario(seudonimo, perfil, estado, entrada, racha, previos, falloA
     'Señal: después de "' + (perfil.senal || habito.senal) + '", hace "' + (perfil.accion || habito.accion) + '"',
     'Versión mínima de 2 minutos: ' + (perfil.minima || 'sin definir'),
     'Día del reto: ' + estado.dia + ' de ' + estado.duracion,
-    'Hoy le tocaba: ' + (toca(habito, estado.dia) ? 'sí' : 'no (día libre en su plan)'),
+    'Hoy le tocaba: ' + (toca(habito, estado.dia, estado.grupo) ? 'sí' : 'no (día libre en su plan)'),
     'Lo hizo hoy: ' + (entrada.hecho ? 'sí' : 'no'),
     'Le salió sin pensarlo: ' + (entrada.sinPensar ? 'sí' : 'no'),
     'Ánimo (1-5): ' + entrada.animo,
@@ -84,7 +89,7 @@ async function respuestaCoach(contexto) {
   return { mensaje: mensaje, tareaManana: tarea, nivel: nivel, derivar: d.derivar === true, fuente: 'ia' };
 }
 
-async function diario(usuario, datos, estado, fire) {
+async function diario(usuario, datos, estado, fire, guardado) {
   if (estado.fase !== 'curso') {
     return json(409, { error: estado.fase === 'antes' ? 'reto_no_empezado' : 'reto_terminado', estado: estado });
   }
@@ -99,16 +104,15 @@ async function diario(usuario, datos, estado, fire) {
     nota: recortar(datos.nota, 500)
   };
 
-  var guardado = await leerUsuario(fire, usuario.uid);
   var perfil = mezclarPerfil(guardado && guardado.perfil, datos.perfil);
   if (!perfil.habito) { return json(409, { error: 'sin_habito' }); }
   var checkins = guardado ? guardado.checkins : historialDeApp(datos.historial);
   checkins = Object.assign({}, checkins);
   delete checkins[String(estado.dia)];
   // Antes de sumar hoy: ¿ayer ya fue un fallo?
-  var falloAyer = calcularRacha(perfil.habito, checkins, estado.dia).alerta;
+  var falloAyer = calcularRacha(perfil.habito, checkins, estado.dia, estado.grupo).alerta;
   checkins[String(estado.dia)] = { hecho: entrada.hecho };
-  var racha = calcularRacha(perfil.habito, checkins, estado.dia);
+  var racha = calcularRacha(perfil.habito, checkins, estado.dia, estado.grupo);
   var previos = racha.estados.filter(function (e) { return e.dia < estado.dia && e.dia >= estado.dia - 3; })
     .map(function (e) { return 'día ' + e.dia + ': ' + e.estado; }).join(', ');
 
@@ -130,6 +134,7 @@ async function diario(usuario, datos, estado, fire) {
   var registro = {
     dia: estado.dia,
     fecha: estado.hoy,
+    grupo: estado.grupo,
     hecho: entrada.hecho,
     animo: entrada.animo,
     sueno: entrada.sueno,
@@ -174,21 +179,48 @@ async function srbai(usuario, datos, estado, fire) {
   return json(200, { ok: true, guardado: Boolean(ref), estado: estado, srbai: registro });
 }
 
+// Calentamiento: una misión al día mientras se espera al inicio del grupo.
+// Se guarda en el documento del usuario: calentamiento: { 'AAAA-MM-DD': { mision, fecha } }.
+async function calentamiento(usuario, datos, estado, fire, guardado) {
+  if (estado.fase !== 'antes') { return json(409, { error: 'reto_empezado', estado: estado }); }
+  var perfil = Object.assign({}, datos.perfil || {}, (guardado && guardado.perfil) || {});
+  if (!perfil.habito) { return json(409, { error: 'sin_habito' }); }
+  var mision = misionDelDia(perfil, estado.hoy);
+  var marca = { mision: mision.id, fecha: new Date().toISOString() };
+  var hechos = Object.assign({}, perfil.calentamiento || {});
+  hechos[estado.hoy] = marca;
+  if (fire) {
+    var cambio = { calentamiento: {} };
+    cambio.calentamiento[estado.hoy] = marca;
+    await fire.db.collection('usuarios').doc(usuario.uid).set(cambio, { merge: true });
+  }
+  return json(200, { ok: true, guardado: Boolean(fire), estado: estado, calentamiento: hechos, dias: Object.keys(hechos).length });
+}
+
 export default async function handler(req) {
-  var estado = estadoReto(new Date());
-  if (req.method === 'GET') { return json(200, { estado: estado }); }
-  if (req.method !== 'POST') { return json(405, { error: 'metodo' }); }
+  if (req.method !== 'GET' && req.method !== 'POST') { return json(405, { error: 'metodo' }); }
+  if (req.method === 'GET' && !tokenDeCabecera(req)) { return json(200, { estado: estadoReto(new Date(), null) }); }
 
   var acceso = await verificarUsuario(req);
   if (acceso.error) { return acceso.error; }
-  var cuerpo = await leerJson(req, 8000);
-  if (cuerpo.error) { return json(400, { error: cuerpo.error }); }
-  var datos = cuerpo.datos;
+  var datos = {};
+  if (req.method === 'POST') {
+    var cuerpo = await leerJson(req, 8000);
+    if (cuerpo.error) { return json(400, { error: cuerpo.error }); }
+    datos = cuerpo.datos;
+  }
   var fire = await obtenerDb();
 
   try {
+    var guardado = await leerUsuario(fire, acceso.usuario.uid);
+    // El día del reto depende del grupo de la persona (sin Firestore, el que manda la app).
+    var perfil = guardado ? guardado.perfil : (datos.perfil || {});
+    var g = await grupoDePersona(fire, acceso.usuario, perfil);
+    var estado = g.estado;
+    if (req.method === 'GET') { return json(200, { estado: estado, grupo: g.grupo, asignadoAhora: g.asignadoAhora }); }
     if (datos.tipo === 'srbai') { return await srbai(acceso.usuario, datos, estado, fire); }
-    return await diario(acceso.usuario, datos, estado, fire);
+    if (datos.tipo === 'calentamiento') { return await calentamiento(acceso.usuario, datos, estado, fire, guardado); }
+    return await diario(acceso.usuario, datos, estado, fire, guardado);
   } catch (e) {
     console.error('checkin: error', e && e.message);
     return json(500, { error: 'interno' });

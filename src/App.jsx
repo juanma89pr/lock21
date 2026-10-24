@@ -5,6 +5,12 @@ import Inscripcion from './components/Inscripcion.jsx';
 import Icono from './components/Icono.jsx';
 import HABITOS, { buscarHabito } from './datos/habitos.js';
 import config from './config.js';
+import { proximoGrupo, fechaLarga, fechaCorta, fechaEnZona } from './lib/grupos.js';
+
+// Próximo grupo calculado con la fecha de hoy en Canarias: no hay que tocar código.
+var HOY = fechaEnZona(new Date());
+var PROXIMO = proximoGrupo(HOY);
+var PROXIMO_TEXTO = fechaLarga(PROXIMO, HOY);
 
 // Momentos reales del reto: son una secuencia en el tiempo, por eso van con su día.
 var MOMENTOS = [
@@ -19,7 +25,8 @@ var PREGUNTAS = [
   { p: '¿Me van a intentar vender algo?', r: 'Te lo decimos desde ya: al terminar, quien quiera seguir con un entrenador personal de carne y hueso puede pedirlo, y ese servicio sí es de pago. Solo te contamos cómo funciona si marcas la casilla opcional del formulario o lo pides tú.' },
   { p: '¿Por qué solo un hábito?', r: 'Porque intentar cambiar cinco cosas a la vez es la forma más rápida de no cambiar ninguna. Uno bien atado arrastra a los demás.' },
   { p: '¿En 21 días queda el hábito hecho?', r: 'No te lo vamos a prometer. En los estudios, la mayoría de la gente tarda de media unos 66 días en que un hábito le salga solo, y hay mucha variación entre personas. Los 21 días son el arranque: la parte en la que más gente abandona.' },
-  { p: '¿Qué pasa si se cubren las 30 plazas?', r: 'Te avisamos por correo y te guardamos sitio en el siguiente grupo, si quieres.' }
+  { p: '¿Cuándo empiezo?', r: 'Cada dos semanas arranca un grupo nuevo, siempre en lunes. El próximo es el ' + PROXIMO_TEXTO + '. Al entrar en la app puedes elegir ese o el siguiente.' },
+  { p: '¿Qué pasa si se cubren las ' + config.grupos.plazas + ' plazas?', r: 'Pasas al grupo siguiente, que empieza dos semanas después. Mientras esperas, la app te propone una misión de calentamiento de un minuto al día.' }
 ];
 
 function Contenedor(props) {
@@ -39,8 +46,8 @@ function BotonPlaza(props) {
 function DatosGrupo(props) {
   return (
     <ul className={'flex flex-wrap gap-x-6 gap-y-2 text-sm sm:text-base font-semibold ' + (props.className || '')}>
-      <li className="flex items-center gap-2"><Icono nombre="calendario" size={18} grosor={2} />Primer grupo: {config.grupo.fechaTexto}</li>
-      <li className="flex items-center gap-2"><Icono nombre="plazas" size={18} grosor={2} />{config.grupo.plazas} plazas</li>
+      <li className="flex items-center gap-2"><Icono nombre="calendario" size={18} grosor={2} />Próximo grupo: {PROXIMO_TEXTO}</li>
+      <li className="flex items-center gap-2"><Icono nombre="plazas" size={18} grosor={2} />{config.grupos.plazas} plazas por grupo</li>
       <li className="flex items-center gap-2"><Icono nombre="escudo" size={18} grosor={2} />Gratis, sin tarjeta</li>
     </ul>
   );
@@ -99,7 +106,7 @@ export default function App() {
               <DatosGrupo className="mt-8 text-white/90" />
             </div>
             <div>
-              <Tablero habito={habito} />
+              <Tablero habito={habito} inicio={PROXIMO} />
             </div>
           </Contenedor>
         </section>
@@ -190,13 +197,13 @@ export default function App() {
         <section id="plaza" className="bg-cobalto text-white py-20 sm:py-28" aria-labelledby="apuntarse">
           <Contenedor className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-start">
             <div>
-              <h2 id="apuntarse" className="titular text-6xl sm:text-8xl uppercase">Primer grupo: {config.grupo.fechaCorta}. {config.grupo.plazas} plazas.</h2>
+              <h2 id="apuntarse" className="titular text-6xl sm:text-8xl uppercase">Próximo grupo: {fechaCorta(PROXIMO)}. {config.grupos.plazas} plazas.</h2>
               <p className="mt-6 text-lg leading-relaxed text-white/90 max-w-md">
-                Empiezan todos juntos el {config.grupo.fechaTexto}. Son {config.grupo.plazas} plazas porque es el primer grupo y queremos revisar cada curva. Cuando se cubran, se cierra y abrimos lista para el siguiente.
+                Próximo grupo: {PROXIMO_TEXTO}. {config.grupos.plazas} plazas. Después, uno cada dos semanas. Son grupos pequeños porque queremos revisar cada curva; si uno se llena, pasas al siguiente.
               </p>
               <DatosGrupo className="mt-8 text-white/90 flex-col" />
             </div>
-            <Inscripcion habito={habitoId} onHabito={setHabitoId} />
+            <Inscripcion habito={habitoId} onHabito={setHabitoId} grupo={PROXIMO} grupoTexto={PROXIMO_TEXTO} />
           </Contenedor>
         </section>
 

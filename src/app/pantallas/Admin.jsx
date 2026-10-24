@@ -2,6 +2,50 @@ import { useEffect, useState } from 'react';
 import Icono from '../../components/Icono.jsx';
 import { Aviso, Cargando } from '../componentes/ui.jsx';
 import { formatoNumero } from '../../lib/reto.js';
+import { fechaCorta } from '../../lib/grupos.js';
+
+function nombreGrupo(g) {
+  return g === 'pendiente' ? 'Sin grupo' : fechaCorta(g);
+}
+
+function faseGrupo(g) {
+  if (g.fase === 'pendiente') { return 'Se asigna al entrar en la app'; }
+  if (g.fase === 'antes') { return 'Empieza en ' + g.diasHastaInicio + (g.diasHastaInicio === 1 ? ' día' : ' días'); }
+  if (g.fase === 'fin') { return 'Terminado'; }
+  return 'Día ' + g.dia + ' de 21';
+}
+
+// Desglose por grupo: plazas, hábito elegido, calentamiento, check-ins, adherencia y SRBAI.
+function Grupos(props) {
+  var lista = props.grupos || [];
+  if (!lista.length) { return null; }
+  return (
+    <section aria-labelledby="t-grupos">
+      <h2 id="t-grupos" className="titular-medio text-3xl">Por grupo</h2>
+      <ul className="mt-3 grid gap-3">
+        {lista.map(function (g) {
+          return (
+            <li key={g.grupo} className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)]">
+              <div className="flex items-baseline justify-between gap-3">
+                <p className="titular text-3xl text-cobalto">{nombreGrupo(g.grupo)}</p>
+                <p className="text-xs font-bold text-gris">{faseGrupo(g)}</p>
+              </div>
+              <dl className="mt-2 grid grid-cols-3 gap-2 text-sm">
+                <div><dt className="text-xs text-gris">Plazas</dt><dd className="font-bold">{g.grupo === 'pendiente' ? g.registrados : g.registrados + ' / ' + g.plazas}</dd></div>
+                <div><dt className="text-xs text-gris">Con hábito</dt><dd className="font-bold">{g.inscritos}</dd></div>
+                <div><dt className="text-xs text-gris">Calentamiento</dt><dd className="font-bold">{g.calentamiento}</dd></div>
+                <div><dt className="text-xs text-gris">Check-ins</dt><dd className="font-bold">{g.checkins}</dd></div>
+                <div><dt className="text-xs text-gris">Adherencia</dt><dd className="font-bold">{g.adherenciaMedia === null ? '—' : formatoNumero(g.adherenciaMedia) + '%'}</dd></div>
+                <div><dt className="text-xs text-gris">SRBAI 0 → 21</dt><dd className="font-bold whitespace-nowrap">{formatoNumero(g.srbaiMedio['0'])} → {formatoNumero(g.srbaiMedio['21'] === null ? g.srbaiMedio['7'] : g.srbaiMedio['21'])}</dd></div>
+              </dl>
+              {g.leads ? <p className="mt-2 text-xs font-bold text-cobalto">{g.leads} {g.leads === 1 ? 'lead' : 'leads'}</p> : null}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
 
 // Panel del propietario: el acceso lo decide el servidor (función metricas)
 // con la lista de netlify/lib/propietarios.js o el claim admin.
@@ -42,7 +86,7 @@ export default function Admin(props) {
       <div>
         <p className="text-sm font-bold text-cobalto flex items-center gap-1.5"><Icono nombre="admin" size={16} grosor={2.5} />Panel del propietario{props.demo ? ' · datos de ejemplo' : ''}</p>
         <h1 className="titular uppercase text-5xl mt-0.5" tabIndex={-1}>Panel</h1>
-        <p className="text-sm text-gris mt-1">Día del reto: {datos.estado.fase === 'antes' ? 'faltan ' + datos.estado.diasHastaInicio + ' días' : datos.estado.dia}</p>
+        <p className="text-sm text-gris mt-1">Próximo grupo: {fechaCorta(datos.estado.grupo)} (faltan {datos.estado.diasHastaInicio} días). Un grupo cada dos semanas.</p>
       </div>
       <div className="grid grid-cols-2 gap-2">
         <Cifra nombre="Inscritos" valor={datos.inscritos} />
@@ -50,8 +94,9 @@ export default function Admin(props) {
         <Cifra nombre="Adherencia media" valor={datos.adherenciaMedia === null ? '—' : formatoNumero(datos.adherenciaMedia) + '%'} />
         <Cifra nombre="Leads" valor={datos.leads} />
       </div>
+      <Grupos grupos={datos.porGrupo} />
       <section aria-labelledby="t-srbai" className="rounded-[24px] bg-noche text-pista p-5">
-        <h2 id="t-srbai" className="titular-medio text-2xl text-dorsal">SRBAI medio</h2>
+        <h2 id="t-srbai" className="titular-medio text-2xl text-dorsal">SRBAI medio (todos los grupos)</h2>
         <dl className="mt-3 grid grid-cols-3 gap-2 text-center">
           {['0', '7', '21'].map(function (k) {
             return <div key={k}><dt className="text-xs font-bold uppercase text-pista/70">Día {k}</dt><dd className="titular text-4xl">{formatoNumero(datos.srbaiMedio[k])}</dd><dd className="text-xs text-pista/70">{datos.srbaiRespuestas[k]} resp.</dd></div>;
@@ -67,7 +112,7 @@ export default function Admin(props) {
             return (
               <li key={l.email + l.fecha} className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)]">
                 <p className="font-bold break-all">{l.email}</p>
-                <p className="text-sm text-gris">{l.habito} · adherencia {l.adherencia}% · {String(l.fecha).slice(0, 10)}</p>
+                <p className="text-sm text-gris">{l.grupo ? nombreGrupo(l.grupo) + ' · ' : ''}{l.habito} · adherencia {l.adherencia}% · {String(l.fecha).slice(0, 10)}</p>
                 <p className="mt-2 text-sm leading-relaxed">{l.resumen}</p>
                 <p className="mt-2 text-xs text-gris">Consentimiento: {l.consentimiento}</p>
               </li>
@@ -81,13 +126,14 @@ export default function Admin(props) {
         <div className="mt-3 overflow-x-auto rounded-2xl bg-white shadow-[0_2px_0_var(--color-lila)]">
           <table className="w-full text-sm">
             <thead className="text-left text-xs uppercase text-gris">
-              <tr><th scope="col" className="p-3">Correo</th><th scope="col" className="p-3">Hábito</th><th scope="col" className="p-3 text-right">Adh.</th><th scope="col" className="p-3 text-right">SRBAI</th></tr>
+              <tr><th scope="col" className="p-3">Correo</th><th scope="col" className="p-3">Grupo</th><th scope="col" className="p-3">Hábito</th><th scope="col" className="p-3 text-right">Adh.</th><th scope="col" className="p-3 text-right">SRBAI</th></tr>
             </thead>
             <tbody>
               {(datos.detalleInscritos || []).map(function (u) {
                 return (
                   <tr key={u.uid} className="border-t border-lila">
                     <td className="p-3 break-all">{u.email || u.uid}</td>
+                    <td className="p-3 whitespace-nowrap">{u.grupo ? nombreGrupo(u.grupo) : '—'}</td>
                     <td className="p-3">{u.habito}</td>
                     <td className="p-3 text-right font-bold">{u.adherencia}%</td>
                     <td className="p-3 text-right whitespace-nowrap">{formatoNumero(u.srbai['0'])} → {formatoNumero(u.srbai['21'] || u.srbai['7'])}</td>

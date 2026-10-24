@@ -4,7 +4,9 @@ import { Boton, Aviso, Escala, EtiquetaIA, CAMPO } from '../componentes/ui.jsx';
 import { calcularRacha, toca, testAbierto } from '../../lib/reto.js';
 import { buscarHabito } from '../../datos/habitos.js';
 import { navegar } from '../AppReto.jsx';
-import config from '../../config.js';
+import { fechaLarga } from '../../lib/grupos.js';
+import Calentamiento from '../componentes/Calentamiento.jsx';
+import CambiarGrupo from '../componentes/CambiarGrupo.jsx';
 
 var ANIMO = [
   { valor: 1, etiqueta: '1', texto: 'Fatal' },
@@ -114,23 +116,24 @@ function Cuenta(props) {
   return (
     <div className="grid gap-4">
       <div className="rounded-[24px] bg-noche text-pista p-6 text-center">
-        <p className="text-sm font-bold uppercase tracking-wide text-dorsal">Empezamos todos juntos</p>
+        <p className="text-sm font-bold uppercase tracking-wide text-dorsal">Tu grupo empieza en</p>
         <p className="titular text-[7rem] leading-none mt-2 text-dorsal">{dias}</p>
-        <p className="titular-medio text-3xl">{dias === 1 ? 'día para el inicio' : 'días para el inicio'}</p>
-        <p className="mt-3 text-pista/80">El reto arranca el {config.grupo.fechaTexto}. Ese día recibirás tu primer check-in.</p>
+        <p className="titular-medio text-3xl">{dias === 1 ? 'día' : 'días'}</p>
+        <p className="mt-3 text-pista/80">Empiezas el {fechaLarga(props.reto.grupo, props.reto.hoy)}, con tu grupo. Ese día recibirás tu primer check-in.</p>
       </div>
+      <Calentamiento servicio={props.servicio} perfil={props.perfil} reto={props.reto} />
       <Senal perfil={props.perfil} />
       <section aria-labelledby="titulo-preparar" className="rounded-[24px] bg-white p-5 shadow-[0_2px_0_var(--color-lila)]">
-        <h2 id="titulo-preparar" className="titular-medio text-2xl">Mientras tanto</h2>
+        <h2 id="titulo-preparar" className="titular-medio text-2xl">Tu preparación</h2>
         <ul className="mt-3 grid gap-3">
           <li className="flex gap-3 items-start"><Icono nombre="check" size={20} grosor={3} className="shrink-0 text-cobalto mt-0.5" /><span>Hábito y señal elegidos.</span></li>
           <li className="flex gap-3 items-start"><Icono nombre="check" size={20} grosor={3} className="shrink-0 text-cobalto mt-0.5" /><span>Test del día 0 hecho. Puedes repetirlo hasta el día 1 si cambias de hábito.</span></li>
-          <li className="flex gap-3 items-start"><Icono nombre="info" size={20} grosor={2.25} className="shrink-0 text-cobalto mt-0.5" /><span>Ensaya tu señal un par de veces esta semana: que el día 1 no sea la primera vez.</span></li>
         </ul>
         <div className="mt-5 grid grid-cols-2 gap-2">
           <Boton tono="claro" onClick={function () { navegar('/app/habito'); }}>Cambiar hábito</Boton>
           <Boton tono="claro" onClick={function () { navegar('/app/test'); }}>Repetir test</Boton>
         </div>
+        <CambiarGrupo servicio={props.servicio} reto={props.reto} className="mt-5" />
       </section>
     </div>
   );
@@ -146,12 +149,12 @@ export default function Hoy(props) {
     return (
       <div>
         <h1 className="titular uppercase text-5xl mb-4" tabIndex={-1}>Todo listo</h1>
-        <Cuenta reto={reto} perfil={perfil} />
+        <Cuenta reto={reto} perfil={perfil} servicio={props.servicio} />
       </div>
     );
   }
 
-  var racha = calcularRacha(perfil.habito, d.checkins, reto.dia);
+  var racha = calcularRacha(perfil.habito, d.checkins, reto.dia, reto.grupo);
   var hechos = {};
   Object.keys(d.srbai).forEach(function (k) { hechos[k] = true; });
   var test = testAbierto(reto.dia, hechos);
@@ -169,7 +172,7 @@ export default function Hoy(props) {
 
   var habito = buscarHabito(perfil.habito);
   var hoy = d.checkins[String(reto.dia)];
-  var tocaHoy = toca(habito, reto.dia);
+  var tocaHoy = toca(habito, reto.dia, reto.grupo);
 
   return (
     <div className="grid gap-4">

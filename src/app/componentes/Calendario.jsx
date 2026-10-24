@@ -1,5 +1,5 @@
 import Icono from '../../components/Icono.jsx';
-import config from '../../config.js';
+import { diaSemanaDe } from '../../lib/grupos.js';
 
 var NOMBRES_DIA = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'];
 var TEXTOS = {
@@ -16,7 +16,8 @@ var TEXTOS = {
 // Calendario real de los 21 días a partir del cálculo de racha.
 export default function Calendario(props) {
   var cabecera = [];
-  for (var d = 0; d < 7; d++) { cabecera.push(NOMBRES_DIA[(config.grupo.diaSemanaInicio + d) % 7]); }
+  var base = props.grupo ? diaSemanaDe(props.grupo) : 1;
+  for (var d = 0; d < 7; d++) { cabecera.push(NOMBRES_DIA[(base + d) % 7]); }
   return (
     <div>
       <div className="grid grid-cols-7 gap-1.5">

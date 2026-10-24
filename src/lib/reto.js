@@ -3,37 +3,23 @@
 // estas mismas funciones solo para pintar mientras llega la respuesta.
 import config from '../config.js';
 import { buscarHabito } from '../datos/habitos.js';
+import { fechaEnZona, diasEntre, diaSemanaDe, esGrupoValido, proximoGrupo } from './grupos.js';
 
-var MS_DIA = 86400000;
-var DURACION = config.grupo.duracion;
+var DURACION = config.grupos.duracion;
 
-// Fecha 'AAAA-MM-DD' de un instante en una zona horaria.
-export function fechaEnZona(instante, zona) {
-  var partes = new Intl.DateTimeFormat('en-CA', {
-    timeZone: zona || config.grupo.zona,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).formatToParts(instante || new Date());
-  var datos = {};
-  partes.forEach(function (p) { datos[p.type] = p.value; });
-  return datos.year + '-' + datos.month + '-' + datos.day;
+export { fechaEnZona };
+
+// Día del reto para una fecha local: 1 el día de inicio del grupo, 0 o menos antes.
+export function diaParaFecha(fecha, grupo) {
+  return diasEntre(grupo, fecha) + 1;
 }
 
-function aUtc(fecha) {
-  var t = fecha.split('-');
-  return Date.UTC(parseInt(t[0], 10), parseInt(t[1], 10) - 1, parseInt(t[2], 10));
-}
-
-// Día del reto para una fecha local: 1 el día de inicio, 0 o menos antes.
-export function diaParaFecha(fecha) {
-  return Math.round((aUtc(fecha) - aUtc(config.grupo.inicio)) / MS_DIA) + 1;
-}
-
-// Estado completo del reto en un instante.
-export function estadoReto(instante) {
-  var hoy = fechaEnZona(instante || new Date(), config.grupo.zona);
-  var dia = diaParaFecha(hoy);
+// Estado completo del reto en un instante para un grupo ('AAAA-MM-DD').
+// Sin grupo válido (persona aún sin asignar) se usa el próximo grupo.
+export function estadoReto(instante, grupo) {
+  var hoy = fechaEnZona(instante || new Date(), config.grupos.zona);
+  var inicio = esGrupoValido(grupo) ? grupo : proximoGrupo(hoy);
+  var dia = diaParaFecha(hoy, inicio);
   var fase = 'curso';
   if (dia < 1) { fase = 'antes'; }
   if (dia > DURACION) { fase = 'fin'; }
@@ -43,24 +29,28 @@ export function estadoReto(instante) {
     fase: fase,
     diasHastaInicio: dia < 1 ? 1 - dia : 0,
     duracion: DURACION,
-    zona: config.grupo.zona,
-    inicio: config.grupo.inicio
+    zona: config.grupos.zona,
+    inicio: inicio,
+    grupo: inicio,
+    asignado: esGrupoValido(grupo)
   };
 }
 
-export function diaSemana(n) {
-  return (config.grupo.diaSemanaInicio + n - 1 + 7 * 10) % 7;
+// Día de la semana (0 = domingo) del día n del reto. Los grupos empiezan en lunes.
+export function diaSemana(n, grupo) {
+  var base = esGrupoValido(grupo) ? diaSemanaDe(grupo) : diaSemanaDe(config.grupos.primero);
+  return (base + n - 1 + 7 * 10) % 7;
 }
 
-export function toca(habito, n) {
+export function toca(habito, n, grupo) {
   if (!habito || habito.dias === 'todos') { return true; }
-  return habito.dias.indexOf(diaSemana(n)) !== -1;
+  return habito.dias.indexOf(diaSemana(n, grupo)) !== -1;
 }
 
 // Racha con la regla "nunca dos fallos seguidos": un fallo suelto se perdona,
 // el segundo seguido (entre días en los que toca) la pone a cero.
-// checkins: objeto { '1': { hecho: true }, ... }. diaActual: día del reto hoy.
-export function calcularRacha(habitoId, checkins, diaActual) {
+// checkins: objeto { '1': { hecho: true }, ... }. diaActual: día del reto hoy. grupo: fecha de inicio.
+export function calcularRacha(habitoId, checkins, diaActual, grupo) {
   var habito = buscarHabito(habitoId);
   var lista = checkins || {};
   var tope = Math.min(diaActual, DURACION);
@@ -72,8 +62,8 @@ export function calcularRacha(habitoId, checkins, diaActual) {
   var perdonados = 0;
   var estados = [];
   for (var n = 1; n <= DURACION; n++) {
-    if (n > tope) { estados.push({ dia: n, estado: toca(habito, n) ? 'futuro' : 'libre' }); continue; }
-    if (!toca(habito, n)) { estados.push({ dia: n, estado: 'libre' }); continue; }
+    if (n > tope) { estados.push({ dia: n, estado: toca(habito, n, grupo) ? 'futuro' : 'libre' }); continue; }
+    if (!toca(habito, n, grupo)) { estados.push({ dia: n, estado: 'libre' }); continue; }
     var c = lista[String(n)];
     if (!c && n === diaActual) { estados.push({ dia: n, estado: 'pendiente' }); continue; }
     programados = programados + 1;

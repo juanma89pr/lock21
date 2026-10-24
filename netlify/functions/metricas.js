@@ -1,12 +1,16 @@
 // Métricas de solo lectura. Acceso:
 // - Authorization: Bearer <METRICAS_TOKEN> (tarea semanal): solo agregados, sin correos.
 // - Token de Firebase de un propietario (panel /app/admin): agregados + detalle de inscritos y leads.
+// Todo se desglosa por grupo (porGrupo). Quien aún no tiene grupo válido (inscrito antes de
+// los grupos quincenales y sin volver a entrar) sale como 'pendiente': se le asigna al entrar.
 import { timingSafeEqual } from 'node:crypto';
 import { json } from '../lib/http.js';
 import { verificarUsuario, tokenDeCabecera } from '../lib/auth.js';
 import { obtenerDb } from '../lib/admin.js';
 import { esPropietario } from '../lib/propietarios.js';
 import { estadoReto, calcularRacha } from '../../src/lib/reto.js';
+import { esGrupoValido, fechaEnZona, proximosGrupos } from '../../src/lib/grupos.js';
+import config from '../../src/config.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
 
 function mismoToken(a, b) {
@@ -36,7 +40,7 @@ export default async function handler(req) {
     conDetalle = true;
   }
 
-  var estado = estadoReto(new Date());
+  var estado = estadoReto(new Date(), null);
   var fire = await obtenerDb();
   if (!fire) { return json(503, { error: 'sin_firestore', estado: estado }); }
 
@@ -65,22 +69,84 @@ export default async function handler(req) {
     var adherencias = [];
     var inscritos = [];
     var porHabito = {};
+    var porGrupo = {};
+    function bloque(clave) {
+      if (!porGrupo[clave]) {
+        var e = clave === 'pendiente' ? null : estadoReto(new Date(), clave);
+        porGrupo[clave] = {
+          grupo: clave,
+          fase: e ? e.fase : 'pendiente',
+          dia: e ? e.dia : null,
+          diasHastaInicio: e ? e.diasHastaInicio : null,
+          plazas: config.grupos.plazas,
+          registrados: 0,
+          inscritos: 0,
+          checkins: 0,
+          calentamiento: 0,
+          leads: 0,
+          adherencias: [],
+          srbai: { '0': [], '7': [], '21': [] }
+        };
+      }
+      return porGrupo[clave];
+    }
+    // Los dos próximos grupos aparecen siempre, aunque estén vacíos.
+    proximosGrupos(fechaEnZona(new Date()), config.grupos.elegibles).forEach(bloque);
+    var grupoDe = {};
+
     usuarios.forEach(function (d) {
       var p = d.data();
+      var clave = esGrupoValido(p.grupo) ? p.grupo : 'pendiente';
+      grupoDe[d.id] = clave;
+      var b = bloque(clave);
+      b.registrados = b.registrados + 1;
       if (!p.habito) { return; }
+      var e = clave === 'pendiente' ? estado : estadoReto(new Date(), clave);
       porHabito[p.habito] = (porHabito[p.habito] || 0) + 1;
-      var r = calcularRacha(p.habito, porUsuario[d.id] || {}, estado.dia);
-      if (estado.fase !== 'antes') { adherencias.push(r.adherencia); }
+      var r = calcularRacha(p.habito, porUsuario[d.id] || {}, e.dia, e.grupo);
+      var nCheckins = Object.keys(porUsuario[d.id] || {}).length;
+      var nCalentamiento = p.calentamiento ? Object.keys(p.calentamiento).length : 0;
+      b.inscritos = b.inscritos + 1;
+      b.checkins = b.checkins + nCheckins;
+      b.calentamiento = b.calentamiento + nCalentamiento;
+      if (e.fase !== 'antes') { adherencias.push(r.adherencia); b.adherencias.push(r.adherencia); }
+      var su = srbaiPorUsuario[d.id] || {};
+      ['0', '7', '21'].forEach(function (k) { if (typeof su[k] === 'number') { b.srbai[k].push(su[k]); } });
       inscritos.push({
         uid: d.id.slice(0, 8),
         email: conDetalle ? (p.email || '') : undefined,
+        grupo: clave,
         habito: buscarHabito(p.habito).corto,
         racha: r.racha,
         adherencia: r.adherencia,
-        checkins: Object.keys(porUsuario[d.id] || {}).length,
-        srbai: srbaiPorUsuario[d.id] || {},
+        checkins: nCheckins,
+        calentamiento: nCalentamiento,
+        srbai: su,
         alta: p.alta || ''
       });
+    });
+    leads.forEach(function (d) {
+      var clave = grupoDe[d.id] || 'pendiente';
+      var b = bloque(clave);
+      b.leads = b.leads + 1;
+    });
+
+    var grupos = Object.keys(porGrupo).sort().map(function (k) {
+      var b = porGrupo[k];
+      return {
+        grupo: b.grupo,
+        fase: b.fase,
+        dia: b.dia,
+        diasHastaInicio: b.diasHastaInicio,
+        plazas: b.plazas,
+        registrados: b.registrados,
+        inscritos: b.inscritos,
+        checkins: b.checkins,
+        calentamiento: b.calentamiento,
+        leads: b.leads,
+        adherenciaMedia: media(b.adherencias),
+        srbaiMedio: { '0': media(b.srbai['0']), '7': media(b.srbai['7']), '21': media(b.srbai['21']) }
+      };
     });
 
     var cuerpo = {
@@ -89,6 +155,7 @@ export default async function handler(req) {
       inscritos: inscritos.length,
       registrados: usuarios.size,
       porHabito: porHabito,
+      porGrupo: grupos,
       checkins: checkins.size,
       adherenciaMedia: media(adherencias),
       srbaiMedio: { '0': media(srbaiPorDia['0']), '7': media(srbaiPorDia['7']), '21': media(srbaiPorDia['21']) },
@@ -100,7 +167,7 @@ export default async function handler(req) {
       cuerpo.detalleLeads = [];
       leads.forEach(function (d) {
         var l = d.data();
-        cuerpo.detalleLeads.push({ email: l.email, fecha: l.fecha, resumen: l.resumen, habito: l.datos && l.datos.habito, adherencia: l.datos && l.datos.adherencia, consentimiento: l.consentimiento && l.consentimiento.version, estado: l.estado });
+        cuerpo.detalleLeads.push({ grupo: l.grupo || grupoDe[d.id] || 'pendiente', email: l.email, fecha: l.fecha, resumen: l.resumen, habito: l.datos && l.datos.habito, adherencia: l.datos && l.datos.adherencia, consentimiento: l.consentimiento && l.consentimiento.version, estado: l.estado });
       });
     }
     return json(200, cuerpo);
