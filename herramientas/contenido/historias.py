@@ -63,13 +63,17 @@ def nuevo_post(tipo, titular, linea, extra=''):
 def historias(r):
     dias = {
         '2026-10-24': [calentamiento(0),
-                       nuevo_post('carrusel', 'Qué es <span class="ac">Lock21</span>', 'Un hábito, una señal y 21 días, explicado en siete diapositivas.'),
+                       nuevo_post('carrusel', 'Por qué existe <span class="ac">Lock21</span>', 'De dónde sale el reto, contado por quien lo creó. Siete diapositivas.'),
                        enlace()],
         '2026-10-25': [calentamiento(1),
-                       H('t-cobalto', K('Dato') + T('¿21 días para crear un hábito?', 150) +
-                         P('En el estudio más citado la mediana fue de <b>66 días</b>, con mucha diferencia entre personas.', 50, 40) +
-                         P('Por eso 21 días son el arranque, no la meta.', 50, 30) +
-                         '<p style="margin-top:60px;font-size:30px;color:rgba(255,255,255,.75)">Lally et al. (2010), European Journal of Social Psychology.</p>'),
+                       H('t-pista', K('Así empecé yo') + T('No cambié todo a la vez.', 150) +
+                         T('<span class="ac">Uno.</span> Y luego otro.', 150, 30) +
+                         P('Lock21 es el método que me hubiera gustado tener cuando empecé a cambiar mis hábitos.', 50, 50) +
+                         '<div style="display:flex;align-items:center;gap:20px;margin-top:60px"><span style="width:84px;height:84px;border-radius:50%;background:#2433D9;color:#FFD02E;display:flex;align-items:center;justify-content:center;font-stretch:64%;font-weight:860;font-size:50px">J</span>'
+                         '<span style="font-size:36px;line-height:1.2"><b style="font-weight:780">Juanma</b><br><span style="color:#4A5175">Creador de Lock21</span></span></div>'),
+                       H('t-noche', K('Para que quede claro') + T('Lock21 no es un programa para dejar de fumar ni de beber', 120) +
+                         P('Es un reto para arrancar un hábito pequeño: pasos, sueño, movilidad, agua, entrenar o pantallas.', 50, 40) +
+                         P('La historia de quien lo creó es contexto, no una promesa.', 50, 30)),
                        enlace('t-dorsal', 'Un hábito.<br>21 días.<br>Gratis.')],
         '2026-10-26': [calentamiento(2),
                        H('t-pista', K('Así es la web') + T('¿Cuál sería el tuyo?', 130) +
@@ -93,9 +97,9 @@ def historias(r):
                          '<p style="margin-top:24px;font-size:28px;color:#4A5175">Recreación de la pantalla con un mensaje de ejemplo. El coach es una IA y cada mensaje lo indica.</p>'),
                        enlace('t-cobalto')],
         '2026-10-31': [calentamiento(7),
-                       H('t-cobalto', K('La semana en Lock21') + T('Lo que tienes que saber', 140) + ''.join(
+                       H('t-cobalto', K('La semana en Lock21') + T('Lo que tienes que saber', 130) + ''.join(
                            '<div style="display:flex;align-items:center;gap:26px;margin-top:40px;font-size:46px;font-weight:650"><span style="flex:none;width:86px;height:86px;border-radius:50%%;background:#FFD02E;color:#0B1240;display:flex;align-items:center;justify-content:center">%s</span>%s</div>' % (icono(i, 46, 2.25), t)
-                           for i, t in (('check', 'Un hábito, no seis.'), ('link-2', 'Atado a una señal: después de X, hago Y.'), ('bot', 'Check-in diario con un coach que es una IA.'), ('calendar-days', 'Próximo grupo: lunes 16 de noviembre.'))) +
+                           for i, t in (('user-round', 'Creado por alguien que cambió sus hábitos de uno en uno.'), ('check', 'Un hábito, no seis.'), ('link-2', 'Atado a una señal: después de X, hago Y.'), ('bot', 'Check-in diario con un coach que es una IA.'), ('calendar-days', 'Próximo grupo: lunes 16 de noviembre.'))) +
                          '<p style="margin-top:70px;font-size:40px;font-weight:750;color:#FFD02E">El reel de la semana, en el feed.</p>')],
     }
     for dia, lst in dias.items():
@@ -104,7 +108,7 @@ def historias(r):
 
 
 def destacadas(r):
-    for nombre, ic, archivo in (('Cómo va', 'link-2', 'destacada-como-va'), ('La ciencia', 'chart-spline', 'destacada-la-ciencia'), ('Preguntas', 'circle-help', 'destacada-preguntas')):
+    for nombre, ic, archivo in (('La historia', 'user-round', 'destacada-la-historia'), ('Cómo va', 'link-2', 'destacada-como-va'), ('La ciencia', 'chart-spline', 'destacada-la-ciencia'), ('Preguntas', 'circle-help', 'destacada-preguntas')):
         html = ('<div class="lienzo t-cobalto" style="width:1080px;height:1920px;align-items:center;justify-content:center">'
                 '<div style="width:640px;height:640px;border-radius:50%%;background:#FFD02E;color:#0B1240;display:flex;align-items:center;justify-content:center">%s</div>'
                 '<p class="tit" style="font-size:120px;margin-top:80px;color:#fff">%s</p></div>') % (icono(ic, 330, 2), nombre)

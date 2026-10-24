@@ -33,34 +33,43 @@ def guardar(render, carpeta, diapos):
         render.png(html, 1080, 1350, OUT / carpeta / ('%02d.png' % i))
 
 
-def que_es(r):
+def firma_creador(color='var(--suave)', fondo='#FFD02E', letra='#0B1240'):
+    return ('<div style="display:flex;align-items:center;gap:18px;margin-top:56px">'
+            '<span style="flex:none;width:72px;height:72px;border-radius:50%%;background:%s;color:%s;display:flex;align-items:center;justify-content:center;font-stretch:64%%;font-weight:860;font-size:44px">J</span>'
+            '<span style="font-size:32px;line-height:1.2;color:%s"><b style="font-weight:780">Juanma</b><br>Creador de Lock21</span></div>') % (fondo, letra, color)
+
+
+def por_que_existe(r):
     tot = 7
     d = [
-        diapo('t-cobalto', 1, tot, K('Esto es Lock21') + T('Un hábito.<br>21 días.<br><span class="ac">Gratis.</span>', 205) + P('Así funciona el reto, en siete diapositivas.', 46, 44)),
-        diapo('t-pista', 2, tot, T('Eliges <span class="ac">uno</span> de 6 hábitos', 128, 0) + '<div style="margin-top:50px">%s</div>' % rejilla_habitos(900, tam=40) + P('Uno solo, a propósito.', 42, 40)),
-        diapo('t-dorsal', 3, tot, T('Lo atas a<br>una señal', 150, 0) +
-              '<p class="tit" style="font-size:118px;margin-top:46px;color:#2433D9">“Después de X,<br>hago Y.”</p>' +
-              '<div style="margin-top:56px;border-radius:36px;background:#0B1240;color:#F4F6FF;padding:38px 44px;font-size:42px;line-height:1.3;font-weight:500">'
-              '<span style="display:block;font-size:28px;font-weight:800;letter-spacing:.06em;color:#FFD02E;margin-bottom:12px">EJEMPLO</span><b style="font-weight:780">Después de comer,</b> salgo a caminar 20 minutos.</div>'),
-        diapo('t-noche', 4, tot, T('Check-in de<br><span class="ac">1 minuto</span><br>cada día', 140, 0) +
-              P('Con un coach que es <b>una IA, y te lo dice.</b> No da dietas, calorías ni consejos médicos.', 44, 40) +
-              '<div style="margin-top:48px;display:inline-flex;align-items:center;gap:14px;border-radius:999px;background:#C7CDF7;color:#1A25A8;padding:16px 30px;font-size:34px;font-weight:800;letter-spacing:.06em;align-self:flex-start">%sCOACH IA</div>' % icono('bot', 38, 2.5)),
-        diapo('t-pista', 5, tot, T('¿Fallas un día?<br><span class="ac">La racha sigue</span>', 128, 0) +
-              '<div style="margin-top:44px">%s</div>' % tablero(estados_ejemplo(10), 760, 14, cabecera=False) +
-              P('La única regla: <b>nunca dos fallos seguidos.</b>', 44, 36)),
-        diapo('t-cobalto', 6, tot, T('21 días son <span class="ac">el arranque</span>', 132, 0) +
-              P('Test de 4 preguntas los días 0, 7 y 21. Lo normal es que el hábito se asiente <b>hacia el día 66.</b>', 42, 30) +
-              '<div style="margin-top:34px">%s</div>' % curva(900, 400, '#fff', zona=('#FFFFFF', 0.14)) +
-              '<p style="margin-top:14px;font-size:24px;color:rgba(255,255,255,.75)">Curva ilustrativa. Lally et al. (2010): mediana de 66 días hasta la automaticidad.</p>'),
-        diapo('t-dorsal', 7, tot, K('Próximo grupo', 0) + T('Lunes 16 de noviembre', 190) +
+        diapo('t-noche', 1, tot, K('Por qué existe Lock21') +
+              T('No lo creó un experto.<br><span class="ac">Lo creó alguien que tuvo que cambiar.</span>', 140) +
+              P('Te cuento de dónde sale, en siete diapositivas.', 44, 44)),
+        diapo('t-pista', 2, tot, K('Así empecé yo', 0) +
+              T('Fumaba. Bebía de más cada fin de semana.', 124) +
+              T('Y dejaba mis prioridades <span class="ac">para otro día.</span>', 124, 30) +
+              P('No lo cuento para dar lecciones a nadie. Lo cuento porque de ahí sale todo esto.', 42, 44)),
+        diapo('t-cobalto', 3, tot, T('No lo cambié de golpe.', 150, 0) +
+              T('<span class="ac">Lo cambié de uno en uno.</span>', 150, 20) +
+              P('Hábito a hábito, aprendiendo en mí mismo qué funcionaba y qué no.', 46, 48)),
+        diapo('t-dorsal', 4, tot, T('Lock21 es el método que me hubiera gustado tener', 128, 0) + firma_creador('#0B1240', '#0B1240', '#FFD02E')),
+        diapo('t-pista', 5, tot, K('Cómo funciona', 0) +
+              '<div style="margin-top:40px;display:grid;gap:30px">' + ''.join(
+                  '<div style="display:flex;align-items:center;gap:28px;font-size:46px;font-weight:650;line-height:1.2"><span style="flex:none;width:92px;height:92px;border-radius:50%%;background:#2433D9;color:#FFD02E;display:flex;align-items:center;justify-content:center">%s</span><span>%s</span></div>' % (icono(i, 48, 2.25), t)
+                  for i, t in (('check', 'Eliges <b style="font-weight:800">un</b> hábito de seis.'), ('link-2', 'Lo atas a algo que ya haces: después de X, hago Y.'),
+                               ('bot', 'Check-in de 1 minuto con un coach que es una IA, y te lo dice.'), ('calendar-days', '21 días para arrancarlo. Un fallo suelto no rompe la racha.'))) + '</div>'),
+        diapo('t-noche', 6, tot, K('Para que quede claro', 0) +
+              T('No es un programa para dejar de fumar ni de beber.', 118, 24) +
+              P('Es para arrancar un hábito pequeño: pasos, sueño, movilidad, agua, entrenar o pantallas. Mi historia es cómo empecé yo, <b>no una promesa.</b>', 44, 44)),
+        diapo('t-dorsal', 7, tot, K('Próximo grupo · gratis', 0) + T('Lunes 16 de noviembre', 190) +
               P('<b>30 plazas.</b> Después, un grupo nuevo cada dos semanas.', 46, 40), ultima=True),
     ]
-    guardar(r, '2026-10-24_carrusel_que-es-lock21', d)
+    guardar(r, '2026-10-24_carrusel_por-que-existe-lock21', d)
 
 
 def seis_habitos(r):
     tot = 7
-    d = [diapo('t-cobalto', 1, tot, T('6 hábitos.<br><span class="ac">Tú eliges uno.</span>', 210, 0) + P('Cuál es el tuyo, y con qué señal atarlo.', 46, 48))]
+    d = [diapo('t-cobalto', 1, tot, T('6 hábitos.<br><span class="ac">Tú eliges uno.</span>', 210, 0) + P('Yo cambié los míos de uno en uno. Aquí se empieza igual: por uno.', 46, 48))]
     temas = ['t-pista', 't-noche', 't-dorsal', 't-pista']
     for i in range(4):
         h = HABITOS[i]
@@ -79,7 +88,7 @@ def seis_habitos(r):
                 % (icono(h[0], 58, 2.25), h[1], h[2], h[3]))
     d.append(diapo('t-cobalto', 6, tot, K('Y dos más', 0) + dos))
     d.append(diapo('t-dorsal', 7, tot, T('¿Cuál es<br>el tuyo?', 200, 0) +
-                   P('Dímelo en comentarios. Y si dudas, <b>haz el test en historias.</b>', 46, 40) +
+                   P('Dímelo en comentarios. Y si dudas entre dos, <b>hoy hay test en historias.</b>', 46, 40) +
                    P('Próximo grupo: lunes 16 de noviembre · 30 plazas.', 38, 30), ultima=True))
     guardar(r, '2026-10-28_carrusel_6-habitos', d)
 
@@ -106,39 +115,42 @@ def PT(t, size=104, mt=0):
 def personal(r):
     tot = 6
     d = [
-        diapo_p(1, tot, PT('He montado <span class="p-mark">un reto.</span>', 150) + P('Es gratis, dura 21 días y va de una sola cosa. Te lo cuento.', 46, 44)),
-        diapo_p(2, tot, PT('Llevo años viendo lo mismo con la gente que entreno.') +
-                P('El problema casi nunca es la información. Es <b>sostener algo pequeño</b> cuando se acaba la motivación.', 46, 44)),
-        diapo_p(3, tot, PT('Así que lo he reducido a <span class="p-mark">lo mínimo.</span>') +
+        diapo_p(1, tot, PT('Hubo una época en la que dejaba mis prioridades <span class="p-mark">para otro día.</span>', 124) +
+                P('Hoy te cuento por qué he creado un reto.', 46, 44)),
+        diapo_p(2, tot, PT('Fumaba. Bebía de más todos los fines de semana.') +
+                P('No lo cambié de golpe ni con un plan perfecto. Lo fui cambiando <b>de uno en uno</b>, aprendiendo en mí mismo.', 46, 44)),
+        diapo_p(3, tot, PT('Así que he montado lo que me hubiera gustado <span class="p-mark">tener.</span>') +
                 '<div style="margin-top:50px;display:grid;gap:22px">' + ''.join(
-                    '<div style="display:flex;align-items:center;gap:24px;font-size:46px;font-weight:650"><span style="width:70px;height:70px;border-radius:50%%;background:#FFD02E;color:#0B1240;display:flex;align-items:center;justify-content:center">%s</span>%s</div>' % (icono(i, 38, 2.5), t)
-                    for i, t in (('check', 'Un hábito, no seis.'), ('link-2', 'Atado a algo que ya haces.'), ('calendar-days', '21 días para arrancarlo.'))) + '</div>'),
-        diapo_p(4, tot, PT('Cada día, un <span style="white-space:nowrap">check-in</span> de un minuto.') +
-                P('Te responde un coach que es <b>una IA, y lo dice</b> en cada mensaje. Yo estoy detrás del reto y de cómo está montado.', 46, 44), tema='t-pista'),
-        diapo_p(5, tot, PT('21 días no son <span class="p-mark">la meta.</span>') +
-                P('Son el arranque. Lo normal es que un hábito se asiente hacia el día 66. Prefiero decírtelo antes de que empieces.', 46, 44)),
-        diapo_p(6, tot, '<p class="kicker" style="font-size:32px">Primer grupo</p>' + PT('Lunes 16 de noviembre. <span class="p-mark">30 plazas.</span>', 124, 20) +
+                    '<div style="display:flex;align-items:center;gap:24px;font-size:46px;font-weight:650"><span style="flex:none;width:70px;height:70px;border-radius:50%%;background:#FFD02E;color:#0B1240;display:flex;align-items:center;justify-content:center">%s</span>%s</div>' % (icono(i, 38, 2.5), t)
+                    for i, t in (('check', 'Un hábito cada vez.'), ('link-2', 'Atado a algo que ya haces.'), ('calendar-days', '21 días para arrancarlo.'))) + '</div>'),
+        diapo_p(4, tot, PT('Se llama <span class="p-mark">Lock21.</span>', 140) +
+                P('Es gratis. Eliges un hábito de seis y cada día haces un check-in de un minuto con un coach que es <b>una IA, y lo dice</b> en cada mensaje.', 46, 44)),
+        diapo_p(5, tot, '<p class="kicker" style="font-size:32px">Una cosa clara</p>' +
+                PT('No es un programa para dejar de fumar ni de beber.', 112, 20) +
+                P('Es para arrancar un hábito pequeño. Mi historia es cómo empecé yo, no una promesa de nada.', 46, 44)),
+        diapo_p(6, tot, '<p class="kicker" style="font-size:32px">Próximo grupo</p>' + PT('Lunes 16 de noviembre. <span class="p-mark">30 plazas.</span>', 124, 20) +
                 P('Y después, uno cada dos semanas. Lo tienes en <b>@reto.lock21</b>.', 44, 40), ultima=True),
     ]
-    guardar(r, 'juanma-personal/2026-10-26_carrusel_he-montado-un-reto', d)
+    guardar(r, 'juanma-personal/2026-10-26_carrusel_asi-empece-yo', d)
 
-    tot = 6
+    tot = 7
     preg = [
+        ('¿Tú eres experto en esto?', 'No. Soy alguien que cambió sus hábitos de uno en uno. Lock21 es el método que me hubiera gustado tener.'),
         ('¿Cuesta algo?', 'No. El reto, el coach y el test son gratis, y no te pido tarjeta.'),
         ('¿El coach es una persona?', 'No. Es una IA y lo dice. No da dietas, calorías ni consejos médicos.'),
         ('¿Y si fallo un día?', 'La racha lo perdona. La única regla es no fallar dos días seguidos.'),
-        ('¿Y cuando acabe?', 'Sigues por tu cuenta con tu señal. Y si quieres seguir acompañado, te apuntas a una lista. Opcional y de pago.'),
+        ('¿Y cuando acabe?', 'Sigues por tu cuenta con tu señal. Si quieres seguir acompañado, puedes apuntarte a la lista. Es opcional.'),
     ]
-    d = [diapo_p(1, tot, PT('Lo que seguramente te estás preguntando <span class="p-mark">de mi reto.</span>', 124) + P('Cuatro respuestas cortas.', 46, 44))]
+    d = [diapo_p(1, tot, PT('Lo que seguramente te estás preguntando <span class="p-mark">de mi reto.</span>', 124) + P('Cinco respuestas cortas.', 46, 44))]
     for i, (q, a) in enumerate(preg):
         d.append(diapo_p(i + 2, tot, '<p class="kicker" style="font-size:32px">Pregunta %d</p>' % (i + 1) + PT(q, 124, 20) + P(a, 48, 44)))
-    d.append(diapo_p(6, tot, PT('¿Te animas a elegir <span class="p-mark">uno?</span>', 140) +
-                     P('Primer grupo: lunes 16 de noviembre, 30 plazas. Si tienes otra duda, pregúntamela en comentarios.', 44, 40), ultima=True))
+    d.append(diapo_p(7, tot, PT('¿Te animas a elegir <span class="p-mark">uno?</span>', 140) +
+                     P('Próximo grupo: lunes 16 de noviembre, 30&nbsp;plazas. Si tienes otra duda, pregúntamela en comentarios.', 44, 40), ultima=True))
     guardar(r, 'juanma-personal/2026-10-29_carrusel_preguntas-del-reto', d)
 
 
 if __name__ == '__main__':
     import sys
     with Render() as r:
-        for f in sys.argv[1:] or ['que_es', 'seis_habitos', 'personal']:
+        for f in sys.argv[1:] or ['por_que_existe', 'seis_habitos', 'personal']:
             globals()[f](r)
