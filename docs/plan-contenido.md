@@ -1,3 +1,5 @@
+> **Sustituido el 24/10/2026 por `docs/campana-instagram.md`** (grupos cada dos semanas desde el lunes 16 de noviembre). Este plan se conserva solo como banco de piezas reutilizables; sus fechas del 1 de diciembre ya no valen.
+
 # Plan de contenido Lock21: inscripción y primer grupo (oct-dic 2026)
 
 ## Qué funciona en 2026 y cómo lo aplicamos
