@@ -54,6 +54,7 @@ export function validarPieza(p) {
   if (p.tipo === 'reel' && (p.archivos.length !== 1 || !esVideo(p.archivos[0]))) { errores.push('un reel lleva un único MP4'); }
   if (p.tipo === 'historia' && p.archivos.length !== 1) { errores.push('una historia lleva un único archivo'); }
   if (p.portada && !esJpeg(p.portada)) { errores.push('la portada debe ser JPEG'); }
+  if (p.colaboradores && (!Array.isArray(p.colaboradores) || p.colaboradores.length > 3)) { errores.push('colaboradores: lista de hasta 3 usuarios'); }
   var pie = p.pie || '';
   if (pie.length > 2200) { errores.push('pie de más de 2.200 caracteres'); }
   if ((pie.match(/#[^\s#]+/g) || []).length > 30) { errores.push('más de 30 hashtags'); }
@@ -187,7 +188,17 @@ async function crearContenedores(api, ctx, pieza, registro) {
     var pr = { media_type: 'REELS', video_url: urls[0], caption: pieza.pie || '', share_to_feed: 'true' };
     if (pieza.portada) { pr.cover_url = urlMedio(ctx.base, pieza.portada); }
     if (pieza.prueba) { pr.trial_params = { graduation_strategy: 'SS_PERFORMANCE' }; delete pr.share_to_feed; }
-    r = await api.post(igUser, pr);
+    if (pieza.audio) { pr.audio_name = String(pieza.audio).slice(0, 60); }
+    if (pieza.colaboradores && pieza.colaboradores.length && !pieza.prueba) { pr.collaborators = pieza.colaboradores.slice(0, 3); }
+    try {
+      r = await api.post(igUser, pr);
+    } catch (errReel) {
+      // Si falla por la invitación de colaboración (cuenta privada, etc.), se publica sin ella.
+      if (!pr.collaborators) { throw errReel; }
+      delete pr.collaborators;
+      registro.sinColaboradores = textoError(errReel);
+      r = await api.post(igUser, pr);
+    }
     return r.id;
   }
   if (pieza.tipo === 'historia') {

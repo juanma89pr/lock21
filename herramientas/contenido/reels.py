@@ -1,7 +1,7 @@
 from lk import *
 
 PRUEBA = os.environ.get('PRUEBA')
-OUT = Path('/home/claude/lock21-contenido/semana-1')
+OUT = Path(os.environ.get('SALIDA', '/home/claude/lock21-contenido/semana-1'))
 # Zona segura: nada de texto en los 200 px superiores ni en los 250 inferiores; margen derecho amplio por los botones de Instagram.
 PAD = 'padding:230px 140px 290px 90px'
 
@@ -24,7 +24,7 @@ def P(t, size=50, mt=30):
 
 
 def cierre_lock(t0):
-    return A('<div style="margin-top:60px;display:inline-flex;align-items:center;gap:18px;border-radius:999px;background:#FFD02E;color:#0B1240;padding:24px 36px;font-size:38px;white-space:nowrap;font-weight:780;font-stretch:104%%">%sComenta LOCK y te paso el enlace</div>' % icono('message-circle', 44, 2.5), t0, 'pop')
+    return A('<div style="margin-top:60px;display:inline-flex;align-items:center;gap:18px;border-radius:999px;background:#FFD02E;color:#0B1240;padding:24px 36px;font-size:38px;white-space:nowrap;font-weight:780;font-stretch:104%%">%sPide tu plaza: enlace en la bio</div>' % icono('link-2', 44, 2.5), t0, 'pop')
 
 
 def reel_lunes(r):

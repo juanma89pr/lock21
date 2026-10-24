@@ -28,7 +28,7 @@ nombres.forEach(function (n) {
     if (/\.jpe?g$/i.test(a) && tam > 8 * 1024 * 1024) { errores.push(ruta + ': ' + f + ' pasa de 8 MB'); }
     if (/\.mp4$/i.test(a) && tam > 100 * 1024 * 1024) { errores.push(ruta + ': ' + f + ' pasa de 100 MB'); }
   });
-  piezas.push({ id: p.id, fecha: p.fecha, tipo: p.tipo, archivos: p.archivos, portada: p.portada || null, pie: p.pie || '', prueba: !!p.prueba, estado: p.estado || 'programado' });
+  piezas.push({ id: p.id, fecha: p.fecha, tipo: p.tipo, archivos: p.archivos, portada: p.portada || null, pie: p.pie || '', prueba: !!p.prueba, audio: p.audio || null, colaboradores: p.colaboradores || null, estado: p.estado || 'programado' });
 });
 
 if (errores.length) {
