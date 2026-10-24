@@ -1,4 +1,4 @@
-// Función programada (cada 10 minutos, ver netlify.toml): publica en Instagram lo que
+// Función programada (cada 5 minutos, ver netlify.toml): publica en Instagram lo que
 // ya toca de la cola (contenido/cola/*.json, empaquetada en el build).
 // Sin IG_PUBLICAR=1 solo simula y lo registra. Estado en Netlify Blobs (publicador-instagram).
 import { getStore } from '@netlify/blobs';
