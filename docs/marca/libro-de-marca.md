@@ -461,7 +461,6 @@ Aprobada por Juanma el 24 oct 2026. Sustituye para todo contenido nuevo al estil
 - **Reels**: cortes secos de color en la rejilla de 150 BPM (múltiplos de 0,4 s), texto que sube desde su línea, cámara casi quieta, sonido de marca guiado por eventos.
 - **Generadores vigentes**: `herramientas/contenido/identidad2.py` (piezas, paleta, carruseles 1080×1350 e historias 1080×1920) y `herramientas/contenido/dinamico2.py` (reels). Ejemplos: `hoy_24oct.py` y `semana_25_31.py`. Los antiguos `lk.py`, `carruseles.py`, `historias.py`, `reels.py` y `dinamico.py` quedan **obsoletos para contenido nuevo** (se conservan solo como referencia de guiones).
 
-## Horarios de publicación (desde el 26 oct 2026)
-- Publicaciones del perfil (reels y carruseles): **20:45 hora de Canarias** (21:45 en la península). En España la franja de más uso de Instagram es 21:00–23:00 y la de reels, de 21:00 a 23:00 (sobre todo miércoles, jueves y domingo).
-- Historias: 10:00 (calentamiento) y **21:30** (cuenta atrás).
-- Se ajusta con las estadísticas reales de la cuenta cuando haya datos (informe de los miércoles).
+## Horarios de publicación (decisión de Juanma, 25 oct 2026)
+- Publicaciones del perfil (reels y carruseles): 19:30 hora de Canarias. Historias: 10:00 (calentamiento) y 20:00 (cuenta atrás).
+- Se mantiene así para ver resultados pronto; la prueba de otros horarios (por ejemplo 20:45, en la franja 21:00–23:00 peninsular) se decide en el informe del miércoles.
