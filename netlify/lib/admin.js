@@ -5,22 +5,33 @@
 
 var instancia = null;
 var intentado = false;
+// Motivo (sin datos sensibles) por el que no hay Firestore, para diagnosticar desde pulso-metricas.
+export var diagnosticoDb = { motivo: null, longitud: 0 };
 
 export async function obtenerDb() {
   if (intentado) { return instancia; }
   intentado = true;
   var b64 = process.env.FIREBASE_SERVICE_ACCOUNT;
-  if (!b64) { return null; }
+  if (!b64) { diagnosticoDb.motivo = 'sin_variable'; return null; }
+  diagnosticoDb.longitud = b64.length;
+  var credenciales = null;
   try {
     var bruto = b64.trim();
     var texto = bruto.charAt(0) === '{' ? bruto : Buffer.from(bruto, 'base64').toString('utf8');
-    var credenciales = JSON.parse(texto);
+    credenciales = JSON.parse(texto);
+  } catch (eJson) {
+    diagnosticoDb.motivo = 'json_invalido';
+    return null;
+  }
+  if (!credenciales || !credenciales.private_key || !credenciales.client_email) { diagnosticoDb.motivo = 'faltan_campos'; return null; }
+  try {
     var app = await import('firebase-admin/app');
     var fs = await import('firebase-admin/firestore');
     var existente = app.getApps().length ? app.getApps()[0] : app.initializeApp({ credential: app.cert(credenciales) });
     instancia = { db: fs.getFirestore(existente), FieldValue: fs.FieldValue, app: existente };
   } catch (e) {
     console.error('firebase-admin: no se pudo iniciar', e && e.message);
+    diagnosticoDb.motivo = /private key|PEM|DECODER/i.test(String(e && e.message)) ? 'clave_privada_invalida' : 'error_inicio';
     instancia = null;
   }
   return instancia;

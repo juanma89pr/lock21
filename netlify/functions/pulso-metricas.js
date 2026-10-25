@@ -3,6 +3,7 @@
 import { getStore } from '@netlify/blobs';
 import { json } from '../lib/http.js';
 import { calcularMetricas } from './metricas.js';
+import { diagnosticoDb } from '../lib/admin.js';
 
 function diaCanarias(d) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Atlantic/Canary', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
@@ -37,5 +38,5 @@ export default async function handler(req) {
   } catch (e2) {
     reto = { error: 'sin_datos' };
   }
-  return json(200, { generado: new Date().toISOString(), web: web, reto: reto });
+  return json(200, { generado: new Date().toISOString(), web: web, reto: reto, firestore: diagnosticoDb });
 }
