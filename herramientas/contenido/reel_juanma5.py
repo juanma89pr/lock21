@@ -115,9 +115,7 @@ def cortar_video(dest):
 
 
 _cache = {}
-EQ_VOZ = ('highpass=f=100,equalizer=f=220:t=q:w=1.0:g=-5,equalizer=f=450:t=q:w=1.0:g=-3,equalizer=f=2800:t=q:w=0.8:g=5,'
-          'highshelf=f=6000:g=4,aexciter=amount=1.5:drive=7:blend=0:freq=5000:ceil=15000,'
-          'acompressor=threshold=-20dB:ratio=2:attack=12:release=180:makeup=1')
+EQ_VOZ = 'anull'   # voz tal cual (la versión aprobada); el EQ la distorsionaba
 
 
 def audio_bruto(clip):
@@ -251,18 +249,19 @@ def capa():
     ev.append(('candado', T(8, 0.35), 0.8))
     out.append(centro(dorsal(P['tomate'], P['hueso'], '30', 'Grupo 01', 'Plazas', ancho=440), T(8, 1.0), T0[9], CENTROS_T[0] + 20))
     ev.append(('pop', T(8, 1.0), 0.5))
-    out.append(rot_t(rotulo('un *hábito* · 30 personas · *gratis* · 21 días', T(8, 0.05), T0[9], [T(8, x) for x in (0.05, 0.20, 0.50, 0.60, 0.80, 1.06, 1.40, 1.86, 2.18)])))
     # 9. Cierre: la necesidad y la llamada.
     a9, t9 = T0[9] - 0.25, T0[9]
     p9 = ('<div class="panel" data-a="%.3f" data-b="%.3f" style="background:%s;color:%s"><div class="lab" style="display:flex;justify-content:space-between;font-size:26px"><span>Lock21</span><span>Salida 16·11</span></div><div class="cont">'
           '<div class="fd" data-pop="1" data-a="%.3f" style="margin-top:auto;margin-bottom:50px">%s</div>%s%s'
           '<div class="fd" data-a="%.3f" style="margin-top:44px"><span style="display:inline-flex;align-items:center;gap:16px;border-radius:999px;background:%s;color:%s;padding:24px 38px;font-size:42px;font-weight:750">Pide tu plaza: enlace en la bio</span></div></div></div>') % (
-        a9, DUR + 1, P['cobalto'], P['rosa'], t9 + 0.05, logo_marca(P['rosa'], 120),
-        M('¿Cuántos lunes|más vas a esperar?', t9 + 0.35, 120),
-        M('Próximo grupo: lunes 16 nov.|Solo 30 plazas. Gratis.', t9 + 1.4, 54, paso=0.14, clase='med', estilo='margin-top:40px'),
-        t9 + 2.3, P['rosa'], P['cobalto'])
+        a9, DUR + 1, P['cobalto'], P['rosa'], t9 + 0.70, logo_marca(P['rosa'], 120),
+        M('¿Cuántos lunes|más vas a esperar?', t9 + 0.95, 120),
+        M('Próximo grupo: lunes 16 nov.|Solo 30 plazas. Gratis.', t9 + 1.9, 54, paso=0.14, clase='med', estilo='margin-top:40px'),
+        t9 + 2.7, P['rosa'], P['cobalto'])
     out.append(p9)
-    ev += [('barrido', a9 + 0.2, 0.5), ('final', t9, 0.45), ('candado', t9 + 0.1, 0.8), ('golpe', t9 + 0.35, 0.35), ('pop', t9 + 2.3, 0.5)]
+    # El rótulo del videowall va encima del cierre para que se lea mientras termina la frase.
+    out.append(rot_t(rotulo('un *hábito* · 30 personas · *gratis* · 21 días', T(8, 0.05), T(8, 2.95), [T(8, x) for x in (0.05, 0.20, 0.50, 0.60, 0.80, 1.06, 1.40, 1.86, 2.18, 2.60)])))
+    ev += [('barrido', a9 + 0.2, 0.22), ('candado', t9 + 0.75, 0.8), ('golpe', t9 + 0.95, 0.3), ('pop', t9 + 2.7, 0.5)]
     return '<div class="capa">%s</div>' % ''.join(out), ev
 
 
@@ -298,7 +297,8 @@ def main(dest):
     env = np.full(len(mus), 0.12)
     for i, p in enumerate(P_):
         if p['c'] is None and i != 5:
-            env[int(T0[i] * SR):int((T0[i] + NF[i] / FPS) * SR)] = 0.65
+            ini = T0[i] + (0.7 if i == 9 else 0.0)   # en el cierre la música sube cuando acaba la voz
+            env[int(ini * SR):int((T0[i] + NF[i] / FPS) * SR)] = 0.65
     env = audio.lp(env, 5)
     mezcla = v[:len(mus)] + mus * env
     # Solo ganancia: pico a -1 dBFS (sin limitador ni compresor).
