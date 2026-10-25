@@ -40,6 +40,11 @@ export default async function handler(req) {
     conDetalle = true;
   }
 
+  return calcularMetricas(conDetalle);
+}
+
+// También la usa pulso-metricas (solo agregados, sin datos personales).
+export async function calcularMetricas(conDetalle) {
   var estado = estadoReto(new Date(), null);
   var fire = await obtenerDb();
   if (!fire) { return json(503, { error: 'sin_firestore', estado: estado }); }

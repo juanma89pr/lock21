@@ -5,6 +5,7 @@ import Inscripcion from './components/Inscripcion.jsx';
 import Icono from './components/Icono.jsx';
 import HABITOS, { buscarHabito } from './datos/habitos.js';
 import config from './config.js';
+import medir from './lib/medir.js';
 import { proximoGrupo, fechaLarga, fechaCorta, fechaEnZona } from './lib/grupos.js';
 
 // Próximo grupo calculado con la fecha de hoy en Canarias: no hay que tocar código.
@@ -35,10 +36,12 @@ function Contenedor(props) {
   return <div className={'mx-auto w-full max-w-6xl px-4 sm:px-8 ' + (props.className || '')}>{props.children}</div>;
 }
 
+function clicPlaza() { medir('clic_plaza'); }
+
 function BotonPlaza(props) {
   var oscuro = props.tono === 'oscuro';
   return (
-    <a href="#plaza" className={'boton text-lg ' + (oscuro ? 'bg-noche text-dorsal hover:bg-cobalto-hondo' : 'bg-dorsal text-noche hover:bg-dorsal-hondo')}>
+    <a href="#plaza" onClick={clicPlaza} className={'boton text-lg ' + (oscuro ? 'bg-noche text-dorsal hover:bg-cobalto-hondo' : 'bg-dorsal text-noche hover:bg-dorsal-hondo')}>
       {props.children || 'Pedir mi plaza gratis'}
       <Icono nombre="abajo" size={20} grosor={2.5} />
     </a>
@@ -68,7 +71,7 @@ export default function App() {
           <a href="#inicio" className="titular text-3xl flex items-center gap-1.5" aria-label="Lock21, inicio">
             <Icono nombre="candado" size={22} grosor={2.75} className="text-dorsal" />Lock21
           </a>
-          <a href="#plaza" className="rounded-full bg-dorsal text-noche px-4 py-2 text-sm font-bold ancho hover:bg-dorsal-hondo">Pedir plaza</a>
+          <a href="#plaza" onClick={clicPlaza} className="rounded-full bg-dorsal text-noche px-4 py-2 text-sm font-bold ancho hover:bg-dorsal-hondo">Pedir plaza</a>
         </Contenedor>
       </header>
 

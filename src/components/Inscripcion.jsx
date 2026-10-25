@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import HABITOS, { buscarHabito } from '../datos/habitos.js';
 import config from '../config.js';
+import medir from '../lib/medir.js';
 
 function codificar(datos) {
   return Object.keys(datos).map(function (clave) {
@@ -56,6 +57,7 @@ export default function Inscripcion(props) {
     }).then(function (r) {
       if (!r.ok) { throw new Error('estado ' + r.status); }
       setFase('hecho');
+      medir('solicitud');
     }).catch(function () {
       setFase('listo');
       setError('No se ha podido guardar tu plaza. Revisa la conexión e inténtalo otra vez.');
