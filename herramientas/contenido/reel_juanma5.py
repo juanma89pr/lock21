@@ -41,8 +41,8 @@ P_ = [
     dict(c=None, d=2.00),                                                   # 5 grafismo mientras sigue la voz ("...en los días que más lo hacemos")
     dict(c=C84, va=2.00, vb=7.55, aa=2.00, ab=7.55, modo='t'),              # 6 Y como sé lo difícil que es llegar a esos 21 días, hoy presento Lock21
     dict(c=None, d=5.40),                                                   # 7 Así va Lock21
-    dict(c=C86, va=0.00, vb=2.93, aa=0.00, ab=2.93, modo='t'),              # 8 un hábito · 30 personas · gratis · 21 días
-    dict(c=None, d=4.60),                                                   # 9 ¿Cuántos lunes más? + llamada
+    dict(c=C86, va=0.00, vb=2.30, aa=0.00, ab=2.93, modo='t'),              # 8 un hábito · 30 personas · gratis · 21 días (la mirada se va: corta la imagen, sigue la voz)
+    dict(c=None, d=5.20),                                                   # 9 ¿Cuántos lunes más? + llamada
 ]
 NF = [int(round(((p['vb'] - p['va']) if p['c'] else p['d']) * FPS)) for p in P_]
 T0 = [sum(NF[:i]) / FPS for i in range(len(P_))]
@@ -94,6 +94,9 @@ def cortar_video(dest):
     partes = []
     for i, p in enumerate(P_):
         out = dest / ('v%02d.mp4' % i)
+        partes.append(out)
+        if out.exists():
+            continue
         if p['c'] is None:
             subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i', 'color=c=0x2433D9:s=%dx%d:r=%d' % (W, H, FPS),
                             '-frames:v', str(NF[i]), '-c:v', 'libx264', '-crf', '17', '-pix_fmt', 'yuv420p', str(out)], check=True)
@@ -107,18 +110,21 @@ def cortar_video(dest):
             vf = 'fps=%d,scale=%d:%d:flags=lanczos,eq=contrast=1.04:saturation=1.05' % (FPS, W, H)
             codificar(['ffmpeg', '-v', 'error', '-ss', '%.3f' % p['va'], '-i', str(p['c']), '-map', '0:v:0', '-vf', vf], out, NF[i],
                       camiseta_negra if p.get('oscuro') else None)
-        partes.append(out)
     (dest / 'lista.txt').write_text(''.join("file '%s'\n" % q.name for q in partes))
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', str(dest / 'lista.txt'), '-c', 'copy', str(dest / 'base.mp4')], check=True)
 
 
 _cache = {}
+EQ_VOZ = ('highpass=f=100,equalizer=f=220:t=q:w=1.0:g=-5,equalizer=f=450:t=q:w=1.0:g=-3,equalizer=f=2800:t=q:w=0.8:g=5,'
+          'highshelf=f=6000:g=4,aexciter=amount=1.5:drive=7:blend=0:freq=5000:ceil=15000,'
+          'acompressor=threshold=-20dB:ratio=2:attack=12:release=180:makeup=1')
 
 
 def audio_bruto(clip):
-    # Audio tal cual sale de la cámara (un canal; los dos son idénticos). Sin filtros.
+    # El micro graba la voz apagada y con mucho grave (suena a lata): se limpia el grave, se quita la caja (200-450 Hz),
+    # se recupera la presencia (2,8 kHz) y el aire (6 kHz + excitador suave) y una compresión ligera para igualar.
     if clip not in _cache:
-        raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(clip), '-vn', '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'], capture_output=True, check=True).stdout
+        raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(clip), '-vn', '-ac', '1', '-ar', str(SR), '-af', EQ_VOZ, '-f', 's16le', '-'], capture_output=True, check=True).stdout
         _cache[clip] = np.frombuffer(raw, np.int16).astype(np.float64) / 32768
     return _cache[clip]
 
@@ -215,7 +221,7 @@ def capa():
         M('Ahí es donde|casi todos lo dejamos.', T0[5] + 0.1, 110), T0[5] + 0.3,
         linea(P['cobalto'], 1, 888).replace('class="linea "', 'class="linea" data-anim="%.3f,%.3f,1,10"' % (T0[5] + 0.4, T0[5] + 1.8), 1))
     out.append(p5)
-    ev += [('barrido', a5 + 0.2, 0.5), ('barrido', b5 - 0.05, 0.45)]
+    ev += [('barrido', a5 + 0.2, 0.5), ('barrido', b5 - 0.05, 0.45), ('candado', T0[5] + 0.05, 0.8)]
     # 6. Videowall: "Y como sé lo difícil que es llegar a esos 21 días, hoy presento Lock21" -> logo.
     out.append(rot_t(rotulo('y como sé lo difícil que es llegar a esos *21 días*', T(6, 2.10), T(6, 5.60),
                             [T(6, x) for x in (2.10, 2.25, 2.42, 2.58, 2.66, 2.92, 3.10, 3.24, 3.56, 3.70, 3.80, 4.34)])))
@@ -239,7 +245,7 @@ def capa():
         paso('03', 'Día 21: desbloqueado. Y eliges el siguiente.', t7 + 3.1),
         t7 + 4.1, candado(P['bosque'], 70, abierto=True))
     out.append(p7)
-    ev += [('barrido', a7 + 0.2, 0.5), ('pop', t7 + 0.9, 0.45), ('pop', t7 + 2.0, 0.45), ('pop', t7 + 3.1, 0.45), ('desbloqueo', t7 + 3.1, 0.6), ('barrido', b7 - 0.05, 0.45)]
+    ev += [('barrido', a7 + 0.2, 0.5), ('pop', t7 + 0.9, 0.45), ('pop', t7 + 2.0, 0.45), ('pop', t7 + 3.1, 0.45), ('desbloqueo', t7 + 3.1, 0.6), ('candado', t7 + 4.15, 0.7), ('barrido', b7 - 0.05, 0.45)]
     # 8. Videowall: un hábito · 30 personas · gratis · 21 días.
     out.append(centro(candado_cierra(T(8, 0.35), 150), T(8, 0.0), T(8, 0.95), CENTROS_T[1]))
     ev.append(('candado', T(8, 0.35), 0.8))
@@ -256,7 +262,7 @@ def capa():
         M('Próximo grupo: lunes 16 nov.|Solo 30 plazas. Gratis.', t9 + 1.4, 54, paso=0.14, clase='med', estilo='margin-top:40px'),
         t9 + 2.3, P['rosa'], P['cobalto'])
     out.append(p9)
-    ev += [('barrido', a9 + 0.2, 0.5), ('final', t9, 0.45), ('golpe', t9 + 0.35, 0.35), ('pop', t9 + 2.3, 0.5)]
+    ev += [('barrido', a9 + 0.2, 0.5), ('final', t9, 0.45), ('candado', t9 + 0.1, 0.8), ('golpe', t9 + 0.35, 0.35), ('pop', t9 + 2.3, 0.5)]
     return '<div class="capa">%s</div>' % ''.join(out), ev
 
 
