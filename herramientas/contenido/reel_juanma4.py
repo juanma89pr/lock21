@@ -75,12 +75,16 @@ def cortar_video(dest):
 
 
 def audio_clip(clip, dest):
-    tmp = dest / (clip.stem + '_voz.wav')
+    tmp = dest / (clip.stem + '_voz_natural.wav')
     if not tmp.exists():
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(clip), '-vn', '-ac', '1', '-ar', str(SR),
-                        '-af', 'highpass=f=80,afftdn=nf=-28,acompressor=threshold=-22dB:ratio=2.5:attack=8:release=150', str(tmp)], check=True)
+                        '-af', 'highpass=f=70,acompressor=threshold=-16dB:ratio=1.6:attack=20:release=250:makeup=1', str(tmp)], check=True)
     sr, x = wavfile.read(str(tmp))
     return x.astype(np.float64) / 32768
+
+
+# Palabras clave (plano, desde, hasta en el clip) que se realzan.
+CLAVES = [(0, 4.12, 5.52), (1, 7.72, 8.32), (2, 2.30, 2.95), (5, 1.68, 2.48), (6, 6.45, 7.45), (8, 1.00, 1.85)]
 
 
 def voz(dest):
@@ -100,6 +104,17 @@ def voz(dest):
         seg[-f:] *= np.linspace(1, 0, f)
         j = int(round(T0[i] * SR))
         v[j:j + len(seg)] += seg
+    # Realce solo en las palabras clave: un poco más de presencia y una cola corta de sala (sin eco ni robotizar).
+    sala = audio.reverb_ir(0.9, 5000)
+    for (i, a, b) in CLAVES:
+        t1, t2 = T(i, a), T(i, b)
+        j1, j2 = int(t1 * SR), int(t2 * SR)
+        pal = v[j1:j2].copy()
+        f = int(0.02 * SR)
+        rampa = np.ones(len(pal)); rampa[:f] = np.linspace(0, 1, f); rampa[-f:] = np.linspace(1, 0, f)
+        v[j1:j2] += pal * 0.33 * rampa
+        cola = __import__('scipy.signal', fromlist=['fftconvolve']).fftconvolve(pal * rampa, sala)
+        v[j1:j1 + len(cola)] += 0.22 * cola[:max(0, len(v) - j1)]
     return np.clip(v[:n], -1, 1)
 
 
@@ -222,10 +237,12 @@ def renderizar_capa(html, dest):
 def main(dest):
     dest = Path(dest)
     dest.mkdir(parents=True, exist_ok=True)
-    cortar_video(dest)
     html, ev = capa()
-    renderizar_capa(html, dest)
+    if not ((dest / 'base.mp4').exists() and (dest / 'capa').exists() and len(list((dest / 'capa').glob('*.png'))) == sum(NF)):
+        cortar_video(dest)
+        renderizar_capa(html, dest)
     v = voz(dest)
+    ev = ev + [('golpe', T(i, a), 0.3) for (i, a, b) in CLAVES]
     eventos = [{'tipo': t, 't': max(0.0, round(x, 3)), 'g': g} for (t, x, g) in ev] + [{'tipo': 'candado', 't': -10, 'g': 0}]
     mus = audio.componer_eventos(DUR, eventos)[:len(v)]
     env = np.full(len(mus), 0.14)
@@ -235,10 +252,14 @@ def main(dest):
     env = audio.lp(env, 5)
     mezcla = v[:len(mus)] + mus * env
     mezcla *= 0.92 / (np.max(np.abs(mezcla)) + 1e-9)
+    # Sonoridad final ~ -14 LUFS con ganancia lineal (sin compresión que bombee la voz).
     audio.guardar_wav(str(dest / 'mezcla.wav'), mezcla)
+    r = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(dest / 'mezcla.wav'), '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    lufs = float([l for l in r.splitlines() if l.strip().startswith('I:')][-1].split()[1])
+    ganancia_db = -14.0 - lufs
     (dest / 'guion.json').write_text(json.dumps({'T0': T0, 'NF': NF, 'DUR': DUR, 'eventos': eventos}, indent=1))
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(dest / 'base.mp4'), '-framerate', str(FPS), '-i', str(dest / 'capa' / '%05d.png'), '-i', str(dest / 'mezcla.wav'),
-                    '-filter_complex', '[0:v][1:v]overlay=0:0:format=auto,format=yuv420p[v];[2:a]loudnorm=I=-14:TP=-1.0:LRA=9[a]', '-map', '[v]', '-map', '[a]',
+                    '-filter_complex', '[0:v][1:v]overlay=0:0:format=auto,format=yuv420p[v];[2:a]volume=%.2fdB,alimiter=limit=0.89:attack=4:release=60:level=false[a]' % ganancia_db + '', '-map', '[v]', '-map', '[a]',
                     '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-r', str(FPS), '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart',
                     '-t', '%.3f' % DUR, str(dest / 'reel.mp4')], check=True)
     print('ok', dest / 'reel.mp4', DUR)
