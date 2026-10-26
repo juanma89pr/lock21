@@ -58,6 +58,45 @@ function Cifra(props) {
   );
 }
 
+
+var NOMBRES_ORIGEN = { instagram: 'Instagram', whatsapp: 'WhatsApp', google: 'Google', facebook: 'Facebook', directo: 'Directo', interno: 'Desde la propia web', x: 'X', tiktok: 'TikTok', otros: 'Otros' };
+
+// Web: visitas, clics en "Pedir plaza" y solicitudes de los últimos 30 días, por origen (medición propia sin cookies).
+function Web() {
+  var e = useState(null);
+  var web = e[0];
+  useEffect(function () {
+    fetch('/.netlify/functions/pulso-metricas').then(function (r) { return r.json(); }).then(function (d) { e[1](d.web || null); }).catch(function () { e[1]({ error: true }); });
+  }, []);
+  if (!web) { return null; }
+  var t = web.totales || {};
+  function total(ev) { return t[ev] ? t[ev].total : 0; }
+  var visitas = total('visita');
+  var solicitudes = total('solicitud');
+  var origenes = t.visita ? Object.keys(t.visita.origen).sort(function (a, b) { return t.visita.origen[b] - t.visita.origen[a]; }) : [];
+  var hoy = (web.dias || []).length ? web.dias[web.dias.length - 1] : null;
+  return (
+    <section aria-labelledby="t-web" className="grid gap-3">
+      <h2 id="t-web" className="titular-medio text-3xl">Web · últimos 30 días</h2>
+      <div className="grid grid-cols-2 gap-2">
+        <Cifra nombre="Visitas" valor={visitas} />
+        <Cifra nombre="Clics en Pedir plaza" valor={total('clic_plaza')} />
+        <Cifra nombre="Solicitudes de plaza" valor={solicitudes} />
+        <Cifra nombre="Conversión" valor={visitas ? formatoNumero(Math.round(solicitudes / visitas * 1000) / 10) + '%' : '—'} />
+      </div>
+      {hoy ? <p className="text-sm text-gris">Último día con datos ({hoy.dia}): {hoy.datos.visita ? hoy.datos.visita.total : 0} visitas, {hoy.datos.solicitud ? hoy.datos.solicitud.total : 0} solicitudes.</p> : null}
+      {origenes.length ? (
+        <ul className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)] grid gap-1.5 text-sm">
+          {origenes.map(function (o) {
+            return <li key={o} className="flex justify-between gap-3"><span>{NOMBRES_ORIGEN[o] || o}</span><span className="font-bold">{t.visita.origen[o]}</span></li>;
+          })}
+        </ul>
+      ) : <p className="text-sm text-gris">Aún no hay visitas registradas.</p>}
+      <p className="text-xs text-gris">La lista completa de solicitudes (nombre, correo, hábito y grupo) está en Netlify → Forms → lista-espera.</p>
+    </section>
+  );
+}
+
 export default function Admin(props) {
   var e1 = useState(null);
   var datos = e1[0];
@@ -76,6 +115,7 @@ export default function Admin(props) {
       <div className="grid gap-4">
         <h1 className="titular uppercase text-5xl" tabIndex={-1}>Panel</h1>
         <Aviso tono="error">{error}</Aviso>
+        <Web />
       </div>
     );
   }
@@ -94,6 +134,7 @@ export default function Admin(props) {
         <Cifra nombre="Adherencia media" valor={datos.adherenciaMedia === null ? '—' : formatoNumero(datos.adherenciaMedia) + '%'} />
         <Cifra nombre="Leads" valor={datos.leads} />
       </div>
+      <Web />
       <Grupos grupos={datos.porGrupo} />
       <section aria-labelledby="t-srbai" className="rounded-[24px] bg-noche text-pista p-5">
         <h2 id="t-srbai" className="titular-medio text-2xl text-dorsal">SRBAI medio (todos los grupos)</h2>
