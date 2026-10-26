@@ -106,7 +106,7 @@ export default function Admin(props) {
   useEffect(function () {
     props.servicio.metricas().then(function (r) { e1[1](r); }).catch(function (err) {
       var c = err.codigo;
-      e2[1](c === 'sin_permiso' ? 'Esta cuenta no tiene acceso al panel.' : c === 'sin_firestore' ? 'Falta FIREBASE_SERVICE_ACCOUNT en Netlify: sin ella no hay datos que mostrar.' : 'No se han podido cargar las métricas.');
+      e2[1](c === 'sin_permiso' ? 'Esta cuenta es de participante y no tiene acceso al panel. Sal (arriba a la derecha) y entra con el correo de administración.' : c === 'sin_firestore' ? 'Falta FIREBASE_SERVICE_ACCOUNT en Netlify: sin ella no hay datos que mostrar.' : 'No se han podido cargar las métricas.');
     });
   }, [props.servicio]);
 

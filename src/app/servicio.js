@@ -201,7 +201,9 @@ export function crearServicioReal() {
     escuchar: emisor.escuchar,
     actual: function () { return estado; },
     enviarEnlace: async function (email) {
-      await sendSignInLinkToEmail(auth, email, { url: window.location.origin + '/app', handleCodeInApp: true });
+      // El enlace devuelve a la misma zona desde la que se pidió: el panel del propietario o el reto.
+      var destino = /^\/app\/admin/.test(window.location.pathname) ? '/app/admin' : '/app';
+      await sendSignInLinkToEmail(auth, email, { url: window.location.origin + destino, handleCodeInApp: true });
       guardarLocal(CLAVE_EMAIL, email);
     },
     completarEnlace: completarEnlace,

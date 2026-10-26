@@ -18,6 +18,12 @@
 [functions."renovar-token-instagram"]
   schedule = "17 4 * * 1"
 
+# Acceso directo al panel del propietario.
+[[redirects]]
+  from = "/admin"
+  to = "/app/admin"
+  status = 301
+
 # La app del reto vive bajo /app (SPA); la landing sigue en /.
 [[redirects]]
   from = "/app/*"

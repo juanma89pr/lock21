@@ -153,7 +153,7 @@ export default function AppReto() {
   } else if (estado.cargando) {
     contenido = <Cargando />;
   } else if (!estado.usuario) {
-    contenido = <Entrar servicio={servicio} estado={estado} demo={demo} />;
+    contenido = <Entrar servicio={servicio} estado={estado} demo={demo} admin={ruta === '/app/admin'} />;
   } else if (ruta === '/app/admin') {
     contenido = <Admin servicio={servicio} demo={demo} />;
   } else if (!perfil.aceptaciones) {

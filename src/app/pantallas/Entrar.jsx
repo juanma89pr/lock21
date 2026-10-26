@@ -47,8 +47,8 @@ export default function Entrar(props) {
     <div className="pt-4">
       <div className="rounded-[28px] bg-cobalto text-white p-6 -mx-1">
         <p className="inline-flex items-center gap-2 rounded-full bg-noche/35 px-3 py-1 text-sm font-semibold"><span className="size-2 rounded-full bg-dorsal" />Próximo grupo: {fechaLarga(proximoGrupo())}</p>
-        <h1 className="titular uppercase text-[3.4rem] mt-4" tabIndex={-1}>Tu reto de 21 días empieza aquí</h1>
-        <p className="mt-3 text-white/90 leading-relaxed">Entra con tu correo. Te mandamos un enlace y listo: sin contraseñas que recordar.</p>
+        <h1 className="titular uppercase text-[3.4rem] mt-4" tabIndex={-1}>{props.admin ? 'Panel del propietario' : 'Tu reto de 21 días empieza aquí'}</h1>
+        <p className="mt-3 text-white/90 leading-relaxed">{props.admin ? 'Entra con el correo de administración. Te mandamos un enlace que te devuelve directamente al panel.' : 'Entra con tu correo. Te mandamos un enlace y listo: sin contraseñas que recordar.'}</p>
       </div>
       <form onSubmit={enviar} noValidate className="mt-6 grid gap-4">
         {props.estado.errorEnlace ? <Aviso tono="error">{props.estado.errorEnlace}</Aviso> : null}
