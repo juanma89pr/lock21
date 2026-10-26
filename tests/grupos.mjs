@@ -114,7 +114,7 @@ usuarios.antiguo = { grupo: '2026-12-01', alta: '2026-10-22T10:00:00Z', habito: 
 usuarios.sinCampo = { alta: '2026-10-22T10:00:00Z' };
 var fire = crearFire(usuarios);
 var persona = { uid: 'nueva', email: 'nueva@correo.es', email_verified: true };
-var dueno = { uid: 'dueno', email: 'jmmoreno19@gmail.com', email_verified: true };
+var dueno = { uid: 'dueno', email: 'lock21@balancet.org', email_verified: true };
 var instante = new Date('2026-10-24T12:00:00Z');
 
 var r1 = await elegirGrupo(fire, persona, '2026-10-24', '2026-11-16');
