@@ -6,6 +6,7 @@ function origen() {
   var ua = navigator.userAgent || '';
   var q = new URLSearchParams(window.location.search);
   var utm = (q.get('utm_source') || q.get('o') || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 20);
+  if (utm === 'ig' || utm === 'instagram_bio' || utm === 'linktree') { utm = 'instagram'; }
   if (utm) { return utm; }
   if (/Instagram/i.test(ua)) { return 'instagram'; }
   if (/FBAN|FBAV|FB_IAB/i.test(ua)) { return 'facebook'; }

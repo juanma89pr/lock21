@@ -59,7 +59,7 @@ function Cifra(props) {
 }
 
 
-var NOMBRES_ORIGEN = { instagram: 'Instagram', whatsapp: 'WhatsApp', google: 'Google', facebook: 'Facebook', directo: 'Directo', interno: 'Desde la propia web', x: 'X', tiktok: 'TikTok', otros: 'Otros' };
+var NOMBRES_ORIGEN = { ig: 'Instagram', instagram: 'Instagram', whatsapp: 'WhatsApp', google: 'Google', facebook: 'Facebook', directo: 'Directo', interno: 'Desde la propia web', x: 'X', tiktok: 'TikTok', otros: 'Otros' };
 
 // Web: visitas, clics en "Pedir plaza" y solicitudes de los últimos 30 días, por origen (medición propia sin cookies).
 function Web() {
