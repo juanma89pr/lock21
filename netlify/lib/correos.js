@@ -76,9 +76,10 @@ export function contenido(tipo, id, d, hoy) {
         { t: 'p', v: 'Mira tu día normal y busca algo que ya haces sin pensar: el café, salir del trabajo, lavarte los dientes. Ahí atas ' + h.corto.toLowerCase() + '. Por ejemplo: ' + ejemplo + '.' },
         { t: 'p', v: 'La señal pesa más que las ganas. Las ganas van y vienen; el café de la mañana está todos los días.' },
         { t: 'separador' },
-        { t: 'sub', v: 'Di que empiezas' },
-        { t: 'p', v: 'Quien sabe que lo estás haciendo te lo recuerda sin que se lo pidas. Tu imagen con tu dorsal sigue aquí:' },
-        { t: 'boton', v: 'Compartir mi dorsal', url: e.dentro },
+        // A quien ya compartió su dorsal no se le vuelve a pedir.
+        d.compartidos ? null : { t: 'sub', v: 'Di que empiezas' },
+        d.compartidos ? null : { t: 'p', v: 'Quien sabe que lo estás haciendo te lo recuerda sin que se lo pidas. Tu imagen con tu dorsal sigue aquí:' },
+        d.compartidos ? null : { t: 'boton', v: 'Compartir mi dorsal', url: e.dentro },
         { t: 'p', v: '¿Alguien que lleve tiempo diciendo «el lunes empiezo»? Pásale tu enlace.' },
         { t: 'boton2', v: 'Invitar por WhatsApp', url: e.whatsapp }
       ]

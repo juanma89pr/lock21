@@ -50,6 +50,9 @@ TIPOS.forEach(function (t) {
 igual('asunto con dorsal', componer('bienvenida', 'a'.repeat(24), base, '2026-10-26').asunto, 'Dentro, Ana. Tu dorsal es el 07');
 igual('bienvenida a 1 día lleva el enlace a la app', componer('bienvenida', 'a'.repeat(24), base, '2026-11-15').texto.indexOf('Entrar en Lock21') !== -1, true);
 
+igual('d7 no pide compartir a quien ya compartió', componer('d7', 'a'.repeat(24), Object.assign({}, base, { compartidos: 2 }), '2026-11-09').texto.indexOf('Compartir mi dorsal'), -1);
+igual('d7 sí lo pide a quien no', componer('d7', 'a'.repeat(24), base, '2026-11-09').texto.indexOf('Compartir mi dorsal') !== -1, true);
+
 // Inscripciones.
 igual('nombre de correo', nombreDeCorreo('maria.perez93@gmail.com'), 'Maria');
 igual('nombre de correo con números delante', nombreDeCorreo('93@x.com'), '');
