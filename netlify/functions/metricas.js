@@ -12,6 +12,7 @@ import { estadoReto, calcularRacha } from '../../src/lib/reto.js';
 import { esGrupoValido, fechaEnZona, proximosGrupos } from '../../src/lib/grupos.js';
 import config from '../../src/config.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
+import { estadosPuente } from '../lib/puente.js';
 
 function mismoToken(a, b) {
   var x = Buffer.from(String(a));
@@ -165,7 +166,9 @@ export async function calcularMetricas(conDetalle) {
       adherenciaMedia: media(adherencias),
       srbaiMedio: { '0': media(srbaiPorDia['0']), '7': media(srbaiPorDia['7']), '21': media(srbaiPorDia['21']) },
       srbaiRespuestas: { '0': srbaiPorDia['0'].length, '7': srbaiPorDia['7'].length, '21': srbaiPorDia['21'].length },
-      leads: leads.size
+      leads: leads.size,
+      // Embudo hasta el acompañamiento: cuántos se derivaron, con reunión y que contratan.
+      derivados: await estadosPuente()
     };
     if (conDetalle) {
       cuerpo.detalleInscritos = inscritos;

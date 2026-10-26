@@ -10,6 +10,7 @@ import { grupoDePersona } from '../lib/grupos.js';
 import { llamarClaude, MODELO_CHAT } from '../lib/claude.js';
 import { SISTEMA_RESUMEN } from '../lib/prompts.js';
 import { enviarCorreo } from '../lib/avisos.js';
+import { enviarLead } from '../lib/puente.js';
 import { calcularRacha } from '../../src/lib/reto.js';
 import { filtroSalida } from '../../src/lib/guardarrailes.js';
 import { COMPARTIR } from '../../src/lib/consentimientos.js';
@@ -92,6 +93,9 @@ export default async function handler(req) {
       lista: 'interesados-acompanamiento',
       estado: 'nuevo'
     };
+    // Con su consentimiento, el relato pasa al acompañamiento (puente.js) y queda anotado.
+    var puente = await enviarLead(lead);
+    lead.puente = { ok: puente.ok, id: puente.id || null, motivo: puente.motivo || null, en: new Date().toISOString() };
     if (fire) {
       await fire.db.collection('leads').doc(u.uid).set(lead, { merge: true });
       await fire.db.collection('usuarios').doc(u.uid).set({ compartir: lead.consentimiento }, { merge: true });

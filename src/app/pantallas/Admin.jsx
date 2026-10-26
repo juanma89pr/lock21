@@ -143,6 +143,18 @@ export default function Admin(props) {
         <Cifra nombre="Leads" valor={datos.leads} />
       </div>
       <Web />
+      <section aria-labelledby="t-embudo" className="grid gap-3">
+        <h2 id="t-embudo" className="titular-medio text-3xl">Del reto al acompañamiento</h2>
+        <div className="grid grid-cols-2 gap-2">
+          <Cifra nombre="Empiezan el reto" valor={datos.inscritos} />
+          <Cifra nombre="Piden acompañamiento" valor={datos.leads} />
+          <Cifra nombre="Llegan a reunión" valor={datos.derivados && !datos.derivados.error ? datos.derivados.conReunion : '—'} />
+          <Cifra nombre="Contratan" valor={datos.derivados && !datos.derivados.error ? datos.derivados.contratan : '—'} />
+        </div>
+        <p className="text-xs text-gris">
+          {!datos.derivados ? 'El puente con el acompañamiento está apagado: falta LOCK21_PUENTE_TOKEN en Netlify.' : datos.derivados.error ? 'No se ha podido leer el acompañamiento: ' + datos.derivados.error : 'Conversión del reto a cliente: ' + (datos.inscritos ? formatoNumero(Math.round(datos.derivados.contratan / datos.inscritos * 1000) / 10) + '%' : '—') + '. Cada persona solo pasa si lo pide con su casilla.'}
+        </p>
+      </section>
       <Grupos grupos={datos.porGrupo} />
       <section aria-labelledby="t-srbai" className="rounded-[24px] bg-noche text-pista p-5">
         <h2 id="t-srbai" className="titular-medio text-2xl text-dorsal">SRBAI medio (todos los grupos)</h2>
