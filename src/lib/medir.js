@@ -1,6 +1,10 @@
 // Medición propia sin cookies ni identificadores: solo suma visitas y clics por día y por origen.
 // No guarda IP, ni correo, ni nada que identifique a nadie (ver privacidad.html).
-var EVENTOS = ['visita', 'visita_app', 'clic_plaza', 'solicitud'];
+var EVENTOS = ['visita', 'visita_app', 'clic_plaza', 'solicitud', 'comparte'];
+
+export function origenActual() {
+  try { return origen(); } catch (e) { return 'directo'; }
+}
 
 function origen() {
   var ua = navigator.userAgent || '';

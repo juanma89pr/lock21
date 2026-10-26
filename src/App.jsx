@@ -245,7 +245,7 @@ export default function App() {
 
       <footer className="bg-noche text-pista/80 py-10 text-sm">
         <Contenedor className="flex flex-wrap gap-x-6 gap-y-3 justify-between">
-          <span>{config.marca}. Reto de hábitos de 21 días, desde Gran Canaria.</span>
+          <span>{config.marca}. Reto de hábitos de 21 días, desde Gran Canaria. Un proyecto de Balancet.</span>
           <span className="flex gap-5">
             <a href="/privacidad.html" className="underline">Privacidad</a>
           </span>

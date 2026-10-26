@@ -35,6 +35,7 @@ export default async function handler(req) {
     reto = JSON.parse(await r.text());
     delete reto.detalleInscritos;
     delete reto.detalleLeads;
+    delete reto.detalleLista;
   } catch (e2) {
     reto = { error: 'sin_datos' };
   }

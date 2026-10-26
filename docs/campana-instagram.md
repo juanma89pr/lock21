@@ -1,3 +1,5 @@
+> **Cambio del 26 oct 2026 (Juanma):** Lock21 se presenta ya como **un proyecto de Balancet**. Se puede nombrar Balancet (pie de la web, firma de los correos, que salen de lock21@balancet.org). Siguen fuera los nombres internos del método y las profesiones reguladas. Lo de abajo que diga «no se nombra ninguna marca de ese servicio» queda sustituido por esto.
+
 # Campaña Instagram Lock21 v3: la historia del creador (24 oct - 13 dic 2026)
 
 **Qué cambia respecto a la v2.** Juanma no se presenta como profesional titulado. Es el creador del reto: alguien que cambió su vida hábito a hábito. Todo el marketing gira en torno a esa historia: **"Lo hice yo, de uno en uno. Esto es el método que me hubiera gustado tener."** El embudo final ya no lleva a un servicio: al terminar el reto, la app ofrece apuntarse a una lista de interesados en acompañamiento personalizado (opcional, y de pago cuando exista).

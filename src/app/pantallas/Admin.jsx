@@ -59,7 +59,61 @@ function Cifra(props) {
 }
 
 
-var NOMBRES_ORIGEN = { ig: 'Instagram', instagram: 'Instagram', whatsapp: 'WhatsApp', google: 'Google', facebook: 'Facebook', directo: 'Directo', interno: 'Desde la propia web', x: 'X', tiktok: 'TikTok', otros: 'Otros' };
+var NOMBRES_CORREO = { bienvenida: 'Bienvenida', d7: '7 días antes', d1: 'Víspera', d0: 'Día 1' };
+
+// Plazas pedidas (web y app): dorsales por grupo, quién comparte, quién trae a quién y los correos.
+function Plazas(props) {
+  var l = props.lista;
+  if (!l) { return null; }
+  var personas = props.personas || [];
+  return (
+    <section aria-labelledby="t-plazas" className="grid gap-3">
+      <h2 id="t-plazas" className="titular-medio text-3xl">Plazas pedidas</h2>
+      <div className="grid grid-cols-2 gap-2">
+        <Cifra nombre="Plazas pedidas" valor={l.total} />
+        <Cifra nombre="Han compartido" valor={l.quienesComparten} />
+        <Cifra nombre="Llegan invitados" valor={l.invitados} />
+        <Cifra nombre="Bajas" valor={l.bajas} />
+      </div>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)] grid gap-2 text-sm">
+        {Object.keys(l.porGrupo).sort().map(function (g) {
+          return <p key={g} className="flex justify-between"><span className="font-bold">{nombreGrupo(g)}</span><span>{l.porGrupo[g]} de {props.plazas} dorsales</span></p>;
+        })}
+        {Object.keys(l.porGrupo).length === 0 ? <p className="text-gris">Todavía no hay plazas pedidas.</p> : null}
+        <p className="text-xs text-gris">Web {l.web} · app {l.app} · compartido {l.compartidos} {l.compartidos === 1 ? 'vez' : 'veces'}{Object.keys(l.canales).length ? ' (' + Object.keys(l.canales).map(function (c) { return c + ' ' + l.canales[c]; }).join(', ') + ')' : ''}</p>
+      </div>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)] grid gap-2 text-sm">
+        <p className="font-bold flex items-center gap-1.5"><Icono nombre="correo" size={16} grosor={2.25} />Correos {l.correo.proveedor ? '· salen de ' + l.correo.remitente : '· apagados'}</p>
+        {!l.correo.proveedor ? <p className="text-xs font-bold text-cobalto-hondo">Falta BREVO_API_KEY en Netlify (la misma clave que Balancet). Mientras, quedan pendientes y salen solos cuando esté.</p> : null}
+        <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+          {Object.keys(NOMBRES_CORREO).map(function (t) {
+            var c = l.correos[t] || {};
+            return <p key={t} className="flex justify-between"><span>{NOMBRES_CORREO[t]}</span><span className="font-bold">{c.enviados || 0}{c.pendientes ? ' · ' + c.pendientes + ' pend.' : ''}{c.fallidos ? ' · ' + c.fallidos + ' fallo' : ''}</span></p>;
+          })}
+        </div>
+      </div>
+      {personas.length ? (
+        <ul className="grid gap-2">
+          {personas.map(function (x) {
+            return (
+              <li key={x.email} className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)] text-sm">
+                <p className="flex justify-between gap-3"><span className="font-bold">{x.nombre}</span><span className="titular text-2xl text-cobalto">{x.dorsal ? '#' + (x.dorsal < 10 ? '0' : '') + x.dorsal : ''}</span></p>
+                <p className="text-gris break-all">{x.email}</p>
+                <p className="mt-1">{nombreGrupo(x.grupo)} · {x.habito} · {x.via === 'app' ? 'app' : 'web'} · {NOMBRES_ORIGEN[x.origen] || x.origen}{x.acompanamiento ? ' · quiere saber del acompañamiento' : ''}</p>
+                <p className="text-xs text-gris mt-1">
+                  {x.invitadoPor ? 'Invitada por ' + x.invitadoPor + ' · ' : ''}{x.trajo ? 'Ha traído a ' + x.trajo + ' · ' : ''}{x.compartidos ? 'Compartió ' + x.compartidos + ' · ' : ''}Correos: {x.correos.length ? x.correos.map(function (t) { return NOMBRES_CORREO[t]; }).join(', ') : 'ninguno todavía'}
+                </p>
+                {x.errorCorreo ? <p className="text-xs font-bold text-cobalto-hondo mt-1">{x.errorCorreo}</p> : null}
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </section>
+  );
+}
+
+var NOMBRES_ORIGEN = { amigo: 'Invitación de un amigo', correo: 'Correo', app: 'App', ig: 'Instagram', instagram: 'Instagram', whatsapp: 'WhatsApp', google: 'Google', facebook: 'Facebook', directo: 'Directo', interno: 'Desde la propia web', x: 'X', tiktok: 'TikTok', otros: 'Otros' };
 
 // Web: visitas, clics en "Pedir plaza" y solicitudes de los últimos 30 días, por origen (medición propia sin cookies).
 function Web() {
@@ -142,6 +196,7 @@ export default function Admin(props) {
         <Cifra nombre="Adherencia media" valor={datos.adherenciaMedia === null ? '—' : formatoNumero(datos.adherenciaMedia) + '%'} />
         <Cifra nombre="Leads" valor={datos.leads} />
       </div>
+      <Plazas lista={datos.lista} personas={datos.detalleLista} plazas={datos.porGrupo && datos.porGrupo[0] ? datos.porGrupo[0].plazas : 30} />
       <Web />
       <section aria-labelledby="t-embudo" className="grid gap-3">
         <h2 id="t-embudo" className="titular-medio text-3xl">Del reto al acompañamiento</h2>

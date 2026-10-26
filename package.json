@@ -12,7 +12,8 @@
     "test:grupos": "node tests/grupos.mjs",
     "build:funciones": "node scripts/generar-cola.mjs && node scripts/empaquetar-funciones.mjs",
     "test:publicador": "node tests/publicador.mjs",
-    "encolar": "python3 herramientas/contenido/encolar_semana.py"
+    "encolar": "python3 herramientas/contenido/encolar_semana.py",
+    "test:correos": "node tests/correos.mjs"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",

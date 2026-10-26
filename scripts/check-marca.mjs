@@ -1,8 +1,10 @@
-// Comprueba que ninguna marca del servicio premium se filtra al código publicado.
+// Comprueba que ningún nombre interno se filtra al código publicado.
+// Desde el 26 oct 2026 Lock21 se presenta como proyecto de Balancet (decisión de Juanma):
+// el nombre Balancet ya se puede ver; los nombres internos del método, no.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-var prohibidas = [/balancet/i, /\bMMF\b/, /MOOV/];
+var prohibidas = [/\bMMF\b/, /MOOV/];
 var errores = [];
 
 function recorrer(dir) {

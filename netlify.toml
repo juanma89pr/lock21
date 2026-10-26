@@ -1,5 +1,5 @@
 [build]
-  command = "npm run lint && npm run test:frases && npm run test:grupos && npm run test:publicador && npm run build"
+  command = "npm run lint && npm run test:frases && npm run test:grupos && npm run test:publicador && npm run test:correos && npm run build"
   publish = "dist"
   functions = "netlify/functions"
 
@@ -15,8 +15,17 @@
 [functions."publicar-instagram"]
   schedule = "*/5 * * * *"
 
+[functions."correos-programados"]
+  schedule = "7 * * * *"
+
 [functions."renovar-token-instagram"]
   schedule = "17 4 * * 1"
+
+# Pantalla de compartir que enlazan los correos (la sirve la misma web).
+[[redirects]]
+  from = "/dentro"
+  to = "/index.html"
+  status = 200
 
 # Acceso directo al panel del propietario.
 [[redirects]]

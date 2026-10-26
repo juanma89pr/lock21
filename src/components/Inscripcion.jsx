@@ -1,7 +1,27 @@
 import { useState } from 'react';
 import HABITOS, { buscarHabito } from '../datos/habitos.js';
 import config from '../config.js';
-import medir from '../lib/medir.js';
+import medir, { origenActual } from '../lib/medir.js';
+import Dentro from './Dentro.jsx';
+import { fechaEnZona, proximosGrupos, fechaLarga } from '../lib/grupos.js';
+
+// Quien llega con el enlace de un amigo (?r=CODIGO&g=AAAA-MM-DD) se apunta a su mismo grupo si
+// todavía se puede elegir. Se guarda en el navegador por si navega antes de apuntarse.
+function invitacion() {
+  var q = new URLSearchParams(window.location.search);
+  var r = (q.get('r') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  var g = q.get('g') || '';
+  try {
+    if (r) { window.localStorage.setItem('lock21_invitacion', JSON.stringify({ r: r, g: g })); }
+    else {
+      var guardada = JSON.parse(window.localStorage.getItem('lock21_invitacion') || 'null');
+      if (guardada) { r = guardada.r; g = guardada.g; }
+    }
+  } catch (e) { /* sin almacenamiento, se usa solo la URL */ }
+  var elegibles = proximosGrupos(fechaEnZona(new Date()), config.grupos.elegibles);
+  return { r: r, g: elegibles.indexOf(g) !== -1 ? g : '' };
+}
+var INVITACION = invitacion();
 
 function codificar(datos) {
   return Object.keys(datos).map(function (clave) {
@@ -18,6 +38,11 @@ export default function Inscripcion(props) {
   var est2 = useState('listo');
   var fase = est2[0];
   var setFase = est2[1];
+  var est4 = useState(null);
+  var resultado = est4[0];
+  var setResultado = est4[1];
+  var grupo = INVITACION.g || props.grupo;
+  var grupoTexto = INVITACION.g ? fechaLarga(INVITACION.g) : props.grupoTexto;
   var est3 = useState('');
   var error = est3[0];
   var setError = est3[1];
@@ -41,42 +66,61 @@ export default function Inscripcion(props) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(datos.email)) { setError('Escribe un correo válido, por ejemplo nombre@gmail.com.'); return; }
     if (!datos.privacidad) { setError('Para apuntarte tienes que aceptar la política de privacidad.'); return; }
     setFase('enviando');
-    fetch('/', {
+    var h = buscarHabito(props.habito);
+    var base = {
+      nombre: datos.nombre.trim(), email: datos.email.trim(), habito: h.id, grupo: grupo,
+      privacidad: true, acompanamiento: datos.acompanamiento, empresa: datos.empresa, r: INVITACION.r, origen: origenActual()
+    };
+    // Copia de seguridad en Netlify Forms (sigue llegando el aviso de siempre).
+    var formulario = fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: codificar({
-        'form-name': 'lista-espera',
-        nombre: datos.nombre.trim(),
-        email: datos.email.trim(),
-        habito: buscarHabito(props.habito).nombre,
-        grupo: props.grupo,
-        privacidad: 'si',
-        acompanamiento: datos.acompanamiento ? 'si' : 'no',
-        empresa: datos.empresa
+        'form-name': 'lista-espera', nombre: base.nombre, email: base.email, habito: h.nombre, grupo: grupo,
+        privacidad: 'si', acompanamiento: datos.acompanamiento ? 'si' : 'no', empresa: datos.empresa
       })
+    }).then(function (r) { return r.ok; }).catch(function () { return false; });
+    var servidor = fetch('/.netlify/functions/inscripcion', {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(base)
     }).then(function (r) {
-      if (!r.ok) { throw new Error('estado ' + r.status); }
-      setFase('hecho');
+      return r.json().catch(function () { return {}; }).then(function (j) { j.estado = r.status; return j; });
+    }).catch(function () { return { estado: 0 }; });
+
+    Promise.all([servidor, formulario]).then(function (res) {
+      var r = res[0];
+      if (r.estado === 409 && r.error === 'sin_plazas') {
+        setFase('listo');
+        setError('Ahora mismo no quedan plazas en los próximos grupos. Vuelve a intentarlo en unos días.');
+        return;
+      }
+      if (!r.ok && !res[1]) {
+        setFase('listo');
+        setError('No se ha podido guardar tu plaza. Revisa la conexión e inténtalo otra vez.');
+        return;
+      }
       medir('solicitud');
-    }).catch(function () {
-      setFase('listo');
-      setError('No se ha podido guardar tu plaza. Revisa la conexión e inténtalo otra vez.');
+      setResultado(Object.assign({
+        nombre: base.nombre, email: base.email, grupo: grupo, plazas: config.grupos.plazas,
+        habitoNombre: h.nombre, habitoCorto: h.corto, dorsal: null, codigo: null
+      }, r.ok && r.guardado ? r : {}, { email: base.email }));
+      setFase('hecho');
+      try { window.localStorage.removeItem('lock21_invitacion'); } catch (e) { /* nada */ }
+      window.setTimeout(function () {
+        var el = document.getElementById('plaza');
+        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }, 50);
     });
   }
 
-  if (fase === 'hecho') {
-    return (
-      <div className="rounded-[28px] bg-dorsal text-noche p-6 sm:p-8" role="status">
-        <p className="titular text-5xl sm:text-6xl">Plaza pedida, {datos.nombre.trim()}.</p>
-        <p className="mt-4 max-w-md leading-relaxed">Te escribimos a {datos.email.trim()} antes del {props.grupoTexto} con tu hábito, {buscarHabito(props.habito).corto.toLowerCase()}, y el test del día 0. Si las {config.grupos.plazas} plazas ya estaban cubiertas, pasas al grupo siguiente, dos semanas después.</p>
-      </div>
-    );
+  if (fase === 'hecho' && resultado) {
+    return <Dentro datos={resultado} />;
   }
 
   return (
     <form name="lista-espera" onSubmit={enviar} noValidate className="rounded-[28px] bg-pista text-noche p-5 sm:p-8 grid gap-5">
       <p className="hidden"><label>No rellenar <input name="empresa" value={datos.empresa} onChange={cambiar} tabIndex={-1} autoComplete="off" /></label></p>
-      <input type="hidden" name="grupo" value={props.grupo} />
+      <input type="hidden" name="grupo" value={grupo} />
+      {INVITACION.r && INVITACION.g ? <p className="rounded-xl bg-dorsal/70 px-4 py-3 text-sm font-semibold">Vienes con invitación: te apuntamos al grupo del {grupoTexto}, con quien te ha pasado el enlace.</p> : null}
       <div className="grid sm:grid-cols-2 gap-4">
         <label className="grid gap-1.5 text-sm font-semibold">Tu nombre
           <input name="nombre" required value={datos.nombre} onChange={cambiar} autoComplete="given-name" className={CAMPO} />

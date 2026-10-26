@@ -2,7 +2,7 @@
 import { getStore } from '@netlify/blobs';
 import { json } from '../lib/http.js';
 
-var EVENTOS = ['visita', 'visita_app', 'clic_plaza', 'solicitud'];
+var EVENTOS = ['visita', 'visita_app', 'clic_plaza', 'solicitud', 'comparte'];
 var BOT = /bot|crawl|spider|slurp|facebookexternalhit|preview|headless|lighthouse/i;
 
 function diaCanarias(d) {

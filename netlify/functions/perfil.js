@@ -16,6 +16,8 @@ import { fechaEnZona, esGrupoValido } from '../../src/lib/grupos.js';
 import { PRIVACIDAD, MAYOR_EDAD, AVISO_IA } from '../../src/lib/consentimientos.js';
 import config from '../../src/config.js';
 import HABITOS from '../../src/datos/habitos.js';
+import { inscribir } from '../lib/inscritos.js';
+import { enviar, anotar } from '../lib/correos.js';
 
 function hash(texto) {
   return createHash('sha256').update(texto, 'utf8').digest('hex');
@@ -100,6 +102,18 @@ export default async function handler(req) {
 
     if (fire) {
       await fire.db.collection('usuarios').doc(u.uid).set(cambios, { merge: true });
+    }
+    // Quien entra directo en la app también recibe su dorsal y la secuencia de correos.
+    if (fire && d.tipo === 'alta' && !actual.alta && u.email && !esPropietario(u)) {
+      try {
+        var ins = await inscribir(fire, { email: u.email, nombre: '', habito: actual.habito, grupo: cambios.grupo, via: 'app', origen: 'app' });
+        if (ins.nuevo) {
+          var envio = await enviar('bienvenida', ins.id, ins.datos, hoy);
+          await fire.db.collection('inscritos').doc(ins.id).set({ correos: { bienvenida: anotar(ins.datos, 'bienvenida', envio, ahora) } }, { merge: true });
+        }
+      } catch (eIns) {
+        console.error('perfil: no se pudo inscribir', eIns && eIns.message);
+      }
     }
     return json(200, { ok: true, guardado: Boolean(fire), estado: estado, perfil: cambios });
   } catch (e) {

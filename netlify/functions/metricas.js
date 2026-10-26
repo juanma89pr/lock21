@@ -13,6 +13,7 @@ import { esGrupoValido, fechaEnZona, proximosGrupos } from '../../src/lib/grupos
 import config from '../../src/config.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
 import { estadosPuente } from '../lib/puente.js';
+import { proveedor, remitente, TIPOS } from '../lib/correos.js';
 
 function mismoToken(a, b) {
   var x = Buffer.from(String(a));
@@ -55,6 +56,7 @@ export async function calcularMetricas(conDetalle) {
     var checkins = await fire.db.collectionGroup('checkins').get();
     var tests = await fire.db.collectionGroup('srbai').get();
     var leads = await fire.db.collection('leads').get();
+    var listaSnap = await fire.db.collection('inscritos').get();
 
     var porUsuario = {};
     checkins.forEach(function (d) {
@@ -155,8 +157,50 @@ export async function calcularMetricas(conDetalle) {
       };
     });
 
+    // Lista de plazas (web y app): dorsales por grupo, invitaciones, compartidos y correos.
+    var lista = { total: 0, bajas: 0, web: 0, app: 0, invitados: 0, quienesComparten: 0, compartidos: 0, canales: {}, porGrupo: {}, porOrigen: {}, correos: {}, correo: { proveedor: proveedor(), remitente: remitente() } };
+    TIPOS.forEach(function (t) { lista.correos[t] = { enviados: 0, pendientes: 0, fallidos: 0 }; });
+    var nombrePorCodigo = {};
+    var trajo = {};
+    listaSnap.forEach(function (d) {
+      var x = d.data();
+      if (x.codigo) { nombrePorCodigo[x.codigo] = x.nombre; }
+      if (x.invitadoPor && !x.baja) { trajo[x.invitadoPor] = (trajo[x.invitadoPor] || 0) + 1; }
+    });
+    var detalleLista = [];
+    listaSnap.forEach(function (d) {
+      var x = d.data();
+      if (x.baja) { lista.bajas = lista.bajas + 1; return; }
+      lista.total = lista.total + 1;
+      if (x.via === 'app') { lista.app = lista.app + 1; } else { lista.web = lista.web + 1; }
+      if (x.invitadoPor) { lista.invitados = lista.invitados + 1; }
+      if (x.compartidos) { lista.quienesComparten = lista.quienesComparten + 1; lista.compartidos = lista.compartidos + x.compartidos; }
+      Object.keys(x.canales || {}).forEach(function (c) { lista.canales[c] = (lista.canales[c] || 0) + x.canales[c]; });
+      lista.porGrupo[x.grupo] = (lista.porGrupo[x.grupo] || 0) + 1;
+      lista.porOrigen[x.origen || 'directo'] = (lista.porOrigen[x.origen || 'directo'] || 0) + 1;
+      TIPOS.forEach(function (t) {
+        var c = (x.correos || {})[t];
+        if (!c) { return; }
+        if (c.ok) { lista.correos[t].enviados = lista.correos[t].enviados + 1; }
+        else if (c.motivo === 'sin_configurar') { lista.correos[t].pendientes = lista.correos[t].pendientes + 1; }
+        else { lista.correos[t].fallidos = lista.correos[t].fallidos + 1; }
+      });
+      if (conDetalle) {
+        detalleLista.push({
+          nombre: x.nombre, email: x.email, grupo: x.grupo, dorsal: x.dorsal, habito: buscarHabito(x.habito).corto,
+          via: x.via, origen: x.origen, creado: x.creado, acompanamiento: Boolean(x.acompanamiento),
+          invitadoPor: x.invitadoPor ? (nombrePorCodigo[x.invitadoPor] || x.invitadoPor) : null,
+          trajo: trajo[x.codigo] || 0, compartidos: x.compartidos || 0,
+          correos: TIPOS.filter(function (t) { return x.correos && x.correos[t] && x.correos[t].ok; }),
+          errorCorreo: TIPOS.map(function (t) { var c = x.correos && x.correos[t]; return c && !c.ok && c.motivo !== 'sin_configurar' ? t + ': ' + c.motivo : ''; }).filter(Boolean).join(' · ')
+        });
+      }
+    });
+    detalleLista.sort(function (a, b) { return String(b.creado).localeCompare(String(a.creado)); });
+
     var cuerpo = {
       generado: new Date().toISOString(),
+      lista: lista,
       estado: estado,
       inscritos: inscritos.length,
       registrados: usuarios.size,
@@ -172,6 +216,7 @@ export async function calcularMetricas(conDetalle) {
     };
     if (conDetalle) {
       cuerpo.detalleInscritos = inscritos;
+      cuerpo.detalleLista = detalleLista;
       cuerpo.detalleLeads = [];
       leads.forEach(function (d) {
         var l = d.data();

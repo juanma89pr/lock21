@@ -9,13 +9,19 @@ import medir from './lib/medir.js';
 // para que Firebase no pese en la portada.
 var AppReto = lazy(function () { return import('./app/AppReto.jsx'); });
 var enApp = /^\/app(\/|$)/.test(window.location.pathname);
-if (import.meta.env.PROD) { medir(enApp ? 'visita_app' : 'visita'); }
+var enDentro = /^\/dentro\/?$/.test(window.location.pathname);
+var PaginaDentro = lazy(function () { return import('./components/PaginaDentro.jsx'); });
+if (import.meta.env.PROD && !enDentro) { medir(enApp ? 'visita_app' : 'visita'); }
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {enApp ? (
       <Suspense fallback={<div className="min-h-screen bg-cobalto" />}>
         <AppReto />
+      </Suspense>
+    ) : enDentro ? (
+      <Suspense fallback={<div className="min-h-screen bg-cobalto" />}>
+        <PaginaDentro />
       </Suspense>
     ) : <App />}
   </StrictMode>
