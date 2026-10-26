@@ -59,6 +59,56 @@ function Cifra(props) {
 }
 
 
+// Trae las plazas que se pidieron cuando solo existía Netlify Forms: se pega el CSV
+// (Netlify → Forms → lista-espera → Download CSV) o líneas «Nombre, correo».
+function ImportarPlazas(props) {
+  var eT = useState('');
+  var texto = eT[0];
+  var eR = useState(null);
+  var res = eR[0];
+  var eF = useState('');
+  var fase = eF[0];
+
+  function leerArchivo(e) {
+    var f = e.target.files && e.target.files[0];
+    if (!f) { return; }
+    var lector = new FileReader();
+    lector.onload = function () { eT[1](String(lector.result || '')); };
+    lector.readAsText(f);
+  }
+
+  function traer() {
+    eF[1]('enviando');
+    props.servicio.importarPlazas(texto).then(function (r) {
+      eR[1](r.resultado || []);
+      eF[1]('hecho');
+      if (props.onHecho) { props.onHecho(); }
+    }).catch(function (err) {
+      eR[1](null);
+      eF[1](err.codigo === 'sin_plazas_en_el_texto' ? 'No encuentro ningún correo en lo que has pegado.' : 'No se ha podido importar (' + err.codigo + ').');
+    });
+  }
+
+  return (
+    <details className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)] text-sm">
+      <summary className="font-bold cursor-pointer">Traer plazas pedidas antes del 26 oct</summary>
+      <p className="mt-2 text-gris leading-relaxed">Netlify → Forms → lista-espera → Download CSV, y súbelo aquí (o pega líneas «Nombre, correo»). Cada persona recibe su dorsal en el orden en que la pidió y su correo de bienvenida.</p>
+      <input type="file" accept=".csv,text/csv,text/plain" onChange={leerArchivo} className="mt-3 block text-sm" />
+      <textarea value={texto} onChange={function (e) { eT[1](e.target.value); }} rows={4} placeholder="Ana López, ana@ejemplo.com" className="mt-2 w-full rounded-xl border-2 border-lila p-2 text-sm" />
+      <button type="button" onClick={traer} disabled={!texto.trim() || fase === 'enviando'} className="boton mt-2 bg-cobalto text-white text-sm disabled:opacity-60">{fase === 'enviando' ? 'Trayendo…' : 'Traer plazas'}</button>
+      {fase && fase !== 'enviando' && fase !== 'hecho' ? <p className="mt-2 font-bold text-cobalto-hondo">{fase}</p> : null}
+      {res ? (
+        <ul className="mt-3 grid gap-1">
+          {res.length === 0 ? <li className="text-gris">Nada que traer.</li> : null}
+          {res.map(function (x) {
+            return <li key={x.email}>{x.nombre || x.email}: {x.ya ? 'ya estaba' : x.error ? 'error, ' + x.error : 'dorsal ' + x.dorsal + ' · ' + nombreGrupo(x.grupo) + ' · correo ' + x.correo}</li>;
+          })}
+        </ul>
+      ) : null}
+    </details>
+  );
+}
+
 var NOMBRES_CORREO = { bienvenida: 'Bienvenida', d7: '7 días antes', d1: 'Víspera', d0: 'Día 1' };
 
 // Plazas pedidas (web y app): dorsales por grupo, quién comparte, quién trae a quién y los correos.
@@ -92,6 +142,7 @@ function Plazas(props) {
           })}
         </div>
       </div>
+      {props.servicio ? <ImportarPlazas servicio={props.servicio} onHecho={props.onRecargar} /> : null}
       {personas.length ? (
         <ul className="grid gap-2">
           {personas.map(function (x) {
@@ -165,6 +216,10 @@ export default function Admin(props) {
   var e2 = useState('');
   var error = e2[0];
 
+  function recargar() {
+    props.servicio.metricas().then(function (r) { e1[1](r); }).catch(function () { return null; });
+  }
+
   useEffect(function () {
     props.servicio.metricas().then(function (r) { e1[1](r); }).catch(function (err) {
       var c = err.codigo;
@@ -196,7 +251,7 @@ export default function Admin(props) {
         <Cifra nombre="Adherencia media" valor={datos.adherenciaMedia === null ? '—' : formatoNumero(datos.adherenciaMedia) + '%'} />
         <Cifra nombre="Leads" valor={datos.leads} />
       </div>
-      <Plazas lista={datos.lista} personas={datos.detalleLista} plazas={datos.porGrupo && datos.porGrupo[0] ? datos.porGrupo[0].plazas : 30} />
+      <Plazas servicio={props.servicio} onRecargar={recargar} lista={datos.lista} personas={datos.detalleLista} plazas={datos.porGrupo && datos.porGrupo[0] ? datos.porGrupo[0].plazas : 30} />
       <Web />
       <section aria-labelledby="t-embudo" className="grid gap-3">
         <h2 id="t-embudo" className="titular-medio text-3xl">Del reto al acompañamiento</h2>

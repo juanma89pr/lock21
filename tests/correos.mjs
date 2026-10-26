@@ -1,5 +1,6 @@
 // Pruebas de la secuencia de correos y de las inscripciones (sin red ni Firestore).
 import { correoQueToca, componer, anotar, TIPOS } from '../netlify/lib/correos.js';
+import { plazasDeTexto, habitoDe } from '../netlify/lib/importar.js';
 import { nombreDeCorreo, grupoPedido, codigoValido, codigoNuevo, idDe } from '../netlify/lib/inscritos.js';
 
 var fallos = [];
@@ -61,6 +62,17 @@ igual('grupo pedido fuera de los elegibles', grupoPedido('2026-10-26', '2026-12-
 igual('código nuevo válido', codigoValido(codigoNuevo()), true);
 igual('código con letras ambiguas no vale', codigoValido('ABCDE0'), false);
 igual('mismo correo, mismo id', idDe(' Ana@Ejemplo.com '), idDe('ana@ejemplo.com'));
+
+// Importar plazas de Netlify Forms.
+var csv = 'nombre,email,habito,grupo,privacidad,acompanamiento,empresa,created_at\n"López, Ana",ana@ejemplo.com,8.000 pasos al día,2026-11-16,si,si,,2026-10-26T20:10:00Z\nLuis,LUIS@x.com,Acostarme antes de las 23:30,2026-11-16,si,no,,2026-10-26T19:00:00Z\nAna otra vez,ana@ejemplo.com,,,,,,2026-10-26T21:00:00Z\n';
+var pl = plazasDeTexto(csv);
+igual('csv: dos personas sin repetir', pl.length, 2);
+igual('csv: ordenadas por fecha', pl[0].email, 'luis@x.com');
+igual('csv: comillas con coma', pl[1].nombre, 'López, Ana');
+igual('csv: hábito por nombre', pl[1].habito, 'pasos');
+igual('csv: acompañamiento', [pl[0].acompanamiento, pl[1].acompanamiento], [false, true]);
+igual('líneas sueltas', plazasDeTexto('Marta, marta@x.es\nsin correo\n').map(function (x) { return x.nombre + '|' + x.email; }), ['Marta|marta@x.es']);
+igual('hábito desconocido', habitoDe('volar'), null);
 
 if (fallos.length) {
   console.error('Correos: ' + fallos.length + ' fallos\n' + fallos.join('\n'));

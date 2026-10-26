@@ -279,7 +279,8 @@ export function crearServicioReal() {
       publicar();
       return r;
     },
-    metricas: function () { return llamar('metricas'); }
+    metricas: function () { return llamar('metricas'); },
+    importarPlazas: function (texto) { return llamar('importar-plazas', { texto: texto }); }
   };
 }
 
@@ -465,6 +466,10 @@ export function crearServicioDemo(opciones) {
     metricas: async function () {
       await esperar(300);
       return metricasDemo();
+    },
+    importarPlazas: async function () {
+      await esperar(300);
+      return { ok: true, resultado: [] };
     }
   };
 }
