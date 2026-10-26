@@ -73,7 +73,15 @@ function Web() {
   function total(ev) { return t[ev] ? t[ev].total : 0; }
   var visitas = total('visita');
   var solicitudes = total('solicitud');
-  var origenes = t.visita ? Object.keys(t.visita.origen).sort(function (a, b) { return t.visita.origen[b] - t.visita.origen[a]; }) : [];
+  // Se agrupan los orígenes con el mismo nombre (p. ej. "ig" e "instagram").
+  var porNombre = {};
+  if (t.visita) {
+    Object.keys(t.visita.origen).forEach(function (o) {
+      var n = NOMBRES_ORIGEN[o] || o;
+      porNombre[n] = (porNombre[n] || 0) + t.visita.origen[o];
+    });
+  }
+  var origenes = Object.keys(porNombre).sort(function (a, b) { return porNombre[b] - porNombre[a]; });
   var hoy = (web.dias || []).length ? web.dias[web.dias.length - 1] : null;
   return (
     <section aria-labelledby="t-web" className="grid gap-3">
@@ -88,7 +96,7 @@ function Web() {
       {origenes.length ? (
         <ul className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)] grid gap-1.5 text-sm">
           {origenes.map(function (o) {
-            return <li key={o} className="flex justify-between gap-3"><span>{NOMBRES_ORIGEN[o] || o}</span><span className="font-bold">{t.visita.origen[o]}</span></li>;
+            return <li key={o} className="flex justify-between gap-3"><span>{o}</span><span className="font-bold">{porNombre[o]}</span></li>;
           })}
         </ul>
       ) : <p className="text-sm text-gris">Aún no hay visitas registradas.</p>}
