@@ -13,7 +13,7 @@ import { esGrupoValido, fechaEnZona, proximosGrupos } from '../../src/lib/grupos
 import config from '../../src/config.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
 import { estadosPuente } from '../lib/puente.js';
-import { proveedor, remitente, TIPOS } from '../lib/correos.js';
+import { proveedor, remitente, TIPOS, diagnosticoClave } from '../lib/correos.js';
 
 function mismoToken(a, b) {
   var x = Buffer.from(String(a));
@@ -158,7 +158,7 @@ export async function calcularMetricas(conDetalle) {
     });
 
     // Lista de plazas (web y app): dorsales por grupo, invitaciones, compartidos y correos.
-    var lista = { erroresCorreo: {}, total: 0, bajas: 0, web: 0, app: 0, invitados: 0, quienesComparten: 0, compartidos: 0, canales: {}, porGrupo: {}, porOrigen: {}, correos: {}, correo: { proveedor: proveedor(), remitente: remitente() } };
+    var lista = { erroresCorreo: {}, total: 0, bajas: 0, web: 0, app: 0, invitados: 0, quienesComparten: 0, compartidos: 0, canales: {}, porGrupo: {}, porOrigen: {}, correos: {}, correo: { proveedor: proveedor(), remitente: remitente(), clave: diagnosticoClave() } };
     TIPOS.forEach(function (t) { lista.correos[t] = { enviados: 0, pendientes: 0, fallidos: 0 }; });
     var nombrePorCodigo = {};
     var trajo = {};

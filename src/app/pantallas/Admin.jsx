@@ -167,6 +167,7 @@ function Plazas(props) {
       <div className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)] grid gap-2 text-sm">
         <p className="font-bold flex items-center gap-1.5"><Icono nombre="correo" size={16} grosor={2.25} />Correos {l.correo.proveedor ? '· salen de ' + l.correo.remitente : '· apagados'}</p>
         {!l.correo.proveedor ? <p className="text-xs font-bold text-cobalto-hondo">Falta BREVO_API_KEY en Netlify (la misma clave que Balancet). Mientras, quedan pendientes y salen solos cuando esté.</p> : null}
+        {l.correo.clave && l.correo.clave.hay ? <p className="text-xs text-gris">Clave en Netlify: tipo {l.correo.clave.tipo}, {l.correo.clave.longitud} caracteres{l.correo.clave.limpiada ? ' (traía espacios o comillas: se limpian solos)' : ''}.</p> : null}
         {Object.keys(l.erroresCorreo || {}).map(function (m) { return <p key={m} className="text-xs font-bold text-cobalto-hondo break-words">Error ({l.erroresCorreo[m]}): {m}</p>; })}
         {l.correo.proveedor && props.servicio ? <Reintentar servicio={props.servicio} onHecho={props.onRecargar} /> : null}
         <div className="grid grid-cols-2 gap-x-4 gap-y-1">

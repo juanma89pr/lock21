@@ -178,8 +178,26 @@ export function remitente() {
   return (process.env.CORREO_REMITENTE || 'lock21@balancet.org').trim();
 }
 
+// La clave tal cual, sin espacios, saltos de línea ni comillas que se cuelan al pegarla.
+export function claveBrevo() {
+  return String(process.env.BREVO_API_KEY || '').replace(/[\s"'`]/g, '');
+}
+
+// Diagnóstico sin revelar la clave: de qué tipo parece y si traía basura al pegarla.
+export function diagnosticoClave() {
+  var bruta = String(process.env.BREVO_API_KEY || '');
+  var k = claveBrevo();
+  if (!bruta) { return { hay: false }; }
+  return {
+    hay: true,
+    tipo: /^xkeysib-/.test(k) ? 'api' : (/^xsmtpsib-/.test(k) ? 'smtp (no vale: hace falta la clave API)' : 'desconocido'),
+    longitud: k.length,
+    limpiada: bruta !== k
+  };
+}
+
 export function proveedor() {
-  if (process.env.BREVO_API_KEY) { return 'brevo'; }
+  if (claveBrevo()) { return 'brevo'; }
   if (process.env.RESEND_API_KEY) { return 'resend'; }
   return null;
 }
@@ -205,7 +223,7 @@ export async function enviar(tipo, id, d, hoy) {
     if (via === 'brevo') {
       res = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
-        headers: { 'api-key': process.env.BREVO_API_KEY, 'content-type': 'application/json', accept: 'application/json' },
+        headers: { 'api-key': claveBrevo(), 'content-type': 'application/json', accept: 'application/json' },
         body: JSON.stringify({
           sender: { name: 'Lock21', email: remitente() },
           to: [{ email: d.email, name: String(d.nombre || '').slice(0, 60) || undefined }],
