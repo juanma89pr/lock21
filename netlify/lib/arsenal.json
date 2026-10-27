@@ -1,0 +1,480 @@
+{
+  "actualizado": "2026-10-27",
+  "propuestas": [
+    {
+      "id": "historias-juanma-enlace",
+      "fecha": "2026-10-27",
+      "titulo": "Tus historias en @juanma89pr con sticker de enlace",
+      "categoria": "contenido",
+      "idea": "Tres historias seguidas en tu perfil personal: «Yo también me apunto», «¿Quién se viene?» y «Cómo funciona». La segunda lleva el sticker de enlace a lock21.netlify.app.",
+      "porQue": "Las historias que publica @reto.lock21 solas no pueden llevar enlace, y tu perfil es donde está la gente que ya confía en ti. Hoy es la vía más rápida a la web.",
+      "esfuerzo": "5 min",
+      "coste": "0 €",
+      "cuando": "Esta semana y repetir el domingo 8 y el viernes 13 nov",
+      "pasos": [
+        "Descarga las 3 historias",
+        "Súbelas seguidas a @juanma89pr",
+        "En la segunda, sticker de enlace a lock21.netlify.app con el texto «Me apunto»",
+        "Mira en el panel cuántas visitas llegan ese día"
+      ],
+      "materiales": [
+        {
+          "nombre": "Yo también me apunto",
+          "archivo": "/marketing/plantillas/historia-juanma-me-apunto.jpg"
+        },
+        {
+          "nombre": "¿Quién se viene?",
+          "archivo": "/marketing/plantillas/historia-juanma-quien-se-viene.jpg"
+        },
+        {
+          "nombre": "Cómo funciona",
+          "archivo": "/marketing/plantillas/historia-juanma-como-funciona.jpg"
+        }
+      ]
+    },
+    {
+      "id": "capitanes",
+      "fecha": "2026-10-27",
+      "titulo": "Cinco capitanes: personas que traen a dos",
+      "categoria": "comunidad",
+      "idea": "Eliges 5 personas cercanas que ya se han apuntado o se apuntarían y les pides, una a una, que traigan a dos amigos con su enlace de invitación. Sin premios: el premio es hacerlo acompañado.",
+      "porQue": "En las carreras virtuales lo que más inscripciones trae es reclutar en persona a 5-10 capitanes semanas antes, porque la petición uno a uno funciona mejor que el mensaje masivo (guía de pre-carrera de Racery: https://lsp.racery.com/docs/pre-race-marketing).",
+      "esfuerzo": "20 min",
+      "coste": "0 €",
+      "cuando": "Antes del domingo 1 nov",
+      "pasos": [
+        "Haz una lista de 5 personas",
+        "Escríbeles por WhatsApp uno a uno, no en grupo",
+        "Pídeles que se apunten y pulsen «Invitar por WhatsApp» en su pantalla de «Ya estás dentro»",
+        "En el panel verás «Ha traído a N» junto a cada uno"
+      ],
+      "materiales": []
+    },
+    {
+      "id": "dorsal-01-insignia",
+      "fecha": "2026-10-27",
+      "titulo": "Reel épico del dorsal 01 con su insignia",
+      "categoria": "ugc",
+      "idea": "La persona del dorsal 01 enseña a cámara su insignia (un mini-dorsal impreso) y dice «Soy el dorsal 01 de Lock21. Me he propuesto…». Reel épico solo en cobalto y rosa, con música electrónica propia y clac de candado.",
+      "porQue": "Una persona real con su número vale más que cualquier pieza de marca. El 75 Hard creció porque los propios participantes publicaban su progreso cada día (Huel: https://uk.huel.com/pages/what-is-75-hard).",
+      "esfuerzo": "10 min (pedirlo y pasarme los clips)",
+      "coste": "0 €",
+      "cuando": "Clips antes del jue 5 nov; publicar lun 9 nov 19:30",
+      "pasos": [
+        "Imprime la insignia del dorsal 01 (página de insignias)",
+        "Pídele permiso por escrito para publicar su vídeo",
+        "Que grabe 3 frases en vertical, 2-3 tomas cada una",
+        "Súbeme los clips al panel o por el chat; edito y te lo enseño antes de publicar"
+      ],
+      "materiales": [
+        {
+          "nombre": "Insignia mini-dorsal para imprimir",
+          "archivo": "/marketing/insignia.html"
+        }
+      ]
+    },
+    {
+      "id": "mini-dorsal-todos",
+      "fecha": "2026-10-27",
+      "titulo": "Mini-dorsal imprimible para cada inscrito",
+      "categoria": "producto",
+      "idea": "Cada persona que pide plaza puede descargar su insignia con su número desde «Ya estás dentro» y desde el correo de bienvenida, para enseñarla en vídeo, pegarla en la nevera o en el espejo.",
+      "porQue": "Las carreras virtuales enseñan el dorsal y la medalla digital antes de la salida para generar ganas y compartidos (Racery, «personalized digital bling»: https://racery.com/blog/2021/03/08/motivate-virtual-racers-with-beautiful-personalized-digital-bling/). Un objeto físico, además, recuerda el hábito cada día.",
+      "esfuerzo": "0 min (lo construyo yo)",
+      "coste": "0 €",
+      "cuando": "Antes del 5 nov",
+      "pasos": [
+        "Lo añado a la pantalla de «Ya estás dentro» y al correo",
+        "Pruebas con tu propio dorsal",
+        "Lo anunciamos en una historia"
+      ],
+      "materiales": [
+        {
+          "nombre": "Insignia mini-dorsal para imprimir",
+          "archivo": "/marketing/insignia.html"
+        }
+      ]
+    },
+    {
+      "id": "canal-whatsapp",
+      "fecha": "2026-10-27",
+      "titulo": "Mensaje corto al canal de WhatsApp",
+      "categoria": "comunidad",
+      "idea": "Un solo mensaje con gancho, sin contar la historia de golpe: «Llevo un tiempo preparando algo. El lunes 16 empiezo un reto de 21 días con un solo hábito, y no lo hago solo. ¿Te vienes? Es gratis: lock21.netlify.app». Repetir el 9 nov con la cifra real de dorsales.",
+      "porQue": "El canal tiene muchos seguidores que todavía no usan nada tuyo: es tu audiencia más grande y más cálida.",
+      "esfuerzo": "1 min",
+      "coste": "0 €",
+      "cuando": "Hoy o mañana; segundo mensaje lun 9 nov",
+      "pasos": [
+        "Copia el mensaje",
+        "Publícalo en el canal",
+        "El 9 nov te paso el segundo con la cifra real"
+      ],
+      "materiales": []
+    },
+    {
+      "id": "promocion-reel-66",
+      "fecha": "2026-10-27",
+      "titulo": "Promoción pequeña del reel en el que sales tú",
+      "categoria": "pago",
+      "idea": "Promocionar el reel de los 66 días (tú a cámara) 7 días: Gran Canaria, de 20 a 45 años, botón «Más información» a lock21.netlify.app.",
+      "porQue": "Es el mejor material que tenemos y una cuenta nueva no llega sola a gente nueva. Lo medimos con las visitas de la web: si el coste por inscripción pasa de 5 €, se para.",
+      "esfuerzo": "10 min (lo pagas tú en la app)",
+      "coste": "35 € (5 €/día × 7 días)",
+      "cuando": "Del 29 oct al 4 nov, si das el visto bueno",
+      "pasos": [
+        "Instagram → reel de los 66 días → Promocionar",
+        "Objetivo: más visitas al sitio web, URL lock21.netlify.app",
+        "Público: Gran Canaria, 20-45 años",
+        "5 € al día, 7 días",
+        "Yo comparo visitas e inscripciones cada día en el panel"
+      ],
+      "materiales": []
+    },
+    {
+      "id": "alianzas-gran-canaria",
+      "fecha": "2026-10-27",
+      "titulo": "Cinco alianzas locales en Gran Canaria",
+      "categoria": "alianzas",
+      "idea": "Club de running de Las Canteras, un gimnasio de barrio, una clínica de fisioterapia, un estudio de yoga o pilates y una cafetería saludable: un reel Collab de 15 s con «su» señal («después de la clase del jueves, …») y el cartel con QR en su local.",
+      "porQue": "Las colaboraciones en cuentas de menos de 10.000 seguidores multiplican las interacciones, y la gente local se fía de su gimnasio o su club. Parkrun creció de 13 corredores en 2004 a más de 3 millones en 22 países a base de comunidad local y boca a boca (https://cratus.co.uk/parkrun-humble-beginnings-to-global-phenomenon/).",
+      "esfuerzo": "30 min (5 mensajes y una visita)",
+      "coste": "0 € (+ imprimir carteles)",
+      "cuando": "Mensajes esta semana; reels del 2 al 12 nov",
+      "pasos": [
+        "Envía el mensaje de colaboración desde @juanma89pr con la imagen adjunta",
+        "A quien diga que sí, le llevo el guion del reel",
+        "Deja el cartel A4 con QR en su local"
+      ],
+      "materiales": [
+        {
+          "nombre": "Invitación a colaborar",
+          "archivo": "/marketing/plantillas/invitacion-alianza.jpg"
+        },
+        {
+          "nombre": "Cartel A4 con QR",
+          "archivo": "/marketing/plantillas/cartel-a4-qr.jpg"
+        }
+      ]
+    },
+    {
+      "id": "carteles-qr",
+      "fecha": "2026-10-27",
+      "titulo": "Carteles A4 con QR por la ciudad",
+      "categoria": "alianzas",
+      "idea": "Cartel «¿Lo dejas todo para el lunes?» con QR a lock21.netlify.app (marcado como «cartel» para medirlo) en gimnasios, cafeterías, fisios, tablones de la universidad.",
+      "porQue": "Llega a gente que no te sigue en redes, y el QR lleva una marca propia: en el panel sabremos cuántas visitas trae cada cartel.",
+      "esfuerzo": "1 h (imprimir y repartir 10)",
+      "coste": "≈ 5 € de impresión",
+      "cuando": "Del 2 al 8 nov",
+      "pasos": [
+        "Imprime 10 carteles A4 a color",
+        "Pide permiso en cada sitio y cuélgalos",
+        "Mira en el panel las visitas con origen «cartel»"
+      ],
+      "materiales": [
+        {
+          "nombre": "Cartel A4 con QR",
+          "archivo": "/marketing/plantillas/cartel-a4-qr.jpg"
+        }
+      ]
+    },
+    {
+      "id": "muro-de-los-21",
+      "fecha": "2026-10-27",
+      "titulo": "El muro de los 21",
+      "categoria": "comunidad",
+      "idea": "Historia destacada «Los 21» en @reto.lock21 donde se repostea cada dorsal que alguien comparte y nos etiqueta. Cuando un grupo llena sus dorsales, un carrusel con todos (solo de quien da permiso).",
+      "porQue": "Ver a otras personas dentro es la prueba social más fuerte que podemos tener sin inventar nada. Las carreras virtuales publican cifras y mapas de participantes antes de la salida (Racery: https://lsp.racery.com/docs/pre-race-marketing).",
+      "esfuerzo": "10 s por cada historia que nos etiqueten",
+      "coste": "0 €",
+      "cuando": "Desde ya; carrusel cuando haya 10 o más",
+      "pasos": [
+        "Cuando te llegue una mención, «Añadir a tu historia» desde @reto.lock21",
+        "Guárdala en la destacada «Los 21»",
+        "Para el carrusel, permiso por escrito de cada persona"
+      ],
+      "materiales": [
+        {
+          "nombre": "Soy el dorsal ___ (para participantes)",
+          "archivo": "/marketing/plantillas/historia-soy-el-dorsal.jpg"
+        }
+      ]
+    },
+    {
+      "id": "pregunta-lunes",
+      "fecha": "2026-10-27",
+      "titulo": "Caja de preguntas «¿Qué dejas siempre para el lunes?»",
+      "categoria": "contenido",
+      "idea": "Historia con caja de preguntas en @reto.lock21 y en tu perfil. Con las respuestas (sin nombres) hacemos una historia y un carrusel: «Esto es lo que ustedes dejan para el lunes».",
+      "porQue": "La interacción en historias empuja el alcance de la cuenta y nos da frases reales del público para el contenido de la semana siguiente.",
+      "esfuerzo": "5 min",
+      "coste": "0 €",
+      "cuando": "Miércoles 4 nov",
+      "pasos": [
+        "Sube el fondo y pon encima la caja de preguntas",
+        "Pásame las respuestas (captura) el viernes",
+        "Hago el carrusel con las más repetidas, sin nombres"
+      ],
+      "materiales": [
+        {
+          "nombre": "Fondo para la caja de preguntas",
+          "archivo": "/marketing/plantillas/historia-que-dejas-para-el-lunes.jpg"
+        }
+      ]
+    },
+    {
+      "id": "salida-presencial-16",
+      "fecha": "2026-10-27",
+      "titulo": "Salida presencial del grupo 01",
+      "categoria": "evento",
+      "idea": "El lunes 16 a primera hora, quedada corta en Las Canteras: 15 minutos caminando juntos, foto del grupo con las insignias y el clac del candado. Quien no pueda venir, lo hace desde casa con la misma hora.",
+      "porQue": "Parkrun funciona por la cita fija con gente real (cratus.co.uk). Una salida física convierte el reto en algo que se ve y nos da el mejor material del mes.",
+      "esfuerzo": "1 h ese día",
+      "coste": "0 €",
+      "cuando": "Anunciar el 9 nov; quedada lun 16 nov",
+      "pasos": [
+        "Elige hora y punto de encuentro",
+        "Lo anunciamos en el correo de 7 días antes y en historias",
+        "Grabas 3 clips cortos y una foto de grupo (solo con permiso de quien salga)"
+      ],
+      "materiales": [
+        {
+          "nombre": "Historia «Lunes 16. Salimos»",
+          "archivo": "/marketing/plantillas/historia-salida-16.jpg"
+        }
+      ]
+    },
+    {
+      "id": "mi-semana-1",
+      "fecha": "2026-10-27",
+      "titulo": "Plantilla «Mi semana 1» para participantes",
+      "categoria": "ugc",
+      "idea": "El domingo 22 cada participante marca sus 7 días en una historia y nos etiqueta. Se repostea en «Los 21».",
+      "porQue": "El 75 Hard se hizo enorme porque compartir el progreso diario era parte del reto (Huel). Aquí lo hacemos una vez por semana, que es sostenible.",
+      "esfuerzo": "0 min (lo envía el correo y la app)",
+      "coste": "0 €",
+      "cuando": "Dom 22 nov (y cada domingo del reto)",
+      "pasos": [
+        "La enlazo en el correo del día 7 y en la app",
+        "Reposteas las que nos etiqueten"
+      ],
+      "materiales": [
+        {
+          "nombre": "Mi semana 1",
+          "archivo": "/marketing/plantillas/historia-mi-semana-1.jpg"
+        }
+      ]
+    },
+    {
+      "id": "palabra-lock-dm",
+      "fecha": "2026-10-27",
+      "titulo": "Respuesta automática a quien comente LOCK",
+      "categoria": "producto",
+      "idea": "Quien comente LOCK en una publicación recibe por mensaje privado el enlace lock21.netlify.app.",
+      "porQue": "Convierte «me gusta» en visitas sin que tengas que contestar a mano. Hoy el publicador no puede pedirlo en los pies porque no hay respuesta automática.",
+      "esfuerzo": "15 min (dar el permiso de mensajes a la app de Meta)",
+      "coste": "0 €",
+      "cuando": "Cuando quieras; antes del 9 nov sería ideal",
+      "pasos": [
+        "Te paso los pasos para dar el permiso de mensajes",
+        "Yo lo conecto y vuelvo a poner «Comenta LOCK» en los pies"
+      ],
+      "materiales": []
+    },
+    {
+      "id": "tiktok-fase-1",
+      "fecha": "2026-10-27",
+      "titulo": "TikTok @reto.lock21 con los mismos reels",
+      "categoria": "contenido",
+      "idea": "Abrir la cuenta y subir los reels que ya tenemos (sin marca de agua de Instagram). Primero como borradores que publicas con un toque; cuando TikTok apruebe la app, solos.",
+      "porQue": "Otra puerta de entrada con el mismo material: no hay que grabar nada nuevo.",
+      "esfuerzo": "15 min (crear la cuenta)",
+      "coste": "0 €",
+      "cuando": "Esta semana",
+      "pasos": [
+        "Crea la cuenta con lock21@balancet.org y dime el nombre",
+        "Yo registro la app y te llegan los borradores"
+      ],
+      "materiales": []
+    },
+    {
+      "id": "carrera-tanda-2",
+      "fecha": "2026-10-27",
+      "titulo": "Tanda 2 como carrera de fondo",
+      "categoria": "evento",
+      "idea": "Preparar ya el relato del grupo del 30 nov: dorsales, kilómetro a kilómetro (día a día), «aquí no se gana a nadie, se gana a uno mismo». Los finalistas del grupo 01 reciben una tarjeta «Candado cerrado» y son los capitanes de la tanda 2.",
+      "porQue": "Es tu memorándum para la tanda 2. Parkrun mantiene a la gente con hitos visibles (camisetas de 50, 100 carreras); aquí el hito es el candado cerrado del día 21.",
+      "esfuerzo": "Reunión de 20 min para decidirlo",
+      "coste": "0 €",
+      "cuando": "Decidir antes del 16 nov; lanzar el 23 nov",
+      "pasos": [
+        "Decidimos el relato y las piezas en la reunión",
+        "Diseño la tarjeta «Candado cerrado» del día 21",
+        "Pedimos a quien termine que sea capitán del grupo 2"
+      ],
+      "materiales": []
+    }
+  ],
+  "grabaciones": [
+    {
+      "id": "g-juanma-me-apunto",
+      "titulo": "Yo también me apunto",
+      "quien": "Juanma",
+      "para": "jue 5 nov 19:30 (el carrusel «¿Qué hábito te toca?» pasa al mié 18 nov)",
+      "guion": [
+        "El 16 de noviembre sale el primer grupo de Lock21.",
+        "Lo he creado yo y también lo hago: mi hábito es [TU HÁBITO].",
+        "Un hábito, 21 días, gratis. ¿Te vienes?"
+      ],
+      "como": "Vertical, de pie o caminando por la calle, luz de día, a la altura de los ojos. 2-3 tomas. 12-15 s.",
+      "estado": "pendiente"
+    },
+    {
+      "id": "g-dorsal-01",
+      "titulo": "Soy el dorsal 01 (insignia)",
+      "quien": "Dorsal 01",
+      "para": "lun 9 nov 19:30 (el carrusel «Detrás de Lock21» pasa al jue 19 nov)",
+      "guion": [
+        "A partir de hoy soy el dorsal número 1 del reto Lock21.",
+        "Me he propuesto [SU HÁBITO] durante 21 días.",
+        "El 16 de noviembre salgo. ¿Te vienes?"
+      ],
+      "como": "Vertical, enseñando la insignia a cámara en la mano. Luz de día o junto a una ventana. 2-3 tomas por frase. 15 s. Permiso por escrito antes de publicar.",
+      "estado": "pendiente"
+    },
+    {
+      "id": "g-juanma-mi-senal",
+      "titulo": "Mi señal",
+      "quien": "Juanma",
+      "para": "jue 12 nov 19:30 (el reel «La señal pesa más que las ganas» pasa al vie 20 nov)",
+      "guion": [
+        "Mi señal para el reto es: después de [TU SEÑAL], [TU HÁBITO].",
+        "No dependo de las ganas: dependo de algo que ya hago cada día.",
+        "¿Cuál sería la tuya?"
+      ],
+      "como": "Vertical, en el sitio real de tu señal (cocina, puerta de casa, gimnasio). 2 tomas. 12-15 s.",
+      "estado": "pendiente"
+    },
+    {
+      "id": "g-juanma-vispera",
+      "titulo": "Mañana salgo",
+      "quien": "Juanma",
+      "para": "dom 15 nov 13:00 (pieza extra; a las 19:30 sigue el carrusel de la víspera)",
+      "guion": [
+        "Mañana empieza el primer grupo de Lock21.",
+        "Tengo mi dorsal, mi hábito y mi señal.",
+        "Si quieres, todavía estás a tiempo para el siguiente grupo."
+      ],
+      "como": "Vertical, enseñando tu insignia. Luz de tarde. 2 tomas. 10-12 s.",
+      "estado": "pendiente"
+    },
+    {
+      "id": "g-juanma-dia-1",
+      "titulo": "Día 1 de 21",
+      "quien": "Juanma",
+      "para": "lun 16 nov 19:30 (el reel de texto «Hoy es el día 1» pasa a las 13:00)",
+      "guion": [
+        "Día 1 de 21.",
+        "Hoy he hecho mi primer check-in: un minuto.",
+        "Empezamos [N] personas. Te cuento cómo va, también si fallo."
+      ],
+      "como": "Vertical, en la salida presencial si la hay, o en casa con la insignia. 2 tomas. 12-15 s. La cifra [N] te la doy yo ese día.",
+      "estado": "pendiente"
+    },
+    {
+      "id": "g-participantes-semana-1",
+      "titulo": "Mi semana 1 (participantes)",
+      "quien": "participante",
+      "para": "dom 22 nov 19:30",
+      "guion": [
+        "Semana 1 hecha.",
+        "Lo que más me ha costado: [SU FRASE].",
+        "Seguimos."
+      ],
+      "como": "Vertical, 8-10 s cada persona, enseñando su plantilla «Mi semana 1» o su insignia. Solo con permiso por escrito; lo monto en un reel con varias.",
+      "estado": "pendiente"
+    },
+    {
+      "id": "g-juanma-semana-1",
+      "titulo": "Mi semana 1 de verdad",
+      "quien": "Juanma",
+      "para": "sáb 21 nov 19:30",
+      "guion": [
+        "Mi primera semana: [CUÁNTOS DÍAS DE 7].",
+        "[LO QUE PASÓ, TAMBIÉN SI FALLASTE].",
+        "El segundo seguido es el que no se negocia."
+      ],
+      "como": "Vertical, natural, sin guion leído. 2 tomas. 15-20 s.",
+      "estado": "pendiente"
+    }
+  ],
+  "descargables": [
+    {
+      "nombre": "Insignia mini-dorsal para imprimir (8 por hoja)",
+      "descripcion": "Mini-dorsales con número para recortar y enseñar a cámara.",
+      "archivo": "/marketing/insignia.html",
+      "tipo": "pagina"
+    },
+    {
+      "nombre": "Kit de marca de Lock21",
+      "descripcion": "Candado, logotipo, perfil, insignia, dorsal, paleta, frases, fondos y tipografía.",
+      "archivo": "/marketing/lock21-kit-de-marca.zip",
+      "tipo": "zip"
+    },
+    {
+      "nombre": "Historia «Yo también me apunto»",
+      "descripcion": "Para tu perfil personal (1 de 3).",
+      "archivo": "/marketing/plantillas/historia-juanma-me-apunto.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Historia «¿Quién se viene?»",
+      "descripcion": "Para tu perfil personal, con hueco para el sticker de enlace (2 de 3).",
+      "archivo": "/marketing/plantillas/historia-juanma-quien-se-viene.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Historia «Cómo funciona»",
+      "descripcion": "Para tu perfil personal (3 de 3).",
+      "archivo": "/marketing/plantillas/historia-juanma-como-funciona.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Historia «Soy el dorsal ___»",
+      "descripcion": "Para que cualquier participante escriba su número y nos etiquete.",
+      "archivo": "/marketing/plantillas/historia-soy-el-dorsal.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Historia «Mi semana 1»",
+      "descripcion": "Siete casillas para marcar los días de la primera semana.",
+      "archivo": "/marketing/plantillas/historia-mi-semana-1.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Fondo «¿Qué dejas siempre para el lunes?»",
+      "descripcion": "Fondo para la caja de preguntas de las historias.",
+      "archivo": "/marketing/plantillas/historia-que-dejas-para-el-lunes.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Historia «Lunes 16. Salimos»",
+      "descripcion": "Para anunciar la salida del grupo 01.",
+      "archivo": "/marketing/plantillas/historia-salida-16.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Invitación a colaborar",
+      "descripcion": "Imagen para adjuntar al mensaje a clubes, gimnasios y comercios.",
+      "archivo": "/marketing/plantillas/invitacion-alianza.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Cartel A4 con QR",
+      "descripcion": "A4 a 300 ppp, con QR a lock21.netlify.app medido como «cartel».",
+      "archivo": "/marketing/plantillas/cartel-a4-qr.jpg",
+      "tipo": "imagen"
+    }
+  ]
+}
