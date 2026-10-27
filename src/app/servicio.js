@@ -281,7 +281,8 @@ export function crearServicioReal() {
     },
     metricas: function () { return llamar('metricas'); },
     importarPlazas: function (texto) { return llamar('importar-plazas', { texto: texto }); },
-    reintentarCorreos: function () { return llamar('reintentar-correos', {}); }
+    reintentarCorreos: function () { return llamar('reintentar-correos', {}); },
+    reenviarCorreo: function (datos) { return llamar('reenviar-correo', datos); }
   };
 }
 
@@ -473,6 +474,10 @@ export function crearServicioDemo(opciones) {
       return { ok: true, resultado: [] };
     },
     reintentarCorreos: async function () {
+      await esperar(300);
+      return { ok: true, resultado: [] };
+    },
+    reenviarCorreo: async function () {
       await esperar(300);
       return { ok: true, resultado: [] };
     }

@@ -141,6 +141,40 @@ function Reintentar(props) {
   );
 }
 
+// Reenviar un correo de la secuencia a una persona (o a todas) para probar cómo llega.
+function Reenviar(props) {
+  var eT = useState('bienvenida');
+  var tipo = eT[0];
+  var eE = useState('');
+  var estado = eE[0];
+  var eC = useState(false);
+  var confirmar = eC[0];
+  function lanzar() {
+    if (props.todos && !confirmar) { eC[1](true); return; }
+    eC[1](false);
+    eE[1]('Enviando…');
+    var datos = props.todos ? { todos: true, tipo: tipo } : { id: props.id, tipo: tipo };
+    props.servicio.reenviarCorreo(datos).then(function (r) {
+      var lista = r.resultado || [];
+      var bien = lista.filter(function (x) { return x.ok; }).length;
+      eE[1](lista.length === 0 ? 'No había a quién enviarlo.' : (bien === lista.length ? 'Enviado' + (lista.length > 1 ? ' a ' + bien : '') + '.' : 'Enviados ' + bien + ' de ' + lista.length + '. ' + lista.filter(function (x) { return !x.ok; }).map(function (x) { return x.nombre + ': ' + x.motivo; }).join(' · ')));
+      if (props.onHecho) { props.onHecho(); }
+    }).catch(function (err) { eE[1]('No se ha podido (' + err.codigo + ').'); });
+  }
+  return (
+    <div className="mt-2 flex flex-wrap items-center gap-2">
+      <select value={tipo} onChange={function (e) { eT[1](e.target.value); eC[1](false); }} className="rounded-lg border-2 border-lila px-2 py-1 text-xs">
+        {Object.keys(NOMBRES_CORREO).map(function (t) { return <option key={t} value={t}>{NOMBRES_CORREO[t]}</option>; })}
+      </select>
+      <button type="button" onClick={lanzar} className="rounded-full bg-cobalto text-white text-xs font-bold px-3 py-1.5">
+        {props.todos ? (confirmar ? 'Sí, a todos' : 'Reenviar a todos') : 'Reenviar'}
+      </button>
+      {confirmar ? <button type="button" onClick={function () { eC[1](false); }} className="text-xs underline">Cancelar</button> : null}
+      {estado ? <span className="text-xs font-semibold">{estado}</span> : null}
+    </div>
+  );
+}
+
 var NOMBRES_CORREO = { bienvenida: 'Bienvenida', d7: '7 días antes', d1: 'Víspera', d0: 'Día 1' };
 
 // Plazas pedidas (web y app): dorsales por grupo, quién comparte, quién trae a quién y los correos.
@@ -170,6 +204,7 @@ function Plazas(props) {
         {l.correo.clave && l.correo.clave.hay ? <p className="text-xs text-gris">Clave en Netlify: tipo {l.correo.clave.tipo}, {l.correo.clave.longitud} caracteres{l.correo.clave.limpiada ? ' (traía espacios o comillas: se limpian solos)' : ''}.</p> : null}
         {Object.keys(l.erroresCorreo || {}).map(function (m) { return <p key={m} className="text-xs font-bold text-cobalto-hondo break-words">Error ({l.erroresCorreo[m]}): {m}</p>; })}
         {l.correo.proveedor && props.servicio ? <Reintentar servicio={props.servicio} onHecho={props.onRecargar} /> : null}
+        {l.correo.proveedor && props.servicio && personas.length ? <div><p className="text-xs text-gris mt-1">Reenviar un correo a todos los inscritos de los próximos grupos:</p><Reenviar servicio={props.servicio} todos={true} onHecho={props.onRecargar} /></div> : null}
         <div className="grid grid-cols-2 gap-x-4 gap-y-1">
           {Object.keys(NOMBRES_CORREO).map(function (t) {
             var c = l.correos[t] || {};
@@ -190,6 +225,7 @@ function Plazas(props) {
                   {x.invitadoPor ? 'Invitada por ' + x.invitadoPor + ' · ' : ''}{x.trajo ? 'Ha traído a ' + x.trajo + ' · ' : ''}{x.compartidos ? 'Compartió ' + x.compartidos + ' · ' : ''}Correos: {x.correos.length ? x.correos.map(function (t) { return NOMBRES_CORREO[t]; }).join(', ') : 'ninguno todavía'}
                 </p>
                 {x.errorCorreo ? <p className="text-xs font-bold text-cobalto-hondo mt-1">{x.errorCorreo}</p> : null}
+                {props.servicio && l.correo.proveedor ? <Reenviar servicio={props.servicio} id={x.id} onHecho={props.onRecargar} /> : null}
               </li>
             );
           })}

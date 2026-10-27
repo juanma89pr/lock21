@@ -192,7 +192,7 @@ export async function calcularMetricas(conDetalle) {
       });
       if (conDetalle) {
         detalleLista.push({
-          nombre: x.nombre, email: x.email, grupo: x.grupo, dorsal: x.dorsal, habito: buscarHabito(x.habito).corto,
+          id: d.id, nombre: x.nombre, email: x.email, grupo: x.grupo, dorsal: x.dorsal, habito: buscarHabito(x.habito).corto,
           via: x.via, origen: x.origen, creado: x.creado, acompanamiento: Boolean(x.acompanamiento),
           invitadoPor: x.invitadoPor ? (nombrePorCodigo[x.invitadoPor] || x.invitadoPor) : null,
           trajo: trajo[x.codigo] || 0, compartidos: x.compartidos || 0,
