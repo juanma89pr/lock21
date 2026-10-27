@@ -130,7 +130,7 @@ export default function Dentro(props) {
         {datos.cambioGrupo ? <p className="mt-2 text-sm">El grupo que pediste se llenó: tienes plaza en el siguiente.</p> : null}
         <p className="mt-3 max-w-md leading-relaxed">
           {datos.correo === 'enviado'
-            ? 'Te acabamos de escribir a ' + datos.email + '. Revisa también la carpeta de promociones.'
+            ? 'Te acabamos de escribir a ' + datos.email + '. Si no lo ves en un par de minutos, mira en spam o promociones y márcalo como «No es spam»: así te llegan bien los siguientes.'
             : (datos.email ? 'Te escribimos a ' + datos.email + ' antes de empezar, ' : 'Te escribimos antes de empezar, ') + 'con tu hábito y el test del día 0.'}
         </p>
       </div>
