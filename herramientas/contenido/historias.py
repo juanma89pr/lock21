@@ -86,7 +86,7 @@ def historias(r):
         '2026-10-26': [calentamiento(2),
                        H('t-pista', K('Así es la web') + T('¿Cuál sería el tuyo?', 130) +
                          '<div style="margin-top:40px;display:flex;justify-content:center;zoom:.74">%s</div>' % captura_web(780) +
-                         '<p style="margin-top:26px;font-size:28px;color:#4A5175;text-align:center">Recreación de la portada de lock21.netlify.app</p>'),
+                         '<p style="margin-top:26px;font-size:28px;color:#4A5175;text-align:center">Recreación de la portada de lock21.balancet.org</p>'),
                        enlace()],
         '2026-10-27': [calentamiento(3),
                        H('t-dorsal', K('Señales que funcionan') + T('Aburridas y concretas', 150) + ''.join(

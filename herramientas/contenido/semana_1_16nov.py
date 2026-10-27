@@ -22,7 +22,7 @@ from dinamico2 import F, T, Reel, candado_anim, cierre_grupo, linea_anim, render
 BASE = Path(os.environ.get('BASE', '/home/claude/lock21-contenido/identidad2'))
 REPO = Path(__file__).resolve().parents[2]
 HASH = '#hábitos #reto21días #constancia #GranCanaria #LasPalmasDeGranCanaria'
-CTA = 'Pide tu plaza gratis en lock21.netlify.app (el enlace está en la bio).'
+CTA = 'Pide tu plaza gratis en lock21.balancet.org (el enlace está en la bio).'
 
 
 def pie(texto):
