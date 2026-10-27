@@ -1,0 +1,57 @@
+{
+  "plazasPorGrupo": {
+    "2026-11-16": 2
+  },
+  "plazasTotal": 2,
+  "hanCompartido": 0,
+  "compartidos": 0,
+  "lleganInvitados": 0,
+  "bajas": 0,
+  "origenPlazas": {
+    "importado": 2
+  },
+  "web30dias": {
+    "visitas": 41,
+    "clicsPedirPlaza": 6,
+    "solicitudes": 2,
+    "compartir": 0
+  },
+  "origenVisitas30dias": {
+    "directo": 26,
+    "facebook": 2,
+    "instagram": 11,
+    "ig": 1,
+    "interno": 1
+  },
+  "enLaApp": {
+    "registrados": 0,
+    "conHabito": 0,
+    "checkins": 0
+  },
+  "correos": {
+    "activos": true,
+    "porTipo": {
+      "bienvenida": {
+        "enviados": 0,
+        "pendientes": 0,
+        "fallidos": 2
+      },
+      "d7": {
+        "enviados": 0,
+        "pendientes": 0,
+        "fallidos": 0
+      },
+      "d1": {
+        "enviados": 0,
+        "pendientes": 0,
+        "fallidos": 0
+      },
+      "d0": {
+        "enviados": 0,
+        "pendientes": 0,
+        "fallidos": 0
+      }
+    }
+  },
+  "actualizado": "2026-10-27T14:18+00:00"
+}
