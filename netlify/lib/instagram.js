@@ -9,7 +9,7 @@ import { createHash } from 'node:crypto';
 
 export var API_HOST = 'https://graph.instagram.com';
 export var API_VERSION_POR_DEFECTO = 'v26.0';
-export var BASE_MEDIOS_POR_DEFECTO = 'https://lock21.balancet.org';
+export var BASE_MEDIOS_POR_DEFECTO = 'https://lock21.netlify.app';
 export var TIPOS = ['carrusel', 'imagen', 'reel', 'historia'];
 export var MAX_INTENTOS = 3;
 export var VENTANA_MS = 6 * 60 * 60 * 1000;      // no se publica nada con más de 6 h de retraso

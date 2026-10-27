@@ -40,7 +40,7 @@ function api(opciones) {
     var params = metodo === 'POST' ? new URLSearchParams(init.body) : u.searchParams;
     s.llamadas.push({ metodo: metodo, ruta: u.pathname, params: Object.fromEntries(params) });
     if (metodo === 'HEAD') {
-      if (u.hostname !== 'lock21.balancet.org') { return respuesta(500, null); }
+      if (u.hostname !== 'lock21.netlify.app') { return respuesta(500, null); }
       return respuesta((o.medios404 || []).indexOf(u.pathname) >= 0 ? 404 : 200, null);
     }
     if (u.hostname !== 'graph.instagram.com') { return respuesta(500, null); }
@@ -121,7 +121,7 @@ var res1 = await ejecutarPublicador({ cola: [CAR, FUTURA], store: st1, fetch: s1
 igual('carrusel publicado', res1.publicadas, [CAR.id]);
 var hijos1 = s1.llamadas.filter(function (l) { return l.params.is_carousel_item === 'true'; });
 igual('carrusel: 3 hijos', hijos1.length, 3);
-igual('carrusel: hijos con image_url pública', hijos1[0].params.image_url, 'https://lock21.balancet.org/redes/2026-10-28/c/01.jpg');
+igual('carrusel: hijos con image_url pública', hijos1[0].params.image_url, 'https://lock21.netlify.app/redes/2026-10-28/c/01.jpg');
 igual('carrusel: hijos sin pie', hijos1[0].params.caption, undefined);
 igual('carrusel: contenedor final', [s1.publicados[0].params.media_type, s1.publicados[0].params.children.split(',').length, s1.publicados[0].params.caption], ['CAROUSEL', 3, 'Pie de ' + CAR.id]);
 igual('carrusel: la futura no se toca', res1.publicadas.indexOf(FUTURA.id), -1);
@@ -151,7 +151,7 @@ var s4 = api({ procesando: 2 });
 var r4 = reloj('2026-10-26T19:30:30Z');
 var res4 = await ejecutarPublicador({ cola: [REEL], store: almacen(), fetch: s4.fetch, env: ENV, ahora: r4.ahora, esperar: r4.esperar });
 igual('reel publicado tras esperar', res4.publicadas, [REEL.id]);
-igual('reel: parámetros', [s4.publicados[0].params.media_type, s4.publicados[0].params.cover_url, s4.publicados[0].params.share_to_feed], ['REELS', 'https://lock21.balancet.org/redes/2026-10-26/r/portada.jpg', 'true']);
+igual('reel: parámetros', [s4.publicados[0].params.media_type, s4.publicados[0].params.cover_url, s4.publicados[0].params.share_to_feed], ['REELS', 'https://lock21.netlify.app/redes/2026-10-26/r/portada.jpg', 'true']);
 igual('reel: 3 consultas de estado', s4.llamadas.filter(function (l) { return l.metodo === 'GET' && /\/c\d+$/.test(l.ruta); }).length, 3);
 
 // 4b. Reel que no termina en el límite de tiempo: queda pendiente y se publica en la siguiente.
@@ -177,7 +177,7 @@ igual('reel de prueba: trial_params', s4d.publicados[0].params.trial_params, '{"
 var s5 = api();
 var r5 = reloj('2026-10-25T20:00:10Z');
 var res5 = await ejecutarPublicador({ cola: [HIST], store: almacen(), fetch: s5.fetch, env: ENV, ahora: r5.ahora, esperar: r5.esperar });
-igual('historia publicada', [res5.publicadas, s5.publicados[0].params.media_type, s5.publicados[0].params.image_url, s5.publicados[0].params.caption], [[HIST.id], 'STORIES', 'https://lock21.balancet.org/redes/2026-10-25/historias/01.jpg', undefined]);
+igual('historia publicada', [res5.publicadas, s5.publicados[0].params.media_type, s5.publicados[0].params.image_url, s5.publicados[0].params.caption], [[HIST.id], 'STORIES', 'https://lock21.netlify.app/redes/2026-10-25/historias/01.jpg', undefined]);
 
 // 6. Reintentos: dos fallos y a la tercera se publica; con 3 fallos queda como fallido.
 var s6 = api({ fallosCrear: 2 });

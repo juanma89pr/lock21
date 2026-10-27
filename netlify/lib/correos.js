@@ -9,7 +9,7 @@ export var TIPOS = ['bienvenida', 'd7', 'd1', 'd0'];
 var MAX_INTENTOS = 3;
 
 export function sitio() {
-  return (process.env.URL || 'https://lock21.balancet.org').replace(/\/+$/, '');
+  return (process.env.URL || 'https://lock21.netlify.app').replace(/\/+$/, '');
 }
 
 function escapar(t) {
