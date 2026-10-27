@@ -3,7 +3,7 @@
 import { getStore } from '@netlify/blobs';
 import { json } from '../lib/http.js';
 import { calcularMetricas } from './metricas.js';
-import { diagnosticoDb } from '../lib/admin.js';
+import { diagnosticoDb, obtenerDb } from '../lib/admin.js';
 
 function diaCanarias(d) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Atlantic/Canary', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
@@ -39,5 +39,16 @@ export default async function handler(req) {
   } catch (e2) {
     reto = { error: 'sin_datos' };
   }
-  return json(200, { generado: new Date().toISOString(), web: web, reto: reto, firestore: diagnosticoDb });
+  // Solo el estado de cada propuesta de marketing (sin notas), para que las tareas sepan qué está aprobado.
+  var marketing = {};
+  try {
+    var fire = await obtenerDb();
+    if (fire) {
+      var snap = await fire.db.collection('marketing_decisiones').get();
+      snap.forEach(function (doc) { marketing[doc.id] = doc.data().estado; });
+    }
+  } catch (e3) {
+    marketing = { error: 'sin_datos' };
+  }
+  return json(200, { generado: new Date().toISOString(), web: web, reto: reto, firestore: diagnosticoDb, marketing: marketing });
 }

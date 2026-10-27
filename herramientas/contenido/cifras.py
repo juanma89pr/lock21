@@ -34,6 +34,7 @@ cifras = {
     'origenVisitas30dias': (web.get('visita') or {}).get('origen', {}),
     'enLaApp': {'registrados': reto.get('registrados', 0), 'conHabito': reto.get('inscritos', 0), 'checkins': reto.get('checkins', 0)},
     'correos': {'activos': bool((lista.get('correo') or {}).get('proveedor')), 'porTipo': lista.get('correos', {})},
+    'decisionesMarketing': d.get('marketing') or {},
 }
 ruta = REPO / 'contenido' / 'cifras.json'
 previo = {}
