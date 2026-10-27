@@ -9,7 +9,8 @@ export var TIPOS = ['bienvenida', 'd7', 'd1', 'd0'];
 var MAX_INTENTOS = 3;
 
 export function sitio() {
-  return (process.env.URL || 'https://lock21.netlify.app').replace(/\/+$/, '');
+  // Enlaces públicos siempre a lock21.netlify.app (decisión de Juanma: balancet.org es solo el correo).
+  return (process.env.SITIO_PUBLICO || 'https://lock21.netlify.app').replace(/\/+$/, '');
 }
 
 function escapar(t) {
