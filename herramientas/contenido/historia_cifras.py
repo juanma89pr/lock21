@@ -17,7 +17,7 @@ from zoneinfo import ZoneInfo
 from identidad2 import PAREJAS, Render, dorsal, historia
 
 REPO = Path(__file__).resolve().parents[2]
-URL = 'https://lock21.balancet.org/.netlify/functions/pulso-metricas'
+URL = 'https://lock21.netlify.app/.netlify/functions/pulso-metricas'
 MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
 DIAS = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
 PLAZAS = 30

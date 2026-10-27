@@ -171,7 +171,7 @@ def tarjeta_checkin(ancho=860, dia=9):
 
 
 def captura_web(ancho=820):
-    # Recreación local de la portada de lock21.balancet.org (sin red para capturarla).
+    # Recreación local de la portada de lock21.netlify.app (sin red para capturarla).
     chips = ''.join('<span style="display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:2.5px solid %s;padding:9px 16px;font-size:22px;font-weight:650;%s">%s%s</span>'
                     % ('#fff' if i == 1 else 'rgba(255,255,255,.45)', 'background:#fff;color:#0B1240' if i == 1 else '', icono(h[0], 22, 2.25), h[1])
                     for i, h in enumerate(HABITOS))
