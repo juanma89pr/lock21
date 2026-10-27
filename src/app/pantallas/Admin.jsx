@@ -109,6 +109,38 @@ function ImportarPlazas(props) {
   );
 }
 
+// Vuelve a mandar al momento los correos que fallaron (y la bienvenida a quien no la tenga).
+function Reintentar(props) {
+  var e = useState(null);
+  var res = e[0];
+  var eF = useState('');
+  var fase = eF[0];
+  function lanzar() {
+    eF[1]('enviando');
+    props.servicio.reintentarCorreos().then(function (r) {
+      e[1](r.resultado || []);
+      eF[1]('');
+      if (props.onHecho) { props.onHecho(); }
+    }).catch(function (err) {
+      eF[1](err.codigo === 'correo_sin_configurar' ? 'Falta BREVO_API_KEY en Netlify.' : 'No se ha podido (' + err.codigo + ').');
+    });
+  }
+  return (
+    <div className="grid gap-2">
+      <button type="button" onClick={lanzar} disabled={fase === 'enviando'} className="boton justify-self-start bg-cobalto text-white text-sm disabled:opacity-60">{fase === 'enviando' ? 'Enviando…' : 'Reintentar los correos pendientes'}</button>
+      {fase && fase !== 'enviando' ? <p className="font-bold text-cobalto-hondo">{fase}</p> : null}
+      {res ? (
+        <ul className="grid gap-1">
+          {res.length === 0 ? <li className="text-gris">No había nada pendiente.</li> : null}
+          {res.map(function (x, i) {
+            return <li key={i}>{x.nombre} · {NOMBRES_CORREO[x.tipo]}: {x.ok ? 'enviado' : 'falla: ' + x.motivo}</li>;
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 var NOMBRES_CORREO = { bienvenida: 'Bienvenida', d7: '7 días antes', d1: 'Víspera', d0: 'Día 1' };
 
 // Plazas pedidas (web y app): dorsales por grupo, quién comparte, quién trae a quién y los correos.
@@ -135,6 +167,8 @@ function Plazas(props) {
       <div className="rounded-2xl bg-white p-4 shadow-[0_2px_0_var(--color-lila)] grid gap-2 text-sm">
         <p className="font-bold flex items-center gap-1.5"><Icono nombre="correo" size={16} grosor={2.25} />Correos {l.correo.proveedor ? '· salen de ' + l.correo.remitente : '· apagados'}</p>
         {!l.correo.proveedor ? <p className="text-xs font-bold text-cobalto-hondo">Falta BREVO_API_KEY en Netlify (la misma clave que Balancet). Mientras, quedan pendientes y salen solos cuando esté.</p> : null}
+        {Object.keys(l.erroresCorreo || {}).map(function (m) { return <p key={m} className="text-xs font-bold text-cobalto-hondo break-words">Error ({l.erroresCorreo[m]}): {m}</p>; })}
+        {l.correo.proveedor && props.servicio ? <Reintentar servicio={props.servicio} onHecho={props.onRecargar} /> : null}
         <div className="grid grid-cols-2 gap-x-4 gap-y-1">
           {Object.keys(NOMBRES_CORREO).map(function (t) {
             var c = l.correos[t] || {};

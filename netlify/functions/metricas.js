@@ -158,7 +158,7 @@ export async function calcularMetricas(conDetalle) {
     });
 
     // Lista de plazas (web y app): dorsales por grupo, invitaciones, compartidos y correos.
-    var lista = { total: 0, bajas: 0, web: 0, app: 0, invitados: 0, quienesComparten: 0, compartidos: 0, canales: {}, porGrupo: {}, porOrigen: {}, correos: {}, correo: { proveedor: proveedor(), remitente: remitente() } };
+    var lista = { erroresCorreo: {}, total: 0, bajas: 0, web: 0, app: 0, invitados: 0, quienesComparten: 0, compartidos: 0, canales: {}, porGrupo: {}, porOrigen: {}, correos: {}, correo: { proveedor: proveedor(), remitente: remitente() } };
     TIPOS.forEach(function (t) { lista.correos[t] = { enviados: 0, pendientes: 0, fallidos: 0 }; });
     var nombrePorCodigo = {};
     var trajo = {};
@@ -183,7 +183,12 @@ export async function calcularMetricas(conDetalle) {
         if (!c) { return; }
         if (c.ok) { lista.correos[t].enviados = lista.correos[t].enviados + 1; }
         else if (c.motivo === 'sin_configurar') { lista.correos[t].pendientes = lista.correos[t].pendientes + 1; }
-        else { lista.correos[t].fallidos = lista.correos[t].fallidos + 1; }
+        else {
+          lista.correos[t].fallidos = lista.correos[t].fallidos + 1;
+          // Motivo sin correos de nadie (para diagnosticar desde las cifras públicas).
+          var m = String(c.motivo || 'desconocido').replace(/[^\s@"']+@[^\s@"']+/g, '[correo]').slice(0, 140);
+          lista.erroresCorreo[m] = (lista.erroresCorreo[m] || 0) + 1;
+        }
       });
       if (conDetalle) {
         detalleLista.push({

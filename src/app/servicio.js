@@ -280,7 +280,8 @@ export function crearServicioReal() {
       return r;
     },
     metricas: function () { return llamar('metricas'); },
-    importarPlazas: function (texto) { return llamar('importar-plazas', { texto: texto }); }
+    importarPlazas: function (texto) { return llamar('importar-plazas', { texto: texto }); },
+    reintentarCorreos: function () { return llamar('reintentar-correos', {}); }
   };
 }
 
@@ -468,6 +469,10 @@ export function crearServicioDemo(opciones) {
       return metricasDemo();
     },
     importarPlazas: async function () {
+      await esperar(300);
+      return { ok: true, resultado: [] };
+    },
+    reintentarCorreos: async function () {
       await esperar(300);
       return { ok: true, resultado: [] };
     }
