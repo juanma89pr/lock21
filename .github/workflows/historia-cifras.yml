@@ -1,16 +1,23 @@
-# Sábados a las 16:30 (Canarias, invierno = UTC): genera la historia de las 20:00 con las plazas
-# pedidas REALES del próximo grupo (herramientas/contenido/historia_cifras.py) y la sube a main;
-# Netlify la publica en el despliegue y el publicador de Instagram la lanza a su hora.
-name: Historia de cifras (sábados)
+# Cifras reales del reto, sin datos personales:
+# - Cada día 8:05 (Canarias en invierno = UTC): guarda contenido/cifras.json (plazas por grupo, visitas,
+#   compartidos) para que las tareas de marketing lo lean desde el repositorio.
+# - Sábados 16:30: genera la historia de las 20:00 con las plazas pedidas del próximo grupo
+#   (herramientas/contenido/historia_cifras.py). Netlify la despliega y el publicador la lanza a su hora.
+name: Cifras e historia del sábado
 
 on:
   schedule:
+    - cron: '5 8 * * *'
     - cron: '30 16 * * 6'
   workflow_dispatch:
     inputs:
       fecha:
-        description: 'Fecha AAAA-MM-DD (vacío = hoy)'
+        description: 'Fecha de la historia AAAA-MM-DD (vacío = hoy)'
         required: false
+      prueba:
+        description: 'Solo probar: no sube nada, deja la imagen como artefacto'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -20,7 +27,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  historia:
+  cifras:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,20 +37,32 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Guardar las cifras del día
+        run: python herramientas/contenido/cifras.py
       - name: Instalar el navegador para dibujar
+        if: github.event.schedule == '30 16 * * 6' || github.event_name == 'workflow_dispatch'
         run: |
           pip install playwright==1.48.0
           python -m playwright install --with-deps chromium
       - name: Generar la historia
+        if: github.event.schedule == '30 16 * * 6' || github.event_name == 'workflow_dispatch'
         working-directory: herramientas/contenido
         run: python historia_cifras.py ${{ github.event.inputs.fecha }}
+      - name: Imagen de prueba
+        if: github.event.inputs.prueba == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: historia-prueba
+          path: public/redes/**/2000_cifras.jpg
+          if-no-files-found: warn
       - name: Subir a main (y a app-reto si van a la par)
+        if: github.event.inputs.prueba != 'true'
         run: |
           if [ -z "$(git status --porcelain)" ]; then echo "Nada nuevo"; exit 0; fi
           git config user.name "Lock21 publicador"
           git config user.email "lock21@balancet.org"
-          git add contenido/cola public/redes
-          git commit -m "Historia de cifras del sábado (plazas reales del próximo grupo)"
+          git add contenido public/redes
+          git commit -m "Cifras del reto e historia del sábado (datos reales, sin datos personales)"
           git pull --rebase origin main
           git push origin HEAD:main
           git fetch origin app-reto
