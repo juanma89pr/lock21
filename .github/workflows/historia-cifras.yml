@@ -1,0 +1,50 @@
+# Sábados a las 16:30 (Canarias, invierno = UTC): genera la historia de las 20:00 con las plazas
+# pedidas REALES del próximo grupo (herramientas/contenido/historia_cifras.py) y la sube a main;
+# Netlify la publica en el despliegue y el publicador de Instagram la lanza a su hora.
+name: Historia de cifras (sábados)
+
+on:
+  schedule:
+    - cron: '30 16 * * 6'
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: 'Fecha AAAA-MM-DD (vacío = hoy)'
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: historia-cifras
+  cancel-in-progress: false
+
+jobs:
+  historia:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar el navegador para dibujar
+        run: |
+          pip install playwright==1.48.0
+          python -m playwright install --with-deps chromium
+      - name: Generar la historia
+        working-directory: herramientas/contenido
+        run: python historia_cifras.py ${{ github.event.inputs.fecha }}
+      - name: Subir a main (y a app-reto si van a la par)
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then echo "Nada nuevo"; exit 0; fi
+          git config user.name "Lock21 publicador"
+          git config user.email "lock21@balancet.org"
+          git add contenido/cola public/redes
+          git commit -m "Historia de cifras del sábado (plazas reales del próximo grupo)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          git fetch origin app-reto
+          if git merge-base --is-ancestor origin/app-reto HEAD; then git push origin HEAD:app-reto; fi
