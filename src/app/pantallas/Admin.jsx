@@ -3,6 +3,7 @@ import Icono from '../../components/Icono.jsx';
 import { Aviso, Cargando } from '../componentes/ui.jsx';
 import { formatoNumero } from '../../lib/reto.js';
 import { fechaCorta } from '../../lib/grupos.js';
+import Marketing from './Marketing.jsx';
 
 function nombreGrupo(g) {
   return g === 'pendiente' ? 'Sin grupo' : fechaCorta(g);
@@ -323,6 +324,7 @@ export default function Admin(props) {
         <Cifra nombre="Leads" valor={datos.leads} />
       </div>
       <Plazas servicio={props.servicio} onRecargar={recargar} lista={datos.lista} personas={datos.detalleLista} plazas={datos.porGrupo && datos.porGrupo[0] ? datos.porGrupo[0].plazas : 30} />
+      <Marketing servicio={props.servicio} />
       <Web />
       <section aria-labelledby="t-embudo" className="grid gap-3">
         <h2 id="t-embudo" className="titular-medio text-3xl">Del reto al acompañamiento</h2>

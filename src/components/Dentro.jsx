@@ -174,6 +174,9 @@ export default function Dentro(props) {
             <button type="button" onClick={descargar} disabled={!vista} className="boton justify-center bg-pista text-noche border-2 border-lila disabled:opacity-60">
               <Icono nombre="descargar" grosor={2.25} />Guardar la imagen
             </button>
+            <a href={'/marketing/insignia.html?n=' + (datos.dorsal || '') + '&h=' + encodeURIComponent(datos.habitoCorto || '') + '&g=' + datos.grupo} target="_blank" rel="noopener noreferrer" onClick={function () { avisar(datos, 'descarga'); }} className="text-sm font-bold text-cobalto underline text-center">
+              Imprimir mi insignia (mini-dorsal de bolsillo)
+            </a>
           </div>
         </div>
 

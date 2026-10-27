@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Insignia mini-dorsal · Lock21</title>
+<style>
+@font-face{font-family:A;font-weight:100 900;font-stretch:62% 125%;src:url(fonts/archivo-latin-wdth-normal.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:A;font-weight:100 900;font-stretch:62% 125%;src:url(fonts/archivo-latin-ext-wdth-normal.woff2) format('woff2-variations');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F}
+:root{--fondo:#2433D9;--tinta:#F6C6BD}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:A,system-ui,sans-serif;background:#F5F2EA;color:#121212;-webkit-font-smoothing:antialiased}
+.panel{max-width:760px;margin:0 auto;padding:24px 16px 32px}
+h1{font-size:34px;letter-spacing:-.03em;color:#2433D9;font-stretch:80%;font-weight:800}
+p{line-height:1.45;margin-top:8px}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:18px}
+label{font-size:13px;font-weight:600;display:grid;gap:4px}
+input,select{width:100%;min-width:0;font:inherit;font-size:16px;padding:10px;border:2px solid #CBC4F4;border-radius:10px;background:#fff}
+button{font:inherit;font-weight:700;font-size:17px;background:#2433D9;color:#fff;border:0;border-radius:999px;padding:14px 22px;margin-top:18px;cursor:pointer}
+.vista{display:flex;justify-content:center;margin-top:22px}
+.hoja{display:grid;grid-template-columns:repeat(2,8.6cm);grid-auto-rows:5.6cm;gap:.5cm .6cm;justify-content:center;padding:1cm 0}
+.ins{width:8.6cm;height:5.6cm;background:var(--fondo);color:var(--tinta);border-radius:.45cm;position:relative;padding:.42cm .5cm;display:flex;flex-direction:column;justify-content:space-between;outline:1px dashed #bbb;outline-offset:.12cm}
+.ins i{position:absolute;width:.22cm;height:.22cm;border-radius:50%;background:#F5F2EA}
+.cab,.pie{display:flex;justify-content:space-between;align-items:center;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:7.5pt}
+.cab span{display:flex;align-items:center;gap:.12cm}
+.num{font-weight:700;font-stretch:85%;letter-spacing:-.04em;text-align:center;font-size:62pt;line-height:.82}
+.hab{font-weight:650;font-size:9pt;text-align:center;letter-spacing:-.01em;min-height:1em}
+.pie{border-top:1.5px solid currentColor;padding-top:.12cm;font-size:6.5pt}
+.grande .ins{outline:0}
+@media (min-width:640px){.grande .ins{transform:scale(1.6);transform-origin:top center;margin-bottom:3.6cm}}
+@media print{.panel{display:none}.vista{display:none}body{background:#fff}@page{size:A4;margin:0}.hoja{padding:1.2cm 0}}
+@media screen{.hoja{display:none}}
+</style>
+</head>
+<body>
+<div class="panel">
+  <h1>Insignia mini-dorsal</h1>
+  <p>Tamaño tarjeta (8,6 × 5,6 cm), 8 por hoja A4. Imprime a color, recorta por la línea discontinua y, si quieres, plastifícala o pégala en cartulina. Para enseñarla a cámara o llevarla en la mochila.</p>
+  <form id="f">
+    <label>Dorsal<input name="n" inputmode="numeric" maxlength="2" value="01"></label>
+    <label>Mi hábito<input name="h" maxlength="28" placeholder="8.000 pasos"></label>
+    <label>Fecha de salida<input name="g" type="date" value="2026-11-16"></label>
+    <label>Color<select name="c"><option value="cobalto">Cobalto y rosa</option><option value="rosa">Rosa y cobalto</option><option value="mantequilla">Mantequilla y bosque</option><option value="bosque">Bosque y mantequilla</option></select></label>
+  </form>
+  <button type="button" onclick="window.print()">Imprimir la hoja</button>
+  <p style="font-size:13px;color:#5B5A55">Lock21, un reto gratis de 21 días: lock21.netlify.app</p>
+</div>
+<div class="vista grande" id="vista"></div>
+<div class="hoja" id="hoja"></div>
+<script>
+var COLORES = { cobalto: ['#2433D9', '#F6C6BD'], rosa: ['#F6C6BD', '#2433D9'], mantequilla: ['#F2E6A2', '#1E4A37'], bosque: ['#1E4A37', '#F2E6A2'] };
+var CANDADO = '<svg width="13" height="21" viewBox="0 -30 100 162" aria-hidden="true"><path fill="currentColor" d="M20 64V30C20 13.43 33.43 0 50 0C66.57 0 80 13.43 80 30V52H67V30C67 20.61 59.39 13 50 13C40.61 13 33 20.61 33 30V64Z"/><path fill="currentColor" fill-rule="evenodd" d="M18 52H82C91.94 52 100 60.06 100 70V114C100 123.94 91.94 132 82 132H18C8.06 132 0 123.94 0 114V70C0 60.06 8.06 52 18 52ZM17.26 118.5H47.88V108.08H31.81Q32.36 107.07 33.1 106.07Q33.84 105.08 34.81 104Q35.79 102.91 37.02 101.75Q39.47 99.26 41.41 97.01Q43.35 94.77 44.69 92.47Q46.02 90.16 46.74 87.49Q47.47 84.83 47.47 81.53Q47.47 78.16 46.46 75.54Q45.46 72.91 43.58 71.11Q41.7 69.31 39.07 68.39Q36.45 67.48 33.16 67.48Q27.84 67.48 24.36 69.450Q20.88 71.42 19.15 74.98Q17.41 78.54 17.41 83.43Q17.41 83.96 17.44 84.74Q17.47 85.51 17.54 86.07H28.96V83.23Q28.96 81.2 29.31 79.89Q29.66 78.59 30.36 77.94Q31.07 77.3 32.18 77.3Q33.4 77.3 34 77.92Q34.6 78.54 34.85 79.57Q35.11 80.6 35.11 81.93Q35.11 84.55 34.08 86.7Q33.05 88.85 31.33 90.94Q29.62 93.02 27.39 95.49Q25.59 97.49 23.78 99.63Q21.98 101.76 20.5 104.15Q19.03 106.53 18.14 109.21Q17.26 111.88 17.26 115ZM54.92 118.5H82.74V108.43H75.1V68.28H70.72Q68.69 70.1 65.92 71.85Q63.15 73.6 60.29 74.77Q57.42 75.93 54.92 76.14V84.55H62.66V108.43H54.92Z"/></svg>';
+function limpio(t) { return String(t || '').replace(/[<>&"]/g, ''); }
+function corta(f) { var t = String(f || '').split('-'); return t.length === 3 ? t[2] + '·' + t[1] + '·' + t[0].slice(2) : ''; }
+function insignia(d) {
+  var pins = ['top:.13cm;left:.13cm', 'top:.13cm;right:.13cm', 'bottom:.13cm;left:.13cm', 'bottom:.13cm;right:.13cm'].map(function (p) { return '<i style="' + p + '"></i>'; }).join('');
+  return '<div class="ins">' + pins + '<div class="cab"><span>' + CANDADO + 'Lock21</span><span>Gran Canaria</span></div>' +
+    '<div class="num">' + d.n + '</div><div class="hab">' + (d.h ? 'Bloqueo: ' + d.h : '') + '</div>' +
+    '<div class="pie"><span>Reto de 21 días</span><span>Salida ' + corta(d.g) + '</span></div></div>';
+}
+function pintar() {
+  var f = document.getElementById('f');
+  var n = limpio(f.n.value).replace(/\D/g, '').slice(0, 2) || '21';
+  var d = { n: n.length === 1 ? '0' + n : n, h: limpio(f.h.value).slice(0, 28), g: f.g.value, c: f.c.value };
+  var col = COLORES[d.c] || COLORES.cobalto;
+  document.documentElement.style.setProperty('--fondo', col[0]);
+  document.documentElement.style.setProperty('--tinta', col[1]);
+  document.getElementById('vista').innerHTML = insignia(d);
+  var html = '';
+  for (var i = 0; i < 8; i++) { html = html + insignia(d); }
+  document.getElementById('hoja').innerHTML = html;
+}
+(function () {
+  var q = new URLSearchParams(location.search);
+  var f = document.getElementById('f');
+  if (q.get('n')) { f.n.value = q.get('n'); }
+  if (q.get('h')) { f.h.value = q.get('h'); }
+  if (q.get('g')) { f.g.value = q.get('g'); }
+  if (q.get('c')) { f.c.value = q.get('c'); }
+  f.addEventListener('input', pintar);
+  pintar();
+})();
+</script>
+</body>
+</html>
