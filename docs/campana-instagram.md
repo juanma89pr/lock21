@@ -263,3 +263,26 @@ Si la colaboración no cabe en la sesión, se usa J13 con B-roll que grabe la cu
 8. [Dupple: análisis y planes de ManyChat (2026)](https://dupple.com/reviews/manychat)
 9. [Hootsuite: el efecto de los enlaces en las historias](https://blog.hootsuite.com/adding-links-instagram-stories-ruin-engagement/)
 10. Lally et al. (2010), *European Journal of Social Psychology*: mediana de 66 días hasta la automaticidad.
+
+## Calendario programado del 1 al 16 nov 2026 (`herramientas/contenido/semana_1_16nov.py`)
+
+Cada día: historia de calentamiento a las 10:00, publicación a las 19:30 (colaboración con @juanma89pr) e historia de cuenta atrás a las 20:00. Los sábados 7 y 14 a las 20:00 quedan libres para la historia con las cifras reales de plazas.
+
+| Día | 19:30 | Tipo |
+|---|---|---|
+| Dom 1 | Lo que Lock21 no es (y «un proyecto de Balancet») | Carrusel |
+| Lun 2 | El lunes que sí: 16 nov tiene fecha | Reel |
+| Mar 3 | Cada plaza lleva dorsal (cómo funciona, cuéntalo, con alguien) | Carrusel |
+| Mié 4 | Un minuto al día (el check-in) | Reel |
+| Jue 5 | ¿Qué hábito te toca? | Carrusel |
+| Vie 6 | El día 21 lo bloqueo | Reel |
+| Sáb 7 | Hazlo con alguien | Carrusel |
+| Dom 8 | Nunca dos seguidos | Reel |
+| Lun 9 | Detrás de Lock21 no hay un experto | Carrusel |
+| Mar 10 | Esto va de dorsales | Reel |
+| Mié 11 | 4 preguntas: días 0, 7 y 21 | Carrusel |
+| Jue 12 | La señal pesa más que las ganas | Reel |
+| Vie 13 | El fin de semana antes (lista para guardar) | Carrusel |
+| Sáb 14 | 6 hábitos, eliges uno | Reel |
+| Dom 15 | Mañana es el lunes (víspera) | Carrusel |
+| Lun 16 | Hoy es el día 1 (10:00 «Hoy empieza», 20:00 «Día 1 de 21») | Reel |
