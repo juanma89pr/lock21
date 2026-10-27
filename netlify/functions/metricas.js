@@ -13,7 +13,9 @@ import { esGrupoValido, fechaEnZona, proximosGrupos } from '../../src/lib/grupos
 import config from '../../src/config.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
 import { estadosPuente } from '../lib/puente.js';
-import { proveedor, remitente, TIPOS, diagnosticoClave } from '../lib/correos.js';
+import { proveedor, remitente, TIPOS as TIPOS_SECUENCIA, EMPUJES, diagnosticoClave } from '../lib/correos.js';
+
+var TIPOS = TIPOS_SECUENCIA.concat(EMPUJES);
 
 function mismoToken(a, b) {
   var x = Buffer.from(String(a));

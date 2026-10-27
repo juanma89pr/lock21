@@ -6,6 +6,11 @@ import { diasEntre, fechaLarga, fechaEnZona } from '../../src/lib/grupos.js';
 import { buscarHabito } from '../../src/datos/habitos.js';
 
 export var TIPOS = ['bienvenida', 'd7', 'd1', 'd0'];
+// Correos de empuje (no son de la secuencia fija): guardar la app e imprimir la insignia (al día
+// siguiente de apuntarse), aviso a quien invita cuando alguien entra con su enlace, y cifras reales
+// del grupo cuando pasa de 5, 10, 15, 20, 25 o 30 dorsales.
+export var EMPUJES = ['guardar', 'invitado', 'hito'];
+export var HITOS_GRUPO = [5, 10, 15, 20, 25, 30];
 var MAX_INTENTOS = 3;
 
 export function sitio() {
@@ -28,12 +33,14 @@ export function enlaces(id, d) {
     invitar: invitar,
     whatsapp: 'https://wa.me/?text=' + encodeURIComponent(texto),
     app: s + '/app?utm_source=correo',
+    insignia: s + '/marketing/insignia.html?n=' + (d.dorsal || '') + '&h=' + encodeURIComponent(buscarHabito(d.habito).corto) + '&g=' + d.grupo,
     baja: s + '/.netlify/functions/baja?i=' + id + '&t=' + d.token
   };
 }
 
 // Contenido de cada correo: { asunto, bloques } (bloques: p, dato, boton, nota, separador).
-export function contenido(tipo, id, d, hoy) {
+export function contenido(tipo, id, d, hoy, extra) {
+  var x = extra || {};
   var h = buscarHabito(d.habito);
   var e = enlaces(id, d);
   var faltan = diasEntre(hoy, d.grupo);
@@ -100,6 +107,51 @@ export function contenido(tipo, id, d, hoy) {
       ]
     };
   }
+  if (tipo === 'guardar') {
+    return {
+      asunto: 'Tu Lock21, a un toque',
+      previa: 'Guárdalo en el móvil e imprime tu insignia.',
+      bloques: [
+        { t: 'titulo', v: 'Que el día 1 no te pille buscando.' },
+        { t: 'p', v: 'Guarda Lock21 en la pantalla de inicio del móvil y tendrás tu check-in a un toque, como una app más:' },
+        { t: 'lista', v: ['iPhone: abre el enlace en Safari, toca Compartir y luego «Añadir a pantalla de inicio».', 'Android: abre el enlace en Chrome, toca el menú de los tres puntos y luego «Instalar» o «Añadir a pantalla de inicio».'] },
+        { t: 'boton', v: 'Abrir Lock21', url: e.app },
+        { t: 'separador' },
+        { t: 'sub', v: 'Tu insignia' },
+        { t: 'p', v: (dorsal ? 'Tu dorsal ' + dorsal + ' en' : 'Tu dorsal en') + ' tamaño tarjeta, para imprimir y llevar en la cartera o enseñar en una historia. Recuerda para qué empiezas el ' + fecha + '.' },
+        { t: 'boton2', v: 'Imprimir mi insignia', url: e.insignia },
+        { t: 'nota', v: '¿Alguien que lleve tiempo con «el lunes empiezo»? Tu enlace: ' + e.invitar }
+      ]
+    };
+  }
+  if (tipo === 'invitado') {
+    return {
+      asunto: 'Alguien se ha apuntado con tu enlace',
+      previa: 'Ya no sales solo el ' + fecha + '.',
+      bloques: [
+        { t: 'titulo', v: 'Ya no sales solo.' },
+        { t: 'p', v: 'Una persona acaba de pedir plaza con tu enlace y entra en tu mismo grupo: salen juntos el ' + fecha + '. Cada uno con su hábito, la misma línea de 21 días.' },
+        { t: 'p', v: 'Con alguien al lado cuesta menos seguir. ¿Se te ocurre una persona más?' },
+        { t: 'boton', v: 'Invitar por WhatsApp', url: e.whatsapp },
+        { t: 'nota', v: 'O pásale tu enlace: ' + e.invitar }
+      ]
+    };
+  }
+  if (tipo === 'hito') {
+    var n = x.n || 0;
+    var quedan = config.grupos.plazas - n;
+    return {
+      asunto: 'Ya somos ' + n + ' en tu grupo',
+      previa: 'Grupo del ' + fecha + (dorsal ? '. Tú llevas el ' + dorsal + '.' : '.'),
+      bloques: [
+        { t: 'titulo', v: 'Ya somos ' + n + '.' },
+        { t: 'p', v: 'El grupo del ' + fecha + ' tiene ya ' + n + ' dorsales' + (dorsal ? ' y el tuyo es el ' + dorsal : '') + '. ' + (quedan > 0 ? 'Quedan ' + quedan + ' plazas.' : 'El grupo está completo.') + ' ' + cuando },
+        quedan > 0 ? { t: 'p', v: 'Si alguien te viene a la cabeza, ahora es buen momento: entra en tu mismo grupo y salen juntos.' } : null,
+        quedan > 0 ? { t: 'boton', v: 'Invitar por WhatsApp', url: e.whatsapp } : null,
+        { t: 'boton2', v: 'Compartir mi dorsal', url: e.dentro }
+      ]
+    };
+  }
   // d0
   return {
     asunto: 'Hoy empieza, ' + nombre + '. Día 1 de 21',
@@ -154,8 +206,8 @@ function bloqueTexto(b) {
   return b.v;
 }
 
-export function componer(tipo, id, d, hoy) {
-  var c = contenido(tipo, id, d, hoy);
+export function componer(tipo, id, d, hoy, extra) {
+  var c = contenido(tipo, id, d, hoy, extra);
   var e = enlaces(id, d);
   var pie = 'Lock21 es un proyecto de Balancet. Recibes este correo porque pediste plaza en el reto (' + config.titular + ', ' + config.ciudad + ').';
   var html = '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>' + escapar(c.asunto) + '</title></head>' +
@@ -214,10 +266,10 @@ async function motivoDe(res, prefijo) {
 }
 
 // Envía un correo de la secuencia. Devuelve { ok, motivo }.
-export async function enviar(tipo, id, d, hoy) {
+export async function enviar(tipo, id, d, hoy, extra) {
   var via = proveedor();
   if (!via) { return { ok: false, motivo: 'sin_configurar' }; }
-  var m = componer(tipo, id, d, hoy || fechaEnZona(new Date()));
+  var m = componer(tipo, id, d, hoy || fechaEnZona(new Date()), extra);
   var cabeceras = { 'List-Unsubscribe': '<' + m.baja + '>', 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' };
   try {
     var res;
@@ -274,7 +326,26 @@ export function correoQueToca(d, hoy, hora, ahoraMs) {
   if (faltan >= 2 && pendiente('bienvenida')) { return 'bienvenida'; }
   // El de 7 días solo si la bienvenida salió hace más de 3 días (si no, sería repetirse).
   if (faltan >= 2 && faltan <= 7 && pendiente('d7') && hora >= 10 && desdeBienvenida >= 72 && desdeBienvenida !== Infinity) { return 'd7'; }
+  // Guardar la app e imprimir la insignia: por la tarde, al día siguiente de la bienvenida, si queda tiempo.
+  if (faltan >= 4 && pendiente('guardar') && hora >= 18 && hora <= 21 && desdeBienvenida >= 20 && desdeBienvenida !== Infinity && horasDesdeUltimo(d, ahoraMs) >= 20) { return 'guardar'; }
   return null;
+}
+
+// Horas desde el último correo que le llegó (de cualquier tipo): nunca más de uno al día de empuje.
+export function horasDesdeUltimo(d, ahoraMs) {
+  var c = d.correos || {};
+  var ultimo = 0;
+  Object.keys(c).forEach(function (t) {
+    if (c[t] && c[t].ok && c[t].en) { ultimo = Math.max(ultimo, Date.parse(c[t].en)); }
+  });
+  return ultimo ? (ahoraMs - ultimo) / 3600000 : Infinity;
+}
+
+// Hito de grupo que toca anunciar (o 0): el mayor de HITOS_GRUPO alcanzado y aún no anunciado.
+export function hitoPendiente(n, anunciado) {
+  var toca = 0;
+  HITOS_GRUPO.forEach(function (h) { if (n >= h && h > (anunciado || 0)) { toca = h; } });
+  return toca;
 }
 
 // Anota el resultado de un envío en la inscripción.

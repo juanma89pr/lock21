@@ -198,6 +198,18 @@ export default function Dentro(props) {
         </button>
       </div>
 
+      <div className="rounded-[28px] bg-white text-noche p-5 sm:p-8 grid gap-3 border-2 border-lila">
+        <p className="titular text-4xl sm:text-5xl">Guárdalo para el día 1.</p>
+        <p className="leading-relaxed text-gris">Ten Lock21 a un toque en la pantalla de inicio, como una app más. En iPhone: Compartir y «Añadir a pantalla de inicio». En Android: menú de los tres puntos e «Instalar».</p>
+        <a href="/app?utm_source=dentro" className="boton justify-center bg-noche text-white text-lg"><Icono nombre="movil" grosor={2.25} />Abrir Lock21 y guardarlo</a>
+        {datos.id && datos.token ? (
+          <button type="button" onClick={function () { copiar(window.location.origin + '/dentro?i=' + datos.id + '&t=' + datos.token).then(function () { nota('Enlace a tu dorsal copiado. Guárdalo en notas o en favoritos.'); }).catch(function () { nota('No se pudo copiar.'); }); }} className="justify-self-start text-sm font-bold text-cobalto underline">
+            Copiar el enlace a esta página (tu dorsal y tu invitación)
+          </button>
+        ) : null}
+        <p className="text-xs text-gris">Te lo recordamos también por correo.</p>
+      </div>
+
       {aviso ? <p className="fixed bottom-4 left-4 right-4 mx-auto max-w-md rounded-full bg-noche text-white text-sm font-semibold px-5 py-3 text-center shadow-xl z-50" role="alert">{aviso}</p> : null}
     </div>
   );

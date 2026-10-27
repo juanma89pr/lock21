@@ -1,5 +1,5 @@
 // Pruebas de la secuencia de correos y de las inscripciones (sin red ni Firestore).
-import { correoQueToca, componer, anotar, TIPOS } from '../netlify/lib/correos.js';
+import { correoQueToca, componer, anotar, TIPOS, EMPUJES, hitoPendiente, horasDesdeUltimo } from '../netlify/lib/correos.js';
 import { plazasDeTexto, habitoDe } from '../netlify/lib/importar.js';
 import { nombreDeCorreo, grupoPedido, codigoValido, codigoNuevo, idDe } from '../netlify/lib/inscritos.js';
 
@@ -38,9 +38,9 @@ igual('un fallo real gasta un intento', anotar(con({}), 'd1', { ok: false, motiv
 
 // Contenido: sin segunda persona del plural peninsular, sin profesión regulada, con baja.
 var prohibidas = [/vosotros/i, /\bos\b/, /empezáis|tenéis|podéis|apuntaos/i, /nutrici/i, /dieta(?!s ni)/i, /dietista/i];
-TIPOS.forEach(function (t) {
+TIPOS.concat(EMPUJES).forEach(function (t) {
   ['2026-10-26', '2026-11-09', '2026-11-15', '2026-11-16'].forEach(function (hoy) {
-    var m = componer(t, 'a'.repeat(24), base, hoy);
+    var m = componer(t, 'a'.repeat(24), base, hoy, { n: 10 });
     var todo = m.asunto + ' ' + m.texto;
     prohibidas.forEach(function (re) { if (re.test(todo)) { fallos.push(t + ' ' + hoy + ' contiene ' + re); } });
     if (m.texto.indexOf('/.netlify/functions/baja?i=') === -1) { fallos.push(t + ' sin enlace de baja'); }
@@ -53,6 +53,18 @@ igual('bienvenida a 1 día lleva el enlace a la app', componer('bienvenida', 'a'
 
 igual('d7 no pide compartir a quien ya compartió', componer('d7', 'a'.repeat(24), Object.assign({}, base, { compartidos: 2 }), '2026-11-09').texto.indexOf('Compartir mi dorsal'), -1);
 igual('d7 sí lo pide a quien no', componer('d7', 'a'.repeat(24), base, '2026-11-09').texto.indexOf('Compartir mi dorsal') !== -1, true);
+
+// Empujes: guardar la app al día siguiente, por la tarde; hitos de grupo.
+var bAyer = { bienvenida: { ok: true, en: '2026-10-26T18:00:00Z' } };
+igual('guardar a las 19 del día siguiente', correoQueToca(con(bAyer), '2026-10-27', 19, Date.parse('2026-10-27T19:00:00Z')), 'guardar');
+igual('guardar no por la mañana', correoQueToca(con(bAyer), '2026-10-27', 11, Date.parse('2026-10-27T11:00:00Z')), null);
+igual('guardar no el mismo día de la bienvenida', correoQueToca(con({ bienvenida: { ok: true, en: '2026-10-27T10:00:00Z' } }), '2026-10-27', 19, Date.parse('2026-10-27T19:00:00Z')), null);
+igual('guardar no si faltan menos de 4 días', correoQueToca(con({ bienvenida: bAyer.bienvenida, d7: { ok: true, en: '2026-11-10T10:00:00Z' } }), '2026-11-13', 19, Date.parse('2026-11-13T19:00:00Z')), null);
+igual('hito: de 4 a 5', hitoPendiente(5, 0), 5);
+igual('hito: salta al mayor alcanzado', hitoPendiente(12, 0), 10);
+igual('hito: ya anunciado', hitoPendiente(9, 5), 0);
+igual('horas desde el último', Math.round(horasDesdeUltimo(con(bAyer), Date.parse('2026-10-27T18:00:00Z'))), 24);
+igual('hito dice la cifra real', componer('hito', 'a'.repeat(24), base, '2026-10-30', { n: 10 }).asunto, 'Ya somos 10 en tu grupo');
 
 // Inscripciones.
 igual('nombre de correo', nombreDeCorreo('maria.perez93@gmail.com'), 'Maria');

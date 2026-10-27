@@ -5,7 +5,7 @@ import { json, leerJson } from '../lib/http.js';
 import { verificarUsuario } from '../lib/auth.js';
 import { obtenerDb } from '../lib/admin.js';
 import { esPropietario } from '../lib/propietarios.js';
-import { enviar, anotar, TIPOS, correoListo } from '../lib/correos.js';
+import { enviar, anotar, TIPOS, EMPUJES, correoListo } from '../lib/correos.js';
 import { fechaEnZona, diasEntre } from '../../src/lib/grupos.js';
 
 export default async function handler(req) {
@@ -17,7 +17,7 @@ export default async function handler(req) {
   var cuerpo = await leerJson(req, 2000);
   if (cuerpo.error) { return json(400, { error: cuerpo.error }); }
   var d = cuerpo.datos;
-  var tipo = TIPOS.indexOf(d.tipo) !== -1 ? d.tipo : 'bienvenida';
+  var tipo = TIPOS.concat(EMPUJES).filter(function (t) { return t !== 'hito'; }).indexOf(d.tipo) !== -1 ? d.tipo : 'bienvenida';
   var fire = await obtenerDb();
   if (!fire) { return json(503, { error: 'sin_firestore' }); }
   var hoy = fechaEnZona(new Date());

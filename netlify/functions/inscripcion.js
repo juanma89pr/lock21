@@ -59,6 +59,19 @@ export default async function handler(req) {
       await fire.db.collection('inscritos').doc(r.id).set({ correos: { bienvenida: nota } }, { merge: true });
       correo = envio.ok ? 'enviado' : 'pendiente';
     }
+    // Aviso a quien invitó: alguien ha entrado con su enlace (sin decirle quién).
+    if (r.nuevo && r.datos.invitadoPor) {
+      try {
+        var qi = await fire.db.collection('inscritos').where('codigo', '==', r.datos.invitadoPor).limit(1).get();
+        if (!qi.empty && !qi.docs[0].data().baja) {
+          var inv = qi.docs[0];
+          var ri = await enviar('invitado', inv.id, inv.data(), fechaEnZona(new Date()));
+          await inv.ref.set({ correos: { invitado: anotar({ correos: {} }, 'invitado', ri, new Date().toISOString()) } }, { merge: true });
+        }
+      } catch (eInv) {
+        console.error('inscripcion: aviso al que invita', eInv && eInv.message);
+      }
+    }
     return json(200, Object.assign({ ok: true, guardado: true, id: r.id, token: r.datos.token, nuevo: r.nuevo, cambioGrupo: r.cambioGrupo, correo: correo }, resumen(r.datos)));
   } catch (e) {
     if (String(e && e.message) === 'sin_plazas') { return json(409, { error: 'sin_plazas' }); }

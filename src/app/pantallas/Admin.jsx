@@ -165,7 +165,7 @@ function Reenviar(props) {
   return (
     <div className="mt-2 flex flex-wrap items-center gap-2">
       <select value={tipo} onChange={function (e) { eT[1](e.target.value); eC[1](false); }} className="rounded-lg border-2 border-lila px-2 py-1 text-xs">
-        {Object.keys(NOMBRES_CORREO).map(function (t) { return <option key={t} value={t}>{NOMBRES_CORREO[t]}</option>; })}
+        {Object.keys(NOMBRES_CORREO).filter(function (t) { return t !== 'hito'; }).map(function (t) { return <option key={t} value={t}>{NOMBRES_CORREO[t]}</option>; })}
       </select>
       <button type="button" onClick={lanzar} className="rounded-full bg-cobalto text-white text-xs font-bold px-3 py-1.5">
         {props.todos ? (confirmar ? 'Sí, a todos' : 'Reenviar a todos') : 'Reenviar'}
@@ -176,7 +176,7 @@ function Reenviar(props) {
   );
 }
 
-var NOMBRES_CORREO = { bienvenida: 'Bienvenida', d7: '7 días antes', d1: 'Víspera', d0: 'Día 1' };
+var NOMBRES_CORREO = { bienvenida: 'Bienvenida', guardar: 'Guardar e insignia', d7: '7 días antes', d1: 'Víspera', d0: 'Día 1', invitado: 'Entró alguien con su enlace', hito: 'Cifras del grupo' };
 
 // Plazas pedidas (web y app): dorsales por grupo, quién comparte, quién trae a quién y los correos.
 function Plazas(props) {
