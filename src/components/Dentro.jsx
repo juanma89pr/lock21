@@ -62,7 +62,7 @@ export default function Dentro(props) {
   var enlace = window.location.origin + '/?' + (datos.codigo ? 'r=' + datos.codigo + '&' : '') + 'g=' + datos.grupo + '&utm_source=amigo';
   var invitacion = 'Me he apuntado a Lock21: un reto gratis de 21 días, un solo hábito. Empezamos el ' + fecha + '. ¿Lo hacemos a la vez? ' + enlace;
   var pie = 'Desde el ' + fecha + ' bloqueo un hábito: ' + datos.habitoNombre.toLowerCase() + '. 21 días, uno solo, sin excusas de lunes.' +
-    (datos.dorsal ? ' Dorsal ' + dos(datos.dorsal) + '.' : '') + ' Si alguien se anima, empezamos juntos: lock21.netlify.app @reto.lock21 #lock21 #reto21dias';
+    (datos.dorsal ? ' Dorsal ' + dos(datos.dorsal) + '.' : '') + ' Si alguien se anima, empezamos juntos: lock21.balancet.org @reto.lock21 #lock21 #reto21dias';
 
   useEffect(function () {
     var vivo = true;

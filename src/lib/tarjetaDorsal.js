@@ -180,7 +180,7 @@ export function dibujar(canvas, formato, tema, datos) {
   letra(ctx, 600, 30, false);
   espaciado(ctx, 3);
   ctx.textAlign = 'left';
-  ctx.fillText('lock21.netlify.app', M, f.alto - 80);
+  ctx.fillText('lock21.balancet.org', M, f.alto - 80);
   ctx.textAlign = 'right';
   ctx.fillText('@reto.lock21', W - M, f.alto - 80);
   espaciado(ctx, 0);

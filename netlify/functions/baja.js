@@ -20,7 +20,7 @@ export default async function handler(req) {
   if (!doc) { return pagina('Enlace no válido', 'No encontramos esta inscripción. Si quieres darte de baja, responde a cualquiera de nuestros correos y lo hacemos a mano.'); }
   if (req.method === 'POST') {
     await doc.ref.set({ baja: true, bajaEn: new Date().toISOString() }, { merge: true });
-    return pagina('Hecho', 'No te escribiremos más. Tu plaza queda libre. Si cambias de idea, puedes volver a apuntarte cuando quieras en <a href="/">lock21.netlify.app</a>.');
+    return pagina('Hecho', 'No te escribiremos más. Tu plaza queda libre. Si cambias de idea, puedes volver a apuntarte cuando quieras en <a href="/">lock21.balancet.org</a>.');
   }
   if (doc.data().baja) { return pagina('Ya estás de baja', 'No te escribiremos más.'); }
   return pagina('¿Darte de baja?', 'Dejarás de recibir los correos del reto y tu plaza quedará libre.',
