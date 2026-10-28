@@ -1,6 +1,34 @@
 {
-  "actualizado": "2026-10-27",
+  "actualizado": "2026-10-28",
   "propuestas": [
+    {
+      "id": "siguiente-dorsal",
+      "fecha": "2026-10-28",
+      "titulo": "«El dorsal 03 está libre»: historia para etiquetar a alguien",
+      "categoria": "ugc",
+      "idea": "Una historia en @reto.lock21 (y en tu perfil) con el dorsal siguiente que queda por asignar, de verdad: hoy es el 03. La pregunta no es «apúntate», es «¿quién debería llevarlo?», con un hueco para mencionar a una persona. Quien etiqueta hace la invitación por nosotros y a la persona etiquetada le llega el aviso. Cuando el número cambie, se usa la versión en blanco y se escribe el número real con el texto de Instagram.",
+      "porQue": "Las cifras del panel (27 oct): 41 visitas y 6 clics en «Pedir plaza» en 30 días, pero 0 compartidos y 0 invitados. El tráfico existe a cuentagotas y nadie lo está pasando a otra persona. Una mención en una historia notifica a la cuenta etiquetada y le deja volver a compartirla en la suya (guía de menciones en historias: https://www.ilounge.com/articles/instagram-story-tagging-a-simple-guide-to-mentions-and-tags), así que cada etiqueta es un invitado con nombre. No hay escasez falsa: no decimos cuántos dorsales quedan, solo cuál es el siguiente, y el número sale de las cifras reales.",
+      "esfuerzo": "3 min cada vez",
+      "coste": "0 €",
+      "cuando": "Jueves 29 oct a mediodía (no pisa el calentamiento de las 10:00 ni la cuenta atrás de las 20:00) y repetir cada vez que cambie el número, hasta el 15 nov",
+      "pasos": [
+        "Mira en el panel cuántas plazas hay: el dorsal libre es ese número más uno",
+        "Si es el 03, sube la historia tal cual; si no, usa la versión en blanco y escribe el número encima con el texto de Instagram",
+        "Añade el sticker de mención en el hueco con alguien que creas que lo haría (o pon una caja de preguntas «Etiqueta aquí» si prefieres no elegir tú)",
+        "Si alguien te responde etiquetando a otra persona, compártelo desde @reto.lock21 y guárdalo en la destacada «Los 21»",
+        "Mira en el panel si suben «compartidos» e «invitados» los días que la publicas"
+      ],
+      "materiales": [
+        {
+          "nombre": "El dorsal 03 está libre",
+          "archivo": "/marketing/plantillas/historia-siguiente-dorsal-03.jpg"
+        },
+        {
+          "nombre": "El dorsal ___ está libre (en blanco)",
+          "archivo": "/marketing/plantillas/historia-siguiente-dorsal-en-blanco.jpg"
+        }
+      ]
+    },
     {
       "id": "historias-juanma-enlace",
       "fecha": "2026-10-27",
@@ -474,6 +502,18 @@
       "nombre": "Cartel A4 con QR",
       "descripcion": "A4 a 300 ppp, con QR a lock21.netlify.app medido como «cartel».",
       "archivo": "/marketing/plantillas/cartel-a4-qr.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Historia «El dorsal 03 está libre»",
+      "descripcion": "El siguiente dorsal real con hueco para mencionar a alguien.",
+      "archivo": "/marketing/plantillas/historia-siguiente-dorsal-03.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Historia «El dorsal ___ está libre»",
+      "descripcion": "Versión en blanco para escribir el número que toque.",
+      "archivo": "/marketing/plantillas/historia-siguiente-dorsal-en-blanco.jpg",
       "tipo": "imagen"
     }
   ]
