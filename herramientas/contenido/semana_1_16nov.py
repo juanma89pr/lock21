@@ -59,7 +59,7 @@ def portada(pareja, titulo, texto, size=180, total=7, color_candado=None):
 def carrusel_no_es():
     n = 7
     return [portada('lila', 'Lo que Lock21 no es.', 'Para que sepas exactamente dónde te metes antes de pedir plaza.', 190, n),
-            frase('cobalto', 2, n, 'No es una dieta.', 'No cuenta calorías ni te dice qué comer. Trabajas un solo hábito del menú: moverte, dormir, beber agua o soltar la pantalla.', 170),
+            frase('cobalto', 2, n, 'No te pide cambiarlo todo.', 'Trabajas un solo hábito del menú: moverte, dormir, beber agua o soltar la pantalla. Uno, y bien atado a su señal.', 150),
             frase('mantequilla', 3, n, 'No da consejos médicos.', 'Si tienes una lesión, una enfermedad o tomas medicación, lo hablas con tu médico. El reto es otra cosa.', 160),
             frase('rosa', 4, n, 'El coach no es una persona disfrazada.', 'Es una IA y te lo dice en cada mensaje. Te acompaña en el check-in de un minuto.', 130),
             frase('bosque', 5, n, 'No es para dejar de fumar ni de beber.', 'Si quieres dejarlo, tu médico o tu centro de salud te pueden orientar. Lock21 es para arrancar un hábito pequeño.', 130),
@@ -206,7 +206,7 @@ def reel_un_minuto():
     R.escena('lila', 8.2, 11.4,
              '<p class="lab" style="font-size:30px;margin-top:auto">Paso 03</p>' +
              T(R, 'El coach|te contesta.', 8.3, 170, estilo='margin-top:20px') +
-             F('<p class="txt" style="font-size:46px;max-width:880px">Es una IA y te lo dice. No da dietas ni consejos médicos: te ayuda a no soltarlo.</p>', 9.3, estilo='margin-top:50px;margin-bottom:auto'), der='03')
+             F('<p class="txt" style="font-size:46px;max-width:880px">Es una IA y te lo dice. No da consejos médicos: te ayuda a no soltarlo.</p>', 9.3, estilo='margin-top:50px;margin-bottom:auto'), der='03')
     R.escena('bosque', 11.4, 13.4,
              T(R, 'Y mañana,|otra vez.', 11.5, 190, estilo='margin-top:auto') +
              F(linea_anim(P['mantequilla'], 11.6, 13.0, 1, 2), 11.5, estilo='margin-top:60px;margin-bottom:auto'), der='02')
@@ -425,10 +425,10 @@ def historia_cuenta(fecha):
 
 # ---------------------------------------------------------------- pies
 PIES = {
-    'carrusel-no-es': pie("Lo que Lock21 no es, para que sepas exactamente dónde te metes.\n\nNo es una dieta, no cuenta calorías, no da consejos médicos y no es un programa para dejar de fumar ni de beber. El coach del día a día es una IA y lo dice en cada mensaje. Y no cuesta nada.\n\nLo que sí es: un hábito del menú, 21 días y un check-in de un minuto. Un proyecto de Balancet, desde Gran Canaria.\n\n¿Te queda alguna duda? Pregúntame en comentarios."),
+    'carrusel-no-es': pie("Lo que Lock21 no es, para que sepas exactamente dónde te metes.\n\nNo te pide cambiarlo todo, no da consejos médicos y no es un programa para dejar de fumar ni de beber. El coach del día a día es una IA y lo dice en cada mensaje. Y no cuesta nada.\n\nLo que sí es: un hábito del menú, 21 días y un check-in de un minuto. Un proyecto de Balancet, desde Gran Canaria.\n\n¿Te queda alguna duda? Pregúntame en comentarios."),
     'reel-lunes-que-si': pie("«El lunes empiezo.» ¿Qué lunes?\n\nEl de después de las fiestas, el del mes que viene, el de cuando tengas tiempo. Este tiene fecha: lunes 16 de noviembre, salida del grupo 01.\n\nUn hábito, 21 días, un minuto al día.\n\n¿Qué es lo que tú dejas siempre para el lunes?"),
     'carrusel-dorsal': pie("Cada plaza de Lock21 lleva dorsal, como en una carrera.\n\nEliges tu hábito, pides plaza y al momento sale tu número dentro de tu grupo. Si quieres, lo cuentas con tu imagen en una historia. Y si alguien se anima, con tu enlace entra en tu mismo grupo y salen el mismo día.\n\nLa carrera no es contra nadie: es contra el «ya empezaré»."),
-    'reel-un-minuto': pie("Así es un día en Lock21: un minuto.\n\nHaces tu hábito, lo marcas y el coach te contesta. El coach es una IA y te lo dice; no da dietas ni consejos médicos, te ayuda a no soltarlo. Y mañana, otra vez.\n\nSalida del grupo 01: lunes 16 de noviembre. Gratis."),
+    'reel-un-minuto': pie("Así es un día en Lock21: un minuto.\n\nHaces tu hábito, lo marcas y el coach te contesta. El coach es una IA y te lo dice; no da consejos médicos, te ayuda a no soltarlo. Y mañana, otra vez.\n\nSalida del grupo 01: lunes 16 de noviembre. Gratis."),
     'carrusel-que-habito': pie("¿Qué hábito te toca? Seis situaciones y el hábito con el que empezaría en cada una.\n\nNo hace falta elegir el más difícil. Elige el que te veas sosteniendo 21 días: el resto puede venir después.\n\nCuéntame en comentarios cuál es el tuyo."),
     'reel-dia-21-lo-bloqueo': pie("El día 21 lo bloqueo.\n\nNo porque el hábito quede hecho para siempre: en el estudio más citado (Lally, 2010) la mediana fue de 66 días. El día 21 es el arranque, el momento en que ya no empiezas de cero.\n\nUn día detrás de otro hasta el clac."),
     'carrusel-con-alguien': pie("Hazlo con alguien.\n\nNo para vigilarse, sino para que alguien te pregunte «¿hoy qué?». Cada uno con su hábito, la misma salida y la misma línea de 21 días.\n\nAl pedir plaza tienes tu enlace para invitar: quien entra con él va a tu mismo grupo mientras queden plazas.\n\n¿A quién se lo mandarías? Etiquétalo."),

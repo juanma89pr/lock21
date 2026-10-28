@@ -134,7 +134,7 @@ CUENTA = {
     '2026-10-28': ('bosque', 19, 'Si ya tienes plaza, mañana te llega otra misión de calentamiento.'),
     '2026-10-29': ('lila', 18, 'Un hábito, un minuto al día, 21 días. Gratis.'),
     '2026-10-30': ('cobalto', 17, 'Grupos cada dos semanas. El próximo sale el lunes 16 de noviembre.'),
-    '2026-10-31': ('tomate', 16, 'Y el 16 empezamos. Gratis, 30 plazas.'),
+    # Sábado 31: las 20:00 quedan libres para historia_cifras.py (cifras reales).
 }
 
 DIAS = {'2026-10-25': 'Dom 25', '2026-10-26': 'Lun 26', '2026-10-27': 'Mar 27', '2026-10-28': 'Mié 28', '2026-10-29': 'Jue 29', '2026-10-30': 'Vie 30', '2026-10-31': 'Sáb 31'}
@@ -190,7 +190,8 @@ def generar(fechas):
                 for i, html in enumerate(fn()):
                     r.png(html, 1080, 1350, out / slug / ('%02d.jpg' % (i + 1)))
             r.png(historia_calentamiento(fecha), 1080, 1920, out / 'historias' / '1000_calentamiento.jpg')
-            r.png(historia_cuenta(fecha), 1080, 1920, out / 'historias' / '2000_cuenta-atras.jpg')
+            if fecha in CUENTA:
+                r.png(historia_cuenta(fecha), 1080, 1920, out / 'historias' / '2000_cuenta-atras.jpg')
             print('ok', out)
 
 
@@ -205,7 +206,10 @@ def encolar(fechas):
         src, dst = BASE / fecha, REPO / 'public' / 'redes' / fecha
         dst.mkdir(parents=True, exist_ok=True)
         tz = '+00:00'  # desde el 25 oct, hora de invierno en Canarias
-        for hhmm, nombre, origen in (('1000', 'historia-calentamiento', '1000_calentamiento.jpg'), ('2000', 'historia-cuenta-atras', '2000_cuenta-atras.jpg')):
+        historias = [('1000', 'historia-calentamiento', '1000_calentamiento.jpg')]
+        if fecha in CUENTA:
+            historias.append(('2000', 'historia-cuenta-atras', '2000_cuenta-atras.jpg'))
+        for hhmm, nombre, origen in historias:
             (dst / 'historias').mkdir(exist_ok=True)
             shutil.copy(src / 'historias' / origen, dst / 'historias' / origen)
             escribir('%s_%s_%s.json' % (fecha, hhmm, nombre), {'tipo': 'historia', 'pie': '', 'estado': 'programado', 'origen': 'semana_25_31.py',
