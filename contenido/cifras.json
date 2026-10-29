@@ -11,15 +11,15 @@
     "importado": 2
   },
   "web30dias": {
-    "visitas": 66,
+    "visitas": 78,
     "clicsPedirPlaza": 6,
     "solicitudes": 2,
     "compartir": 1
   },
   "origenVisitas30dias": {
-    "directo": 50,
+    "directo": 56,
     "facebook": 2,
-    "instagram": 12,
+    "instagram": 18,
     "ig": 1,
     "interno": 1
   },
@@ -52,7 +52,7 @@
         "fallidos": 0
       },
       "guardar": {
-        "enviados": 0,
+        "enviados": 2,
         "pendientes": 0,
         "fallidos": 0
       },
@@ -69,5 +69,5 @@
     }
   },
   "decisionesMarketing": {},
-  "actualizado": "2026-10-28T15:00+00:00"
+  "actualizado": "2026-10-29T15:07+00:00"
 }
