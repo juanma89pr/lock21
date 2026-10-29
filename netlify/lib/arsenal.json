@@ -1,6 +1,31 @@
 {
-  "actualizado": "2026-10-28",
+  "actualizado": "2026-10-29",
   "propuestas": [
+    {
+      "id": "un-enlace-por-canal",
+      "fecha": "2026-10-29",
+      "titulo": "Un enlace por canal: saber de dónde sale cada plaza",
+      "categoria": "producto",
+      "idea": "Todos los enlaces que salgan de nosotros llevan una etiqueta corta al final (?o=wa-canal, ?o=wa-directo, ?o=ig-juanma, ?o=ig-bio, ?o=anuncio, ?o=alianza-<sitio>). La web ya lee esa etiqueta sin cookies y la suma en el panel por origen, para visitas, clics en «Pedir plaza» y plazas. Está todo en una página con botón de copiar y QR descargable para cada canal: /marketing/enlaces.html. Juanma no tiene que aprender nada: cuando vaya a pegar el enlace, lo copia de ahí.",
+      "porQue": "Las cifras del 28 oct: de 66 visitas en 30 días, 50 entran como «directo» y solo 12 como Instagram. «Directo» quiere decir que el navegador no dice de dónde viene, que es lo que pasa casi siempre con los enlaces que se abren desde WhatsApp o desde un mensaje, porque se abren fuera de la app. Hoy no sabemos si el tráfico lo trae el canal de WhatsApp, los mensajes de Juanma a conocidos o su perfil, y el miércoles hay que decidir dónde poner el tiempo y el dinero de anuncios. La propia web ya sabe leer la etiqueta (?o= o utm_source) y el cartel ya la lleva (utm_source=cartel): solo falta usarla en el resto.",
+      "esfuerzo": "0 min extra (copiar el enlace de la página en lugar de escribirlo)",
+      "coste": "0 €",
+      "cuando": "Desde hoy; en la reunión del miércoles 4 nov ya se ve el primer reparto por canal",
+      "pasos": [
+        "Abre /marketing/enlaces.html y guárdala en favoritos del móvil",
+        "Cuando vayas a pegar el enlace de Lock21 en un sitio (canal, mensaje, historia, anuncio, bio), copia el de ese canal",
+        "Bio de @reto.lock21: cambia el enlace por lock21.netlify.app/?o=ig-bio (1 minuto, una sola vez)",
+        "En el panel, Web por origen: mira el reparto el miércoles 4 nov y decidimos dónde va el esfuerzo",
+        "Para el Claude principal (no lo toco yo): añadir nombres legibles en NOMBRES_ORIGEN del panel para wa-canal, wa-directo, ig-juanma, ig-bio, anuncio y cartel; hoy salen tal cual, que también se entiende",
+        "Hecho por marketing el 2026-10-29: página /marketing/enlaces.html con 7 enlaces etiquetados, botón de copiar y QR descargable de cada uno (comprobados con un lector de QR); los enlaces de las propuestas del canal de WhatsApp, historias de tu perfil, promoción del reel y alianzas ya apuntan a su etiqueta. Queda para ti: cambiar el enlace de la bio y usar estos enlaces al pegarlo."
+      ],
+      "materiales": [
+        {
+          "nombre": "Un enlace por canal (copiar y QR)",
+          "archivo": "/marketing/enlaces.html"
+        }
+      ]
+    },
     {
       "id": "siguiente-dorsal",
       "fecha": "2026-10-28",
@@ -42,8 +67,9 @@
       "pasos": [
         "Descarga las 3 historias",
         "Súbelas seguidas a @juanma89pr",
-        "En la segunda, sticker de enlace a lock21.netlify.app con el texto «Me apunto»",
-        "Mira en el panel cuántas visitas llegan ese día"
+        "En la segunda, sticker de enlace a lock21.netlify.app/?o=ig-juanma con el texto «Me apunto»",
+        "Mira en el panel cuántas visitas llegan ese día",
+        "Hecho por marketing el 2026-10-29: el enlace del sticker ya va etiquetado (lock21.netlify.app/?o=ig-juanma, listo para copiar en /marketing/enlaces.html), así el panel separa tus historias de las de @reto.lock21. Queda para ti: subir las historias."
       ],
       "materiales": [
         {
@@ -136,7 +162,8 @@
       "pasos": [
         "Copia el mensaje",
         "Publícalo en el canal",
-        "El 9 nov te paso el segundo con la cifra real"
+        "El 9 nov te paso el segundo con la cifra real",
+        "Hecho por marketing el 2026-10-29: el enlace del mensaje del canal es lock21.netlify.app/?o=wa-canal (botón «Copiar enlace» en /marketing/enlaces.html). Queda para ti: mandar el mensaje."
       ],
       "materiales": []
     },
@@ -152,10 +179,11 @@
       "cuando": "Del 29 oct al 4 nov, si das el visto bueno",
       "pasos": [
         "Instagram → reel de los 66 días → Promocionar",
-        "Objetivo: más visitas al sitio web, URL lock21.netlify.app",
+        "Objetivo: más visitas al sitio web, URL lock21.netlify.app/?o=anuncio",
         "Público: Gran Canaria, 20-45 años",
         "5 € al día, 7 días",
-        "Yo comparo visitas e inscripciones cada día en el panel"
+        "Yo comparo visitas e inscripciones cada día en el panel",
+        "Hecho por marketing el 2026-10-29: URL de destino etiquetada (lock21.netlify.app/?o=anuncio, en /marketing/enlaces.html) para ver en el panel cuántas visitas y plazas trae lo pagado. Queda para ti: decidir y pagar la promoción."
       ],
       "materiales": []
     },
@@ -172,7 +200,8 @@
       "pasos": [
         "Envía el mensaje de colaboración desde @juanma89pr con la imagen adjunta",
         "A quien diga que sí, le llevo el guion del reel",
-        "Deja el cartel A4 con QR en su local"
+        "Deja el cartel A4 con QR en su local",
+        "Hecho por marketing el 2026-10-29: cada alianza puede llevar su propio enlace y QR (lock21.netlify.app/?o=alianza-<sitio>, plantilla en /marketing/enlaces.html) para saber cuál trae gente. Queda para ti: los mensajes y la visita."
       ],
       "materiales": [
         {
@@ -438,6 +467,12 @@
     }
   ],
   "descargables": [
+    {
+      "nombre": "Un enlace por canal",
+      "descripcion": "Enlaces etiquetados para copiar y QR de cada canal, para saber de dónde llega cada plaza.",
+      "archivo": "/marketing/enlaces.html",
+      "tipo": "pagina"
+    },
     {
       "nombre": "Insignia mini-dorsal para imprimir (8 por hoja)",
       "descripcion": "Mini-dorsales con número para recortar y enseñar a cámara.",
