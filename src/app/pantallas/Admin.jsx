@@ -236,7 +236,7 @@ function Plazas(props) {
   );
 }
 
-var NOMBRES_ORIGEN = { amigo: 'Invitación de un amigo', correo: 'Correo', app: 'App', ig: 'Instagram', instagram: 'Instagram', whatsapp: 'WhatsApp', google: 'Google', facebook: 'Facebook', directo: 'Directo', interno: 'Desde la propia web', x: 'X', tiktok: 'TikTok', otros: 'Otros' };
+var NOMBRES_ORIGEN = { anuncio: 'Anuncio de Instagram', cartel: 'Cartel con QR', amigo: 'Invitación de un amigo', correo: 'Correo', app: 'App', ig: 'Instagram', instagram: 'Instagram', whatsapp: 'WhatsApp', google: 'Google', facebook: 'Facebook', directo: 'Directo', interno: 'Desde la propia web', x: 'X', tiktok: 'TikTok', otros: 'Otros' };
 
 // Web: visitas, clics en "Pedir plaza" y solicitudes de los últimos 30 días, por origen (medición propia sin cookies).
 function Web() {
