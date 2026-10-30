@@ -1,6 +1,24 @@
 {
-  "actualizado": "2026-10-29",
+  "actualizado": "2026-10-30",
   "propuestas": [
+    {
+      "id": "donde-se-para-la-gente",
+      "fecha": "2026-10-30",
+      "titulo": "Ver en qué punto de la web se para la gente",
+      "categoria": "producto",
+      "idea": "Medir tres pasos más, con la misma medición sin cookies de ahora: «llega al apartado Pedir plaza» (lo ve en pantalla, toque o no el botón), «empieza a rellenar» (primer toque en el formulario) y «elige hábito». En el panel sale un embudo por origen: visitas → ven el apartado → empiezan → piden plaza. Así sabemos si la gente se va arriba (el mensaje no engancha y no baja) o abajo (baja, empieza y no termina), y se arregla lo que falla en lugar de tocarlo todo.",
+      "porQue": "Las cifras reales: del 27 al 29 oct las visitas en 30 días pasaron de 41 a 78, pero los clics en «Pedir plaza» siguen en 6 y las plazas en 2. Y ese 6 se queda corto: solo cuenta a quien toca uno de los botones que llevan al formulario (clicPlaza en src/App.jsx); quien baja con el dedo hasta el formulario no cuenta. Hoy no sabemos dónde se van 72 de cada 78. Faltan 17 días para el grupo del 16 nov y la promoción pagada del reel está pendiente: si se paga sin esto, tampoco sabremos qué hace ese dinero dentro de la web.",
+      "esfuerzo": "0 min (lo hace el Claude principal; tú solo miras el embudo el miércoles)",
+      "coste": "0 €",
+      "cuando": "Antes del miércoles 4 nov, para llegar a la reunión con 4 o 5 días de datos; y en cualquier caso antes de pagar anuncios",
+      "pasos": [
+        "Marca la propuesta como aprobada en el panel (es lo único que te toca)",
+        "Para el Claude principal (no lo toco yo): añadir 've_plaza' (cuando #plaza entra en pantalla, una vez por visita), 'empieza_form' (primer toque en Inscripcion) y 'elige_habito' a EVENTOS en src/lib/medir.js y en netlify/functions/visita, y en el panel, Web, un embudo por origen con esos pasos. Sin cookies ni identificadores, como lo que ya cuenta privacidad.html",
+        "Miércoles 4 nov: si la mayoría no llega al apartado, cambiamos la portada de la web y el primer mensaje que mandas por WhatsApp; si llegan y no terminan, se simplifica el formulario",
+        "Lo que salga se cuenta tal cual en la reunión, sin redondear"
+      ],
+      "materiales": []
+    },
     {
       "id": "un-enlace-por-canal",
       "fecha": "2026-10-29",
@@ -249,12 +267,25 @@
       "pasos": [
         "Cuando te llegue una mención, «Añadir a tu historia» desde @reto.lock21",
         "Guárdala en la destacada «Los 21»",
-        "Para el carrusel, permiso por escrito de cada persona"
+        "Para el carrusel, permiso por escrito de cada persona",
+        "Hecho por marketing el 2026-10-30: tres portadas para las destacadas de @reto.lock21 («Los 21» con el 21 en rosa sobre cobalto, «Cómo va» con el candado y «Dudas» con la interrogación), en 1080x1920 con el dibujo dentro del círculo que recorta Instagram (comprobado a tamaño miniatura). Queda para ti: al crear la destacada «Los 21» con la primera mención, «Editar destacada» → «Editar portada» → elige la imagen del carrete; y repostear cada mención (10 s)."
       ],
       "materiales": [
         {
           "nombre": "Soy el dorsal ___ (para participantes)",
           "archivo": "/marketing/plantillas/historia-soy-el-dorsal.jpg"
+        },
+        {
+          "nombre": "Portada de destacada «Los 21»",
+          "archivo": "/marketing/plantillas/destacada-los-21.jpg"
+        },
+        {
+          "nombre": "Portada de destacada «Cómo va»",
+          "archivo": "/marketing/plantillas/destacada-como-va.jpg"
+        },
+        {
+          "nombre": "Portada de destacada «Dudas»",
+          "archivo": "/marketing/plantillas/destacada-dudas.jpg"
         }
       ]
     },
@@ -549,6 +580,24 @@
       "nombre": "Historia «El dorsal ___ está libre»",
       "descripcion": "Versión en blanco para escribir el número que toque.",
       "archivo": "/marketing/plantillas/historia-siguiente-dorsal-en-blanco.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Portada de destacada «Los 21»",
+      "descripcion": "El 21 en rosa sobre cobalto, para la destacada donde se repostean los dorsales.",
+      "archivo": "/marketing/plantillas/destacada-los-21.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Portada de destacada «Cómo va»",
+      "descripcion": "Candado en verde bosque sobre mantequilla.",
+      "archivo": "/marketing/plantillas/destacada-como-va.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Portada de destacada «Dudas»",
+      "descripcion": "Interrogación en tomate sobre lila.",
+      "archivo": "/marketing/plantillas/destacada-dudas.jpg",
       "tipo": "imagen"
     }
   ]
