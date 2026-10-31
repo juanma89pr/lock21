@@ -1,6 +1,29 @@
 {
-  "actualizado": "2026-10-30",
+  "actualizado": "2026-10-31",
   "propuestas": [
+    {
+      "id": "una-puerta-desde-google",
+      "fecha": "2026-10-31",
+      "titulo": "Una puerta desde Google: página de «reto 21 días gratis»",
+      "categoria": "producto",
+      "idea": "Una página estática y ligera que Google puede leer sin ejecutar la app: qué es el reto, los seis hábitos, cómo funciona, 21 frente a 66 días, quién está detrás y preguntas, con el botón «Pedir mi plaza gratis» que lleva a lock21.netlify.app con la etiqueta ?o=busqueda. Además, robots.txt y sitemap.xml para que Google la encuentre sola. Es el único canal que trae gente sin que Juanma tenga que publicar, escribir ni pagar.",
+      "porQue": "Cifras reales del 30 oct: de 81 visitas en 30 días, 59 son «directo» y 18 de Instagram; de buscadores, 0. Todo lo que llega depende de que Juanma o la cuenta empujen, y él ha pedido no hacer más. La web de ahora es una app que se pinta con JavaScript y no tenía ni robots.txt ni sitemap. Lo honesto: Google tarda días o semanas en indexar una web nueva, así que esto no llena el grupo del 16 nov; trabaja para la tanda del 30 nov y las siguientes.",
+      "esfuerzo": "0 min",
+      "coste": "0 €",
+      "cuando": "Publicada hoy, 31 oct; primer vistazo a las visitas con origen «busqueda» en la reunión del 11 nov",
+      "pasos": [
+        "Nada que hacer por tu parte. Si un día quieres acelerar, en Google Search Console se puede enviar el sitemap (opcional, 5 min)",
+        "Para el Claude principal (no lo toco yo): poner el nombre legible «Buscador» para el origen busqueda en NOMBRES_ORIGEN del panel, y valorar un bloque de texto estático en index.html para que la portada también se lea sin JavaScript",
+        "Cuando se acerque cada grupo, actualizo las fechas de la página",
+        "Hecho por marketing el 2026-10-31: página /marketing/reto-21-dias-gratis.html (indexable, con preguntas frecuentes marcadas para Google y enlace etiquetado ?o=busqueda), public/robots.txt (deja fuera /app/) y public/sitemap.xml. Comprobada en móvil a 390 px sin desplazamiento lateral. Queda para ti: nada."
+      ],
+      "materiales": [
+        {
+          "nombre": "Reto de 21 días gratis (página para buscadores)",
+          "archivo": "/marketing/reto-21-dias-gratis.html"
+        }
+      ]
+    },
     {
       "id": "donde-se-para-la-gente",
       "fecha": "2026-10-30",
@@ -498,6 +521,12 @@
     }
   ],
   "descargables": [
+    {
+      "nombre": "Página «Reto de 21 días gratis»",
+      "descripcion": "La puerta desde Google: se puede enlazar también desde cualquier sitio.",
+      "archivo": "/marketing/reto-21-dias-gratis.html",
+      "tipo": "pagina"
+    },
     {
       "nombre": "Un enlace por canal",
       "descripcion": "Enlaces etiquetados para copiar y QR de cada canal, para saber de dónde llega cada plaza.",
