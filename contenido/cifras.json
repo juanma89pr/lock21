@@ -11,17 +11,18 @@
     "importado": 2
   },
   "web30dias": {
-    "visitas": 81,
-    "clicsPedirPlaza": 6,
+    "visitas": 103,
+    "clicsPedirPlaza": 9,
     "solicitudes": 2,
     "compartir": 1
   },
   "origenVisitas30dias": {
-    "directo": 59,
+    "directo": 61,
     "facebook": 2,
-    "instagram": 18,
+    "instagram": 24,
     "ig": 1,
-    "interno": 1
+    "interno": 1,
+    "anuncio": 14
   },
   "enLaApp": {
     "registrados": 1,
@@ -68,6 +69,8 @@
       }
     }
   },
-  "decisionesMarketing": {},
-  "actualizado": "2026-10-30T14:58+00:00"
+  "decisionesMarketing": {
+    "siguiente-dorsal": "aprobada"
+  },
+  "actualizado": "2026-10-31T14:27+00:00"
 }
