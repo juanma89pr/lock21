@@ -1,6 +1,29 @@
 {
-  "actualizado": "2026-10-31",
+  "actualizado": "2026-11-01",
   "propuestas": [
+    {
+      "id": "aterrizaje-anuncio",
+      "fecha": "2026-11-01",
+      "titulo": "Que el anuncio caiga en una página corta, con el botón a la vista",
+      "categoria": "pago",
+      "idea": "Una página de una sola pantalla para quien llega desde el anuncio: qué es en una frase, cuatro líneas de cómo funciona, la fecha del grupo 01 y el botón «Pedir mi plaza gratis», que lleva directo al formulario de la web (#plaza) con la etiqueta ?o=anuncio-corta. Es estática y muy ligera (no carga la app), así se abre al momento en el navegador de Instagram. Durante unos días, el anuncio apunta aquí en vez de a la portada, y en el panel se comparan las dos etiquetas: «anuncio» (portada) y «anuncio-corta» (esta página).",
+      "porQue": "Cifras reales del 31 oct: en su primer día el anuncio trajo 32 visitas (de 103 a 122 visitas en 30 días, casi todas del anuncio), los clics en «Pedir plaza» pasaron de 6 a 9 y las solicitudes siguen en 2. El dinero ya trae gente, pero no pide plaza. La web es una app que se pinta con JavaScript y quien llega de un anuncio decide en segundos: según Think with Google (2016), el 53 % de las visitas desde el móvil se va si la página tarda más de 3 segundos. Lo honesto: no sabemos aún si el problema es la carga, el mensaje o el formulario (eso lo diría la propuesta «Ver en qué punto de la web se para la gente», sin decidir). Esta prueba no toca la web y se mide sola con la etiqueta.",
+      "esfuerzo": "2 min (cambiar la URL de destino del anuncio)",
+      "coste": "0 € (el mismo presupuesto del anuncio)",
+      "cuando": "Cambiar hoy o mañana y mirarlo en la reunión del miércoles 4 nov, con 3 días de datos; si «anuncio-corta» convierte mejor, se deja hasta el 16 nov",
+      "pasos": [
+        "En el Administrador de anuncios de Meta, edita el anuncio y cambia la URL del sitio web por https://lock21.netlify.app/marketing/empieza.html (sin más cambios: misma imagen, mismo texto, mismo presupuesto)",
+        "Miércoles 4 nov: en el panel, compara plazas pedidas entre los orígenes «anuncio» y «anuncio-corta»; Meta te dice además cuántos tocaron el anuncio, y la diferencia con las visitas de «anuncio-corta» es quien se fue en la página corta",
+        "Para el Claude principal (no lo toco yo): poner el nombre legible «Anuncio (página corta)» para anuncio-corta en NOMBRES_ORIGEN del panel, y que al abrir la web con /#plaza baje sola al formulario (comprobado hoy: se queda arriba porque la app se pinta después; mientras tanto se ve el botón fijo «Pedir plaza» de la cabecera)",
+        "Hecho por marketing el 2026-11-01: página /marketing/empieza.html (una pantalla, sin indexar en Google para no competir con la página de buscadores, botón al formulario con ?o=anuncio-corta), comprobada a 390 px. Queda para ti: cambiar la URL del anuncio."
+      ],
+      "materiales": [
+        {
+          "nombre": "Página corta para el anuncio",
+          "archivo": "/marketing/empieza.html"
+        }
+      ]
+    },
     {
       "id": "una-puerta-desde-google",
       "fecha": "2026-10-31",
@@ -82,7 +105,8 @@
         "Si es el 03, sube la historia tal cual; si no, usa la versión en blanco y escribe el número encima con el texto de Instagram",
         "Añade el sticker de mención en el hueco con alguien que creas que lo haría (o pon una caja de preguntas «Etiqueta aquí» si prefieres no elegir tú)",
         "Si alguien te responde etiquetando a otra persona, compártelo desde @reto.lock21 y guárdalo en la destacada «Los 21»",
-        "Mira en el panel si suben «compartidos» e «invitados» los días que la publicas"
+        "Mira en el panel si suben «compartidos» e «invitados» los días que la publicas",
+        "Hecho por marketing el 2026-11-01: versión para el publicador automático (la API no admite el sticker de mención, así que pide «Mándale esta historia» con la flecha de enviar), en mantequilla y bosque para no repetir el rosa de la cuenta atrás: sale sola el martes 3 nov a las 20:01, justo después de la cuenta atrás que pregunta «¿Ya tienes el tuyo?». Las cifras siguen en 2 plazas, así que el 03 es real; si entra alguien antes del martes, la cambio por el número nuevo. Queda para ti, solo si quieres: subir la plantilla con mención a tu perfil personal."
       ],
       "materiales": [
         {
@@ -92,6 +116,10 @@
         {
           "nombre": "El dorsal ___ está libre (en blanco)",
           "archivo": "/marketing/plantillas/historia-siguiente-dorsal-en-blanco.jpg"
+        },
+        {
+          "nombre": "El dorsal 03 está libre (publicación automática, 3 nov 20:01)",
+          "archivo": "/redes/2026-11-03/historias/2001_siguiente-dorsal.jpg"
         }
       ]
     },
@@ -521,6 +549,12 @@
     }
   ],
   "descargables": [
+    {
+      "nombre": "Página corta para el anuncio",
+      "descripcion": "Una sola pantalla con el botón al formulario; para poner como destino del anuncio (?o=anuncio-corta).",
+      "archivo": "/marketing/empieza.html",
+      "tipo": "pagina"
+    },
     {
       "nombre": "Página «Reto de 21 días gratis»",
       "descripcion": "La puerta desde Google: se puede enlazar también desde cualquier sitio.",
