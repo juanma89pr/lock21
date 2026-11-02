@@ -5,6 +5,37 @@ Donde pone [TU DETALLE], lo rellenas tú; si no quieres contarlo, se quita y el 
 
 ---
 
+## Lunes 2 de noviembre de 2026 (semana del 2 al 8 nov)
+
+**Cifras reales de hoy (cifras.json, 1 nov):** 2 plazas pedidas en el grupo 01 (lunes 16 nov, 30 plazas, así que quedan 28); 152 visitas a la web en 30 días.
+**Lo que sale esta semana:** L 2 reel «El lunes empiezo. ¿Qué lunes?» · M 3 carrusel del dorsal e historia «El dorsal 03 está libre» · X 4 reel «Un minuto al día» · J 5 carrusel «¿Qué hábito te toca?» · V 6 reel «El día 21 lo bloqueo» · S 7 carrusel «Hazlo con alguien» · D 8 reel «El segundo seguido» · L 9 carrusel «Quién está detrás».
+
+### 1. «Mi señal»
+- **Para qué:** historia o reel corto del jueves 5 de noviembre, junto al carrusel «¿Qué hábito te toca?». Explica la señal con tu ejemplo, sin teoría.
+- **Gancho (2 s):** en plena señal, a cámara: «Mi hábito no empieza cuando tengo ganas. Empieza aquí.»
+- **Guion (unos 17 s):** «Mi hábito no empieza cuando tengo ganas. Empieza aquí: [TU DETALLE: tu señal, por ejemplo «cuando termino el café»]. Justo después, [TU DETALLE: tu hábito]. No lo pienso, va pegado a algo que ya hago todos los días. En Lock21 eliges un hábito y su señal. ¿Cuál sería la tuya?»
+- **Cómo grabarlo:** en casa, en el sitio real de tu señal (la cocina, la puerta, la mesa). Luz de ventana de lado. Plano medio vertical con el Osmo fijo en trípode; empiezas haciendo la señal y hablas mientras la terminas. 2 tomas.
+- **Duración:** 15-18 s.
+
+### 2. «El día 21 lo bloqueo»
+- **Para qué:** historia del viernes 6 de noviembre, el día del reel «El día 21 lo bloqueo». Tu versión a cámara, honesta con los 66 días.
+- **Gancho (2 s):** cierras el puño delante de cámara: «El día 21 lo bloqueo.»
+- **Guion (unos 18 s):** «El día 21 lo bloqueo. Y no te voy a decir que en 21 días el hábito es tuyo para siempre: en el estudio más citado la media fue de 66 días. El día 21 es otra cosa: es el día en que ya no empiezas de cero. Salgo con el grupo 01 el lunes 16. ¿Te vienes?»
+- **Cómo grabarlo:** Muelle deportivo de Las Palmas o el Paseo de San Telmo a última hora de la tarde, con el sol bajo de lado (nada de contraluz duro). Plano medio, Osmo en mano a la altura de los ojos, micro puesto por el viento. Gancho en primer plano y luego das un paso atrás. 2-3 tomas.
+- **Duración:** 18-20 s.
+
+### 3. «Hazlo con alguien, que esto es de fondo»
+- **Para qué:** reel o historia del sábado 7 de noviembre, junto al carrusel «Hazlo con alguien». Une la invitación con la idea de carrera de fondo que luego llevará la tanda 2 (30 nov).
+- **Gancho (2 s):** señalando a cámara: «Mándaselo a quien siempre te dice "el lunes empiezo".»
+- **Guion (unos 19 s):** «Mándaselo a quien siempre te dice "el lunes empiezo". Esto es una carrera de fondo: no se gana al otro, cada uno se gana a sí mismo. Pero ayuda tener a alguien que te pregunte "¿hoy qué?". Cada uno con su hábito, la misma salida. Ahora mismo somos 2 en el grupo 01 y quedan 28 dorsales. Apúntense juntos.»
+- **Cómo grabarlo:** caminando por el Paseo de Las Canteras a primera hora, Osmo en modo seguimiento, plano medio hacia cámara; nadie reconocible de cerca. Si te acompaña [TU DETALLE: alguien que quiera salir en el vídeo, con su permiso], que entre en el plano en la última frase. 2-3 tomas.
+- **Duración:** 18-20 s.
+- **Ojo:** si cuando grabes hay más plazas, cambia el 2 y el 28 por la cifra nueva (te la paso el jueves).
+
+**Cómo pasarme los vídeos:** súbelos al chat de Lock21 en Claude, con el número de la idea, y yo me encargo de rótulos, subtítulos y programación.
+
+---
+
 ## Jueves 29 de octubre de 2026 (semana del 29 oct al 4 nov)
 
 **Cifras reales de hoy (cifras.json, 28 oct):** 2 plazas pedidas en el grupo 01 (lunes 16 nov, 30 plazas); 66 visitas a la web en 30 días.
