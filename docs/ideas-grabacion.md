@@ -20,7 +20,7 @@ Donde pone [TU DETALLE], lo rellenas tú; si no quieres contarlo, se quita y el 
 ### 2. «El día 21 lo bloqueo»
 - **Para qué:** historia del viernes 6 de noviembre, el día del reel «El día 21 lo bloqueo». Tu versión a cámara, honesta con los 66 días.
 - **Gancho (2 s):** cierras el puño delante de cámara: «El día 21 lo bloqueo.»
-- **Guion (unos 18 s):** «El día 21 lo bloqueo. Y no te voy a decir que en 21 días el hábito es tuyo para siempre: en el estudio más citado la media fue de 66 días. El día 21 es otra cosa: es el día en que ya no empiezas de cero. Salgo con el grupo 01 el lunes 16. ¿Te vienes?»
+- **Guion (unos 18 s):** «El día 21 lo bloqueo. Y no te voy a decir que en 21 días el hábito es tuyo para siempre: en el estudio más citado la mediana fue de 66 días. El día 21 es otra cosa: es el día en que ya no empiezas de cero. Salgo con el grupo 01 el lunes 16. ¿Te vienes?»
 - **Cómo grabarlo:** Muelle deportivo de Las Palmas o el Paseo de San Telmo a última hora de la tarde, con el sol bajo de lado (nada de contraluz duro). Plano medio, Osmo en mano a la altura de los ojos, micro puesto por el viento. Gancho en primer plano y luego das un paso atrás. 2-3 tomas.
 - **Duración:** 18-20 s.
 
