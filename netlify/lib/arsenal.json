@@ -1,6 +1,34 @@
 {
-  "actualizado": "2026-11-01",
+  "actualizado": "2026-11-02",
   "propuestas": [
+    {
+      "id": "anuncio-mismo-mensaje",
+      "fecha": "2026-11-02",
+      "titulo": "Que el anuncio diga lo mismo que la página: «Lo dejo todo para el lunes»",
+      "categoria": "pago",
+      "idea": "Dos imágenes de anuncio (1080×1350 para el feed y 1080×1920 para historias y reels) con el mismo mensaje que la página corta /marketing/empieza.html: «Lo dejo todo para el lunes. Este lunes tiene fecha: 16 de noviembre», gratis, sin tarjeta, un minuto al día. Así quien toca el anuncio ya sabe qué es, que no cuesta nada y cuándo empieza, y al llegar lee lo mismo. Se añaden como un segundo anuncio dentro de la misma campaña (no sustituyen al reel) y Meta reparte el presupuesto hacia el que funcione.",
+      "porQue": "Cifras reales: las visitas del anuncio en 30 días pasaron de 14 (31 oct, mañana) a 32 (31 oct, noche) y a 61 (1 nov), pero los clics en «Pedir plaza» siguen en 9 y las solicitudes en 2 desde antes del anuncio. El dinero trae gente que no pide plaza. Si el anuncio es el reel de los 66 días (la propuesta «Promoción pequeña del reel»), es buen contenido, pero explica por qué 21 días no bastan para todo y no dice ni que es gratis ni cuándo empieza; la página a la que llega habla de otra cosa. Que el anuncio y la página digan lo mismo es una de las bases de la calidad de una página de destino (Google Ads, «Experiencia de la página de destino»: https://support.google.com/google-ads/answer/2404197). Lo honesto: con este volumen no sabremos si mejora hasta tener varios días de datos; si en la reunión del 4 nov la página corta ya convierte, esto se deja para la tanda del 30 nov.",
+      "esfuerzo": "5 min (subir dos imágenes como anuncio nuevo en la misma campaña)",
+      "coste": "0 € extra (el mismo presupuesto, repartido entre los dos anuncios)",
+      "cuando": "Decidir en la reunión del miércoles 4 nov, a la vez que se mira la página corta; si se aprueba, del 4 al 15 nov",
+      "pasos": [
+        "En el Administrador de anuncios de Meta, entra en la campaña del reel, duplica el anuncio y cambia el contenido por estas dos imágenes (feed y vertical en el mismo anuncio, Meta coloca cada una donde toca)",
+        "Texto principal: «Un reto gratis de 21 días para arrancar un solo hábito. Un minuto al día. Primer grupo: lunes 16 de noviembre.» Botón: «Más información». URL: https://lock21.netlify.app/marketing/empieza.html",
+        "No toques el presupuesto: Meta lo reparte entre el reel y este anuncio",
+        "En la reunión siguiente, mira en Meta el coste por clic de cada anuncio y en el panel las plazas con origen «anuncio-corta»",
+        "Hecho por marketing el 2026-11-02: las dos imágenes en identidad 2 (rosa y cobalto, dorsal del grupo 01 con salida 16·11·26, sin números de plazas ni prisas), revisadas a tamaño real. Queda para ti: decidir el miércoles y, si sí, subirlas como anuncio (5 min)."
+      ],
+      "materiales": [
+        {
+          "nombre": "Anuncio «Lo dejo todo para el lunes» (feed 1080×1350)",
+          "archivo": "/marketing/plantillas/anuncio-lunes-16-feed.jpg"
+        },
+        {
+          "nombre": "Anuncio «Lo dejo todo para el lunes» (vertical 1080×1920)",
+          "archivo": "/marketing/plantillas/anuncio-lunes-16-vertical.jpg"
+        }
+      ]
+    },
     {
       "id": "aterrizaje-anuncio",
       "fecha": "2026-11-01",
@@ -549,6 +577,18 @@
     }
   ],
   "descargables": [
+    {
+      "nombre": "Anuncio «Lo dejo todo para el lunes»",
+      "descripcion": "Imagen de anuncio para el feed (1080×1350), con el mismo mensaje que la página corta.",
+      "archivo": "/marketing/plantillas/anuncio-lunes-16-feed.jpg",
+      "tipo": "imagen"
+    },
+    {
+      "nombre": "Anuncio «Lo dejo todo para el lunes» (vertical)",
+      "descripcion": "Imagen de anuncio para historias y reels (1080×1920).",
+      "archivo": "/marketing/plantillas/anuncio-lunes-16-vertical.jpg",
+      "tipo": "imagen"
+    },
     {
       "nombre": "Página corta para el anuncio",
       "descripcion": "Una sola pantalla con el botón al formulario; para poner como destino del anuncio (?o=anuncio-corta).",
