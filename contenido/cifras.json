@@ -11,7 +11,7 @@
     "importado": 2
   },
   "web30dias": {
-    "visitas": 153,
+    "visitas": 155,
     "clicsPedirPlaza": 15,
     "solicitudes": 2,
     "compartir": 1
@@ -19,7 +19,7 @@
   "origenVisitas30dias": {
     "directo": 63,
     "facebook": 2,
-    "instagram": 24,
+    "instagram": 26,
     "ig": 1,
     "interno": 1,
     "anuncio": 62
@@ -72,5 +72,5 @@
   "decisionesMarketing": {
     "siguiente-dorsal": "aprobada"
   },
-  "actualizado": "2026-11-02T18:07+00:00"
+  "actualizado": "2026-11-03T16:02+00:00"
 }
