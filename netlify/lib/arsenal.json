@@ -1,6 +1,29 @@
 {
-  "actualizado": "2026-11-02",
+  "actualizado": "2026-11-03",
   "propuestas": [
+    {
+      "id": "formulario-a-la-vista",
+      "fecha": "2026-11-03",
+      "titulo": "Que al tocar «Pedir plaza» se vea el formulario, no otro titular",
+      "categoria": "producto",
+      "idea": "Dos arreglos pequeños en la web para el Claude principal (yo no toco la app). 1) Al tocar cualquier botón «Pedir plaza», la pantalla debe quedar con la casilla «Tu nombre» a la vista, no con el titular «Próximo grupo: 16 nov. 30 plazas.», que repite lo que ya se ha leído. Basta con que el salto vaya al formulario (o, en el móvil, poner el formulario antes del titular de esa sección). 2) Que la web, al abrirse con /#plaza, baje sola al formulario cuando termine de pintarse: así funciona el botón de la página corta del anuncio (/marketing/empieza.html), que hoy deja a la gente arriba del todo de la portada.",
+      "porQue": "Cifras reales: 15 clics en «Pedir plaza» en 30 días y 2 solicitudes, las mismas que antes del anuncio; del 1 al 2 nov los clics subieron de 9 a 15 con una sola visita más, que encaja con alguien tocando el botón varias veces sin ver nada nuevo. Lo he comprobado hoy en un iPhone simulado (390×664, la web compilada de main): tras tocar «Pedir plaza», la primera casilla del formulario queda a 689 px, por debajo del borde de la pantalla, y lo único que se ve es otro titular azul; y abriendo /#plaza la página se queda arriba (scroll 0). En el navegador de Instagram, que es más bajo, el formulario queda aún más lejos. Que la acción esté a la vista tras pulsar el botón es una pauta básica de usabilidad (Nielsen Norman Group, «Visibility of system status»: https://www.nngroup.com/articles/visibility-system-status/). Lo honesto: con tan pocos clics no se puede asegurar que sea la causa, pero es un arreglo de minutos y no cambia nada más.",
+      "esfuerzo": "1 min (decir «sí» en la reunión; lo hace el Claude principal)",
+      "coste": "0 €",
+      "cuando": "Decidir en la reunión del miércoles 4 nov; mejor antes de volver a poner dinero en el anuncio, para que lo que se pague caiga en un formulario visible. Margen hasta el 16 nov.",
+      "pasos": [
+        "En la reunión, marca «aprobada» si quieres que se haga",
+        "Para el Claude principal (src/App.jsx y src/components/Inscripcion.jsx): que los enlaces «Pedir plaza» lleven al formulario y no al titular de la sección (o formulario primero en pantallas estrechas), y que al cargar con #plaza se baje al formulario después de pintarse; comprobar a 390 px de ancho que «Tu nombre» queda a la vista tras tocar el botón de la cabecera, el del principio y el de la página corta",
+        "Después, mirar en el panel si se acercan «clics en Pedir plaza» y «solicitudes»",
+        "Hecho por marketing el 2026-11-03: prueba con la web compilada en un iPhone simulado y captura de lo que se ve tras tocar el botón (sin pasar por la web publicada, para no ensuciar las cifras). Queda para ti: solo decidir."
+      ],
+      "materiales": [
+        {
+          "nombre": "Lo que se ve tras tocar «Pedir plaza» en el móvil (3 nov)",
+          "archivo": "/marketing/pruebas/pedir-plaza-movil-2026-11-03.jpg"
+        }
+      ]
+    },
     {
       "id": "anuncio-mismo-mensaje",
       "fecha": "2026-11-02",
@@ -134,7 +157,8 @@
         "Añade el sticker de mención en el hueco con alguien que creas que lo haría (o pon una caja de preguntas «Etiqueta aquí» si prefieres no elegir tú)",
         "Si alguien te responde etiquetando a otra persona, compártelo desde @reto.lock21 y guárdalo en la destacada «Los 21»",
         "Mira en el panel si suben «compartidos» e «invitados» los días que la publicas",
-        "Hecho por marketing el 2026-11-01: versión para el publicador automático (la API no admite el sticker de mención, así que pide «Mándale esta historia» con la flecha de enviar), en mantequilla y bosque para no repetir el rosa de la cuenta atrás: sale sola el martes 3 nov a las 20:01, justo después de la cuenta atrás que pregunta «¿Ya tienes el tuyo?». Las cifras siguen en 2 plazas, así que el 03 es real; si entra alguien antes del martes, la cambio por el número nuevo. Queda para ti, solo si quieres: subir la plantilla con mención a tu perfil personal."
+        "Hecho por marketing el 2026-11-01: versión para el publicador automático (la API no admite el sticker de mención, así que pide «Mándale esta historia» con la flecha de enviar), en mantequilla y bosque para no repetir el rosa de la cuenta atrás: sale sola el martes 3 nov a las 20:01, justo después de la cuenta atrás que pregunta «¿Ya tienes el tuyo?». Las cifras siguen en 2 plazas, así que el 03 es real; si entra alguien antes del martes, la cambio por el número nuevo. Queda para ti, solo si quieres: subir la plantilla con mención a tu perfil personal.",
+        "Hecho por marketing el 2026-11-03: comprobado con las cifras de hoy que siguen en 2 plazas, así que el 03 sigue siendo real y la historia de esta noche (20:01) sale tal cual; no hace falta otra versión hasta que cambie el número. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
       ],
       "materiales": [
         {
