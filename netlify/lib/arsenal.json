@@ -1,6 +1,37 @@
 {
-  "actualizado": "2026-11-03",
+  "actualizado": "2026-11-04",
   "propuestas": [
+    {
+      "id": "dudas-antes-de-pedir",
+      "fecha": "2026-11-04",
+      "titulo": "Tres dudas resueltas antes de pedir plaza",
+      "categoria": "contenido",
+      "idea": "Una serie de tres historias en @reto.lock21, a las 20:01 justo después de la cuenta atrás, cada una con una duda que frena a quien ya ha tocado «Pedir plaza»: 1) «¿Qué me piden para entrar?» Tu nombre, tu correo y el hábito. Nada más, sin tarjeta. 2) «¿Quién me pregunta cada día?» Un coach de IA, y lo dice en cada mensaje. 3) «¿Me van a vender algo?» No: el reto es gratis entero; al final hay una lista opcional y si no te apuntas no te escribimos de eso. Las respuestas salen de lo que de verdad pide el formulario de la web y de las preguntas frecuentes ya publicadas. Después se pueden guardar en la destacada «Dudas».",
+      "porQue": "Cifras reales del 3 nov: 155 visitas en 30 días, 15 clics en «Pedir plaza» y 2 solicitudes. Quien toca el botón ya tiene interés, y 13 de cada 15 no terminan. Además, las visitas del anuncio llevan paradas desde el 1 nov (61, 62, 62): lo que entra ahora viene sobre todo de Instagram (de 24 a 26), así que lo que se diga en las historias pesa más. Contar por adelantado qué se pide y qué no es uno de los cuatro factores de confianza en una web según Nielsen Norman Group («upfront disclosure», en https://www.nngroup.com/articles/trustworthy-design/). Lo honesto: la propuesta «Que al tocar Pedir plaza se vea el formulario» puede explicar parte de esa caída, y con estos números no se puede separar el efecto de cada cosa; estas historias no cuestan nada y no tocan la web.",
+      "esfuerzo": "0 min (salen solas); 1 min si quieres guardarlas en la destacada «Dudas»",
+      "coste": "0 €",
+      "cuando": "Jueves 5, domingo 8 y miércoles 11 nov a las 20:01 (no pisan el calentamiento de las 10:00, la cuenta atrás de las 20:00 ni la historia libre de los sábados)",
+      "pasos": [
+        "Nada que hacer: están en la cola del publicador",
+        "Si quieres, cuando salgan, añádelas a la destacada «Dudas» desde el perfil de @reto.lock21",
+        "En la reunión del 11 nov, mirar en el panel si se acercan «clics en Pedir plaza» y «solicitudes»",
+        "Hecho por marketing el 2026-11-04: las tres historias en identidad 2 (hueso y cobalto, «Dudas · 1 de 3»), revisadas a tamaño real y encoladas para el 5, 8 y 11 nov a las 20:01; copias en las plantillas. Queda para ti: nada (opcional, la destacada)."
+      ],
+      "materiales": [
+        {
+          "nombre": "Duda 1: ¿Qué me piden para entrar?",
+          "archivo": "/marketing/plantillas/historia-duda-1-que-piden.jpg"
+        },
+        {
+          "nombre": "Duda 2: ¿Quién me pregunta cada día?",
+          "archivo": "/marketing/plantillas/historia-duda-2-quien-pregunta.jpg"
+        },
+        {
+          "nombre": "Duda 3: ¿Me van a vender algo?",
+          "archivo": "/marketing/plantillas/historia-duda-3-vender.jpg"
+        }
+      ]
+    },
     {
       "id": "formulario-a-la-vista",
       "fecha": "2026-11-03",
@@ -158,7 +189,8 @@
         "Si alguien te responde etiquetando a otra persona, compártelo desde @reto.lock21 y guárdalo en la destacada «Los 21»",
         "Mira en el panel si suben «compartidos» e «invitados» los días que la publicas",
         "Hecho por marketing el 2026-11-01: versión para el publicador automático (la API no admite el sticker de mención, así que pide «Mándale esta historia» con la flecha de enviar), en mantequilla y bosque para no repetir el rosa de la cuenta atrás: sale sola el martes 3 nov a las 20:01, justo después de la cuenta atrás que pregunta «¿Ya tienes el tuyo?». Las cifras siguen en 2 plazas, así que el 03 es real; si entra alguien antes del martes, la cambio por el número nuevo. Queda para ti, solo si quieres: subir la plantilla con mención a tu perfil personal.",
-        "Hecho por marketing el 2026-11-03: comprobado con las cifras de hoy que siguen en 2 plazas, así que el 03 sigue siendo real y la historia de esta noche (20:01) sale tal cual; no hace falta otra versión hasta que cambie el número. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
+        "Hecho por marketing el 2026-11-03: comprobado con las cifras de hoy que siguen en 2 plazas, así que el 03 sigue siendo real y la historia de esta noche (20:01) sale tal cual; no hace falta otra versión hasta que cambie el número. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
+        "Hecho por marketing el 2026-11-04: las cifras del 3 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión; el número no ha cambiado, así que no la repito (la propuesta dice repetir al cambiar). Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
       ],
       "materiales": [
         {
