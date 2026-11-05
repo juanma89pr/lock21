@@ -5,6 +5,38 @@ Donde pone [TU DETALLE], lo rellenas tú; si no quieres contarlo, se quita y el 
 
 ---
 
+## Jueves 5 de noviembre de 2026 (semana del 5 al 12 nov)
+
+**Cifras reales de hoy (cifras.json, 3 nov):** 2 plazas pedidas en el grupo 01 (lunes 16 nov, 30 plazas, así que quedan 28); 155 visitas a la web en 30 días.
+**Lo que sale esta semana:** J 5 carrusel «¿Qué hábito te toca?» e historia «Duda 1» · V 6 reel «El día 21 lo bloqueo» · S 7 carrusel «Hazlo con alguien» · D 8 reel «El segundo seguido» e historia «Duda 2» · L 9 carrusel «Quién está detrás» · M 10 reel «Tu dorsal» · X 11 carrusel del test e historia «Duda 3» · J 12 reel «La señal pesa más que las ganas».
+
+### 1. «Fallé un día. ¿Y ahora qué?»
+- **Para qué:** historia o reel corto del domingo 8 de noviembre, junto al reel «El segundo seguido». Pone tu cara a la idea de fallar sin drama.
+- **Gancho (2 s):** sentado, te encoges de hombros a cámara: «Ayer no lo hice.»
+- **Guion (unos 18 s):** «Ayer no lo hice. Y no pasa nada. Un día malo le pasa a cualquiera; lo que de verdad pesa es el segundo seguido. Por eso hoy hago la versión mínima: [TU DETALLE: tu versión de dos minutos, por ejemplo «diez minutos andando»]. En Lock21 la racha perdona un fallo suelto. El segundo, ese no lo regales.»
+- **Cómo grabarlo:** en casa, en el sofá o en la mesa, luz de ventana de lado, Osmo fijo en trípode, plano medio vertical. Si haces la versión mínima, segunda toma de 3 s haciéndola (las zapatillas, la botella, la puerta). 2 tomas.
+- **Duración:** 15-18 s.
+- **Ojo:** dilo solo si de verdad fallaste un día con algún hábito tuyo; si no, empieza por «Si un día no lo haces, no pasa nada».
+
+### 2. «No soy entrenador. Me estoy formando.»
+- **Para qué:** reel o historia del lunes 9 de noviembre, junto al carrusel «Quién está detrás». Lo que el carrusel dice en texto, tú a cámara.
+- **Gancho (2 s):** «Detrás de Lock21 no hay un experto. Estoy yo.»
+- **Guion (unos 19 s):** «Detrás de Lock21 no hay un experto. Estoy yo, Juanma, de Las Palmas. Fumaba, bebía de más los fines de semana y dejaba mis prioridades para otro día. Lo cambié de uno en uno. Ahora me estoy formando y junto lo que me funcionó con lo que aprendo. El reto es gratis y yo también salgo el lunes 16. Pregúntame lo que quieras.»
+- **Cómo grabarlo:** exterior en Vegueta (calle Los Balcones o la plaza de Santa Ana) a media tarde, a la sombra para que la luz sea suave. Osmo en mano a la altura de los ojos, plano medio, micro puesto. Una frase por toma si te atascas; se montan juntas. 2-3 tomas.
+- **Duración:** 18-20 s.
+
+### 3. «Una carrera contra el lunes que nunca llega»
+- **Para qué:** historia del martes 10 de noviembre, el día del reel «Tu dorsal». Abre de paso la idea de carrera de fondo que llevará la tanda 2 (30 nov).
+- **Gancho (2 s):** te pones de lado como en una línea de salida y miras a cámara: «Esto va de dorsales.»
+- **Guion (unos 18 s):** «Esto va de dorsales. Pides plaza y sale tu número. Pero no es una carrera contra nadie: es de fondo, y a quien ganas es a ti, al que siempre lo deja para el lunes. Ahora mismo somos 2 en el grupo 01 y quedan 28 dorsales. Salida: lunes 16 de noviembre.»
+- **Cómo grabarlo:** pista de atletismo o carril del Paseo de Las Canteras a primera hora, con el sol de lado. Plano medio, Osmo en trípode bajo (a la altura del pecho) para que el gesto de salida se vea entero; en la última frase das dos pasos hacia cámara. 2-3 tomas.
+- **Duración:** 18-20 s.
+- **Ojo:** si cuando grabes hay más plazas, cambia el 2 y el 28 por la cifra nueva (te la paso el lunes).
+
+**Cómo pasarme los vídeos:** súbelos al chat de Lock21 en Claude, con el número de la idea, y yo me encargo de rótulos, subtítulos y programación.
+
+---
+
 ## Lunes 2 de noviembre de 2026 (semana del 2 al 8 nov)
 
 **Cifras reales de hoy (cifras.json, 1 nov):** 2 plazas pedidas en el grupo 01 (lunes 16 nov, 30 plazas, así que quedan 28); 152 visitas a la web en 30 días.
