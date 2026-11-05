@@ -1,6 +1,34 @@
 {
-  "actualizado": "2026-11-04",
+  "actualizado": "2026-11-05",
   "propuestas": [
+    {
+      "id": "senal-antes-de-salir",
+      "fecha": "2026-11-05",
+      "titulo": "Que cada inscrito llegue al día 1 con su señal escrita",
+      "categoria": "producto",
+      "idea": "Una página sencilla, /marketing/mi-senal.html, donde cualquiera escribe «Después de X, hago Y» (lo mismo que pide la app en «Tu hábito y tu señal»), pone su dorsal si lo tiene y se lleva una imagen vertical para el fondo de pantalla o sus historias. No guarda nada: la imagen se hace en el móvil. Debajo, para quien aún no tiene plaza, el botón «Pedir plaza» con el enlace etiquetado ?o=mi-senal. Y una historia en @reto.lock21 el viernes 13 a las 20:01, «Escribe tu señal antes de salir», con un hueco para rellenar y un ejemplo. Tu parte, solo si quieres: pasar el enlace a tus inscritos cercanos con una frase.",
+      "porQue": "Cifras reales del 3 nov: 2 plazas, pero en la app solo 1 registrado, 0 con hábito y señal y 0 check-ins, a 11 días de la salida. Si el día 1 la gente todavía tiene que decidir cuándo lo hace, el primer check-in se retrasa. Decidir de antemano cuándo y dónde se hará algo («si pasa X, hago Y», las intenciones de implementación) mejora de forma clara el cumplimiento de objetivos: metaanálisis de 94 estudios con un efecto medio-grande, d = 0,65 (Gollwitzer y Sheeran, 2006, Advances in Experimental Social Psychology 38: 69-119). Lo honesto: con 2 inscritos no se va a poder medir; es preparación barata para que la salida del 16 no empiece en frío, y sirve igual para la tanda del 30 nov.",
+      "esfuerzo": "1 min (opcional: mandar el enlace a tus inscritos cercanos)",
+      "coste": "0 €",
+      "cuando": "Página publicada hoy, 5 nov; historia el viernes 13 nov a las 20:01 (no pisa el calentamiento de las 10:00, la cuenta atrás de las 20:00 ni la historia libre del sábado); enlace a tus inscritos cuando quieras antes del domingo 15",
+      "pasos": [
+        "Nada que hacer para que funcione: la página está publicada y la historia está en la cola",
+        "Si quieres, a tus inscritos cercanos: «Antes del lunes 16, escribe tu señal: después de qué lo vas a hacer. Aquí te sale la imagen para el móvil: lock21.netlify.app/marketing/mi-senal.html»",
+        "Para el Claude principal, si lo apruebas: en el correo d1 (la víspera) añadir una línea con el mismo enlace para quien aún no tenga la señal en la app",
+        "En la reunión del 11 nov, mirar en el panel «con hábito» dentro de la app y las visitas con origen «mi-senal»",
+        "Hecho por marketing el 2026-11-05: página /marketing/mi-senal.html (sin indexar, comprobada a 390 px y con textos largos, la imagen se ajusta a 3 líneas por bloque), historia en identidad 2 (lila y tomate, con hueco y un ejemplo) encolada para el viernes 13 a las 20:01 y copia en las plantillas. Queda para ti: nada obligatorio; el mensaje a tus inscritos y decidir lo del correo d1."
+      ],
+      "materiales": [
+        {
+          "nombre": "Página «Escribe tu señal antes de la salida»",
+          "archivo": "/marketing/mi-senal.html"
+        },
+        {
+          "nombre": "Historia «Escribe tu señal antes de salir» (13 nov, 20:01)",
+          "archivo": "/marketing/plantillas/historia-mi-senal.jpg"
+        }
+      ]
+    },
     {
       "id": "dudas-antes-de-pedir",
       "fecha": "2026-11-04",
@@ -190,7 +218,8 @@
         "Mira en el panel si suben «compartidos» e «invitados» los días que la publicas",
         "Hecho por marketing el 2026-11-01: versión para el publicador automático (la API no admite el sticker de mención, así que pide «Mándale esta historia» con la flecha de enviar), en mantequilla y bosque para no repetir el rosa de la cuenta atrás: sale sola el martes 3 nov a las 20:01, justo después de la cuenta atrás que pregunta «¿Ya tienes el tuyo?». Las cifras siguen en 2 plazas, así que el 03 es real; si entra alguien antes del martes, la cambio por el número nuevo. Queda para ti, solo si quieres: subir la plantilla con mención a tu perfil personal.",
         "Hecho por marketing el 2026-11-03: comprobado con las cifras de hoy que siguen en 2 plazas, así que el 03 sigue siendo real y la historia de esta noche (20:01) sale tal cual; no hace falta otra versión hasta que cambie el número. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
-        "Hecho por marketing el 2026-11-04: las cifras del 3 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión; el número no ha cambiado, así que no la repito (la propuesta dice repetir al cambiar). Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
+        "Hecho por marketing el 2026-11-04: las cifras del 3 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión; el número no ha cambiado, así que no la repito (la propuesta dice repetir al cambiar). Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
+        "Hecho por marketing el 2026-11-05: las últimas cifras (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
       ],
       "materiales": [
         {
@@ -758,6 +787,12 @@
       "descripcion": "Interrogación en tomate sobre lila.",
       "archivo": "/marketing/plantillas/destacada-dudas.jpg",
       "tipo": "imagen"
+    },
+    {
+      "nombre": "Página «Mi señal»",
+      "descripcion": "Cada inscrito escribe «Después de X, hago Y» y se lleva la imagen para el móvil; no guarda nada (?o=mi-senal en el botón de plaza).",
+      "archivo": "/marketing/mi-senal.html",
+      "tipo": "pagina"
     }
   ]
 }
