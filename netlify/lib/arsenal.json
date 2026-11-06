@@ -1,6 +1,33 @@
 {
-  "actualizado": "2026-11-05",
+  "actualizado": "2026-11-06",
   "propuestas": [
+    {
+      "id": "plazo-real-domingo-15",
+      "fecha": "2026-11-06",
+      "titulo": "Decir la fecha límite real: hasta el domingo 15 para salir el lunes 16",
+      "categoria": "contenido",
+      "idea": "Hasta ahora todas las piezas dicen cuándo se sale (lunes 16), pero ninguna dice hasta cuándo se puede pedir plaza para salir ese día. Y la fecha existe: la web asigna el grupo del 16 a quien pide plaza hasta el domingo 15 a las 23:59 (hora de Canarias); desde el lunes, el siguiente es el del 30. Dos historias en @reto.lock21 a las 20:01, justo después de la cuenta atrás: jueves 12, «Hasta el domingo 15» (quedan 3 días, y si no llegas, no pasa nada: el 30 sale otro grupo), y domingo 15, «Hoy es el último día para salir mañana». Además, el carrusel de la víspera (domingo 15, 19:30) decía «Si aún no tienes plaza, el siguiente grupo sale el lunes 30», que ese mismo día no era cierto: ya está corregido en la imagen y en el pie. Para tu perfil, una grabación de 12 s con la misma idea.",
+      "porQue": "Cifras reales (3 nov): 15 clics en «Pedir plaza» en 30 días y 2 solicitudes. Hay gente con intención que no termina, que es justo el «lo dejo para el lunes» del que va el reto. Un plazo corto y concreto hace que la gente actúe más que uno largo o ninguno: en un experimento con vales gratuitos, los que caducaban en 3 semanas se canjearon el 31 % de las veces y los de 2 meses solo el 6 % (Shu y Gneezy, 2010, «Procrastination of enjoyable experiences», Journal of Marketing Research 47(5): 933-944). No es escasez falsa: no se dice cuántas plazas quedan, solo una fecha que ya pone el propio calendario de grupos (src/lib/grupos.js), y cada pieza dice que después hay otro grupo. Lo honesto: con estos números no se podrá aislar el efecto; las piezas no cuestan nada y además corrigen un texto que habría sido inexacto el día 15.",
+      "esfuerzo": "0 min (salen solas); 2 min si quieres grabar la versión para tu perfil",
+      "coste": "0 €",
+      "cuando": "Historias el jueves 12 y el domingo 15 nov a las 20:01 (no pisan el calentamiento de las 10:00, la cuenta atrás de las 20:00, la historia libre del sábado ni las dudas del 5, 8 y 11 ni la señal del 13); grabación para tus historias de @juanma89pr cuando quieras entre el jueves 12 y el sábado 14",
+      "pasos": [
+        "Nada que hacer para que funcione: las dos historias están en la cola y el carrusel de la víspera ya está corregido",
+        "Si quieres, graba «Hasta el domingo» (en Grabaciones) y súbela a tus historias de @juanma89pr con el sticker de enlace a lock21.netlify.app",
+        "En la reunión del 11 nov, mirar en el panel «clics en Pedir plaza» y «solicitudes»; y el lunes 16, cuántas solicitudes entraron del 12 al 15",
+        "Hecho por marketing el 2026-11-06: comprobado en src/lib/grupos.js que el domingo 15 todavía se asigna el grupo del 16; dos historias en identidad 2 (bosque «Hasta el domingo 15» y tomate con el dorsal 16 «Hoy es el último día para salir mañana»), revisadas a tamaño real y encoladas para el 12 y el 15 nov a las 20:01, con copias en las plantillas; diapositiva 6 y pie del carrusel de la víspera corregidos («hoy es el último día para salir mañana; si no, el lunes 30»). Queda para ti: nada obligatorio; la grabación si te apetece."
+      ],
+      "materiales": [
+        {
+          "nombre": "Historia «Hasta el domingo 15» (jue 12 nov, 20:01)",
+          "archivo": "/marketing/plantillas/historia-hasta-el-domingo.jpg"
+        },
+        {
+          "nombre": "Historia «Hoy es el último día para salir mañana» (dom 15 nov, 20:01)",
+          "archivo": "/marketing/plantillas/historia-ultimo-dia.jpg"
+        }
+      ]
+    },
     {
       "id": "senal-antes-de-salir",
       "fecha": "2026-11-05",
@@ -219,7 +246,8 @@
         "Hecho por marketing el 2026-11-01: versión para el publicador automático (la API no admite el sticker de mención, así que pide «Mándale esta historia» con la flecha de enviar), en mantequilla y bosque para no repetir el rosa de la cuenta atrás: sale sola el martes 3 nov a las 20:01, justo después de la cuenta atrás que pregunta «¿Ya tienes el tuyo?». Las cifras siguen en 2 plazas, así que el 03 es real; si entra alguien antes del martes, la cambio por el número nuevo. Queda para ti, solo si quieres: subir la plantilla con mención a tu perfil personal.",
         "Hecho por marketing el 2026-11-03: comprobado con las cifras de hoy que siguen en 2 plazas, así que el 03 sigue siendo real y la historia de esta noche (20:01) sale tal cual; no hace falta otra versión hasta que cambie el número. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
         "Hecho por marketing el 2026-11-04: las cifras del 3 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión; el número no ha cambiado, así que no la repito (la propuesta dice repetir al cambiar). Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
-        "Hecho por marketing el 2026-11-05: las últimas cifras (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
+        "Hecho por marketing el 2026-11-05: las últimas cifras (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
+        "Hecho por marketing el 2026-11-06: las últimas cifras del panel (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
       ],
       "materiales": [
         {
@@ -658,6 +686,19 @@
         "El segundo seguido es el que no se negocia."
       ],
       "como": "Vertical, natural, sin guion leído. 2 tomas. 15-20 s.",
+      "estado": "pendiente"
+    },
+    {
+      "id": "g-juanma-hasta-el-domingo",
+      "titulo": "Hasta el domingo",
+      "quien": "Juanma",
+      "para": "tus historias de @juanma89pr, entre el jue 12 y el sáb 14 nov (no va en la cola de @reto.lock21)",
+      "guion": [
+        "Si llevas tiempo diciendo «el lunes empiezo»: este lunes 16 sale el primer grupo de Lock21.",
+        "Puedes pedir plaza hasta el domingo. Un hábito, 21 días, gratis.",
+        "Y si no llegas, el 30 sale otro grupo."
+      ],
+      "como": "Vertical, a la altura de los ojos, en la calle o en casa con luz de día. Una sola toma de 12-15 s. Sticker de enlace a lock21.netlify.app.",
       "estado": "pendiente"
     }
   ],
