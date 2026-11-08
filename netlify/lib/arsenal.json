@@ -1,6 +1,24 @@
 {
-  "actualizado": "2026-11-07",
+  "actualizado": "2026-11-08",
   "propuestas": [
+    {
+      "id": "parte-grupo-01-en-abierto",
+      "fecha": "2026-11-08",
+      "titulo": "Contar el grupo 01 en abierto, aunque sea pequeño: parte de mitad de semana con cifras reales",
+      "categoria": "contenido",
+      "idea": "A 8 días de la salida, el grupo 01 tiene 2 plazas y la web apenas recibe visitas nuevas. En vez de esconderlo, contarlo: dos historias en @reto.lock21 a las 13:00 (hueco libre), el miércoles 18 y el viernes 20 nov, con el «parte del grupo 01» en cifras de grupo y nunca nombres: cuántos salieron, cuántos check-ins van, cuántos días seguidos lleva el grupo y una línea honesta («Somos pocos. Lo contamos igual, día a día.»), y al pie «El grupo 02 sale el lunes 30». Las cifras salen de contenido/cifras.json (enLaApp.checkins, plazasPorGrupo); la historia se dibuja el día antes con las últimas cifras y lleva la fecha de los datos. Si el grupo 01 no sale o no hay check-ins que contar, no se publica nada y lo digo en la reunión.",
+      "porQue": "Cifras reales (6 nov): 156 visitas en 30 días, pero solo 3 nuevas desde que se paró el anuncio el 2 nov; 15 clics en «Pedir plaza» y 2 solicitudes, las dos importadas; en la app, 1 registrado y 0 check-ins. Con estos números no hay testimonios ni cifras grandes que enseñar, y no se pueden inventar; lo que sí hay es el trabajo real de cada día. Enseñar el trabajo que hay detrás aumenta el valor que la gente percibe de un servicio, aunque el resultado sea el mismo (Buell y Norton, 2011, «The Labor Illusion: How Operational Transparency Increases Perceived Value», Management Science 57(9): 1564-1579). Además, el parte enseña a quien mira cómo es el reto por dentro justo cuando se le pide plaza para el 30. Lo honesto: con 2 o 3 personas el efecto no se podrá medir aparte; la pieza no cuesta nada y evita que la cuenta hable solo de lo que va a pasar.",
+      "esfuerzo": "0 min (solo decir en la reunión del miércoles 11 si te parece bien enseñar cifras pequeñas)",
+      "coste": "0 €",
+      "cuando": "Miércoles 18 y viernes 20 nov a las 13:00 (no pisa el calentamiento de las 10:00, la cuenta atrás de las 20:00 ni la historia del sábado)",
+      "pasos": [
+        "En la reunión del miércoles 11, decir si apruebas enseñar las cifras del grupo aunque sean pequeñas (solo números de grupo, nunca quién)",
+        "Si la apruebas, dibujo y encolo las dos historias el día antes de cada una con las últimas cifras del panel y la fecha de los datos",
+        "Si el grupo 01 no sale el 16 o no hay check-ins, no se publica y lo hablamos el 18",
+        "En la reunión del 25 nov, mirar si las visitas y los clics en «Pedir plaza» de esa semana se mueven frente a la del 2 al 6 nov"
+      ],
+      "materiales": []
+    },
     {
       "id": "cola-17-21-grupo-02",
       "fecha": "2026-11-07",
@@ -15,7 +33,8 @@
         "Nada que hacer: las nueve historias están en la cola y salen solas",
         "Si el grupo 01 no saliera el 16 por cualquier motivo, dímelo en la reunión del miércoles 11 y retiro las de las 10:00",
         "En la reunión del 18 nov, mirar en el panel si las visitas y los clics en «Pedir plaza» se mueven esa semana frente a la del 2 al 6 nov",
-        "Hecho por marketing el 2026-11-07: nueve historias en identidad 2, revisadas a tamaño real y encoladas (10:00 del 17 al 21 y 20:00 del 17 al 20 nov), con la cuenta atrás del 18 copiada en las plantillas. Queda para ti: nada; las 19:30 de esa semana las preparo yo."
+        "Hecho por marketing el 2026-11-07: nueve historias en identidad 2, revisadas a tamaño real y encoladas (10:00 del 17 al 21 y 20:00 del 17 al 20 nov), con la cuenta atrás del 18 copiada en las plantillas. Queda para ti: nada; las 19:30 de esa semana las preparo yo.",
+        "Hecho por marketing el 2026-11-08: carrusel «Tu versión mínima» (6 imágenes, identidad 2, revisadas) encolado para el martes 17 a las 19:30, con los seis ejemplos tal como salen en la app y el cierre con el dorsal del grupo 02 (salida 30·11·26). Las 19:30 del 18, 20 y 21 siguen reservadas para tus vídeos («Fallaste un día», «Mi primer hábito 3/3», «Mi semana 1 de verdad»); el 19 lo dejo libre por si el carrusel «Detrás de Lock21» se mueve allí. Si llegado el lunes 16 no has grabado, preparo piezas de texto para esos huecos. Queda para ti: nada."
       ],
       "materiales": [
         {
@@ -25,6 +44,10 @@
         {
           "nombre": "Misión del día 2 del grupo 01 (mar 17 nov, 10:00)",
           "archivo": "/redes/2026-11-17/historias/1000_calentamiento.jpg"
+        },
+        {
+          "nombre": "Carrusel «Tu versión mínima» (mar 17 nov, 19:30), portada",
+          "archivo": "/marketing/plantillas/carrusel-version-minima-portada.jpg"
         }
       ]
     },
@@ -275,7 +298,8 @@
         "Hecho por marketing el 2026-11-04: las cifras del 3 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión; el número no ha cambiado, así que no la repito (la propuesta dice repetir al cambiar). Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
         "Hecho por marketing el 2026-11-05: las últimas cifras (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
         "Hecho por marketing el 2026-11-06: las últimas cifras del panel (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
-        "Hecho por marketing el 2026-11-07: las cifras del 6 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
+        "Hecho por marketing el 2026-11-07: las cifras del 6 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
+        "Hecho por marketing el 2026-11-08: las últimas cifras del panel (6 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
       ],
       "materiales": [
         {
