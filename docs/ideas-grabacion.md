@@ -5,6 +5,38 @@ Donde pone [TU DETALLE], lo rellenas tú; si no quieres contarlo, se quita y el 
 
 ---
 
+## Lunes 9 de noviembre de 2026 (semana del 9 al 16 nov)
+
+**Cifras reales de hoy (cifras.json, 6 nov):** 2 plazas pedidas en el grupo 01 (lunes 16 nov, 30 plazas, así que quedan 28); 156 visitas a la web en 30 días y 15 clics en «Pedir plaza».
+**Lo que sale esta semana:** L 9 carrusel «Quién está detrás» · M 10 reel «Tu dorsal» · X 11 carrusel del test e historia «Duda 3» · J 12 reel «La señal pesa más que las ganas» e historia «Hasta el domingo» · V 13 carrusel «Preparado» e historia «Mi señal» · S 14 reel «Seis hábitos» · D 15 carrusel «Víspera» e historia «Último día» · L 16 historia «Hoy empieza» y reel «Día 1».
+**El relato de la semana:** cuenta atrás real, quién está detrás y que tú también sales el lunes. Ganas a tu yo de siempre, no a nadie.
+
+### 1. «Esto lo pego hoy y no lo quito en 21 días»
+- **Para qué:** historia del viernes 13 de noviembre («Mi señal»), junto al carrusel «Preparado». Es el primer punto de la lista hecho por ti: tu señal escrita.
+- **Gancho (2 s):** plano cerrado de tu mano pegando un pósit en la nevera o en el espejo, y tu voz: «Esto lo pego hoy y no lo quito en 21 días.»
+- **Guion (unos 17 s):** «Esto lo pego hoy y no lo quito en 21 días. Mi frase: después de [TU DETALLE: lo que ya haces cada día, por ejemplo «el café de la mañana»], hago [TU DETALLE: tu hábito]. No me fío de las ganas, me fío de la señal. ¿La suya cuál sería? Escríbanla el domingo, que el lunes salimos.»
+- **Cómo grabarlo:** en casa, de día, luz de ventana. Toma 1: Osmo en mano, plano detalle del pósit (escríbelo antes con rotulador grueso para que se lea). Toma 2: plano medio vertical tuyo al lado de la nevera diciendo el resto, Osmo en trípode a la altura de los ojos. 2 tomas.
+- **Duración:** 15-17 s.
+
+### 2. «Yo también salgo el lunes»
+- **Para qué:** reel del sábado 14 de noviembre en @juanma89pr (la pieza J8 de la campaña), el mismo día que el reel «Seis hábitos» de Lock21. Que se vea que no lo diriges desde fuera: corres con el grupo.
+- **Gancho (2 s):** te atas las zapatillas (o el gesto que encaje con tu hábito), levantas la vista: «El lunes yo también me pongo el dorsal.»
+- **Guion (unos 19 s):** «El lunes yo también me pongo el dorsal. Mi hábito para estos 21 días: [TU DETALLE: el hábito que vas a hacer]. Mi señal: [TU DETALLE: tu señal]. No voy a ganarle a nadie; voy a ganarle al que siempre lo dejaba para el lunes. Les iré contando cómo me va de verdad, también los días que cueste.»
+- **Cómo grabarlo:** exterior, Paseo de Las Canteras (zona de La Puntilla) a primera hora, con el sol de lado y sin gente de frente. Toma 1: detalle de las zapatillas o del gesto, Osmo bajo. Toma 2: plano medio, Osmo en mano a la altura de los ojos, micro puesto, el mar detrás. Si te atascas, una frase por toma. 2-3 tomas.
+- **Duración:** 18-20 s.
+
+### 3. «Día 1. Ya está marcado.»
+- **Para qué:** reel del lunes 16 de noviembre a las 19:30 («Día 1»), grabado esa misma mañana. Es la primera pieza de tu semana real con el hábito.
+- **Gancho (2 s):** enseñas el móvil a cámara con el check-in recién hecho: «Día 1. Ya está marcado.»
+- **Guion (unos 18 s):** «Día 1. Ya está marcado. Hoy he hecho [TU DETALLE: tu hábito, en una frase] y he tardado [TU DETALLE: lo que tardaste]. Salimos 2 en el grupo 01: pocos, pero salimos. Esto es de fondo: quedan 20 días, uno detrás de otro. Y si se lo han perdido, el grupo 02 sale el lunes 30.»
+- **Cómo grabarlo:** donde hagas el hábito, justo al terminar (casa, la calle o la playa), con la luz que haya a esa hora. Toma 1: detalle de la pantalla del móvil con el check-in (sube el brillo, sin notificaciones a la vista). Toma 2: plano medio tuyo, Osmo en mano, diciendo el resto. 2 tomas.
+- **Duración:** 15-18 s.
+- **Ojo:** el 2 es la cifra real de hoy. Si el lunes hay más plazas, di el número nuevo (te lo paso el jueves); si no cambia, se dice tal cual, sin vergüenza: es verdad y suma.
+
+**Cómo pasarme los vídeos:** súbelos al chat de Lock21 en Claude, con el número de la idea, y yo me encargo de rótulos, subtítulos y programación.
+
+---
+
 ## Jueves 5 de noviembre de 2026 (semana del 5 al 12 nov)
 
 **Cifras reales de hoy (cifras.json, 3 nov):** 2 plazas pedidas en el grupo 01 (lunes 16 nov, 30 plazas, así que quedan 28); 155 visitas a la web en 30 días.
