@@ -1,6 +1,31 @@
 {
-  "actualizado": "2026-11-08",
+  "actualizado": "2026-11-09",
   "propuestas": [
+    {
+      "id": "directo-ultima-noche-15",
+      "fecha": "2026-11-09",
+      "titulo": "Un directo de 10 minutos la última noche: «Trae tu duda» el domingo 15 a las 21:00",
+      "categoria": "evento",
+      "idea": "La víspera de la salida del grupo 01, el domingo 15 a las 21:00 (después de la cuenta atrás de las 20:00 y la historia de las 20:01), un directo de Instagram de 10 minutos desde @reto.lock21 con Juanma a cámara: qué pasa el lunes al abrir la app, qué es la versión mínima y la señal, y las dudas que escriban en el chat del directo. Sin guion largo y sin cifras: solo contestar. Se anuncia con una historia en @reto.lock21 el sábado 14 a las 13:00 (no pisa las 10:00 ni la de las 20:00 del sábado, que queda libre) y con un vídeo corto de Juanma en su perfil. Si el directo se guarda después, queda como respuesta a las dudas para quien llegue para el grupo 02.",
+      "porQue": "Cifras reales (6 nov): 15 clics en «Pedir plaza» en 30 días y 2 solicitudes, las dos importadas; es decir, quien llega hasta el botón no termina de pedir plaza, y lo que falta no es un titular más sino resolver la duda que le frena. Al mismo tiempo, desde que se paró el anuncio el 2 nov solo han entrado 3 visitas nuevas, así que hace falta un motivo para que los seguidores vuelvan a mirar. Instagram avisa a los seguidores cuando una cuenta empieza un directo (Centro de ayuda de Instagram, apartado sobre emisiones en directo, help.instagram.com), algo que una historia programada no consigue, y contestar en vivo es justo lo que no puede hacer la web. Lo honesto: la cuenta tiene pocos seguidores y puede que entren 2 o 3 personas; aun así, cuesta 10 minutos, no inventa nada y llega en la última noche del plazo real.",
+      "esfuerzo": "15 min (10 de directo y 2-3 para grabar el aviso en tus historias)",
+      "coste": "0 €",
+      "cuando": "Aviso el sábado 14 a las 13:00 en @reto.lock21; directo el domingo 15 a las 21:00",
+      "pasos": [
+        "En la reunión del miércoles 11, decir si te animas a hacer el directo (si no, no se encola nada)",
+        "Si lo apruebas, encolo la historia de aviso en @reto.lock21 para el sábado 14 a las 13:00 (la plantilla ya está hecha)",
+        "Graba el aviso de tus historias (guion en grabaciones: «El domingo, en directo») y súbelo el sábado 14",
+        "Domingo 15 a las 21:00: directo desde @reto.lock21, 10 minutos; abre con qué pasa el lunes y luego contesta el chat; cierra con «El enlace está en la bio, puedes pedir plaza hasta esta noche»",
+        "Al terminar, guarda el directo en el perfil si quieres que sirva para el grupo 02",
+        "En la reunión del 18 nov, mirar en el panel si hubo visitas y solicitudes entre el sábado 14 y el domingo 15"
+      ],
+      "materiales": [
+        {
+          "nombre": "Aviso del directo (sáb 14 nov, 13:00, en @reto.lock21)",
+          "archivo": "/marketing/plantillas/historia-directo-domingo-15.jpg"
+        }
+      ]
+    },
     {
       "id": "parte-grupo-01-en-abierto",
       "fecha": "2026-11-08",
@@ -34,7 +59,8 @@
         "Si el grupo 01 no saliera el 16 por cualquier motivo, dímelo en la reunión del miércoles 11 y retiro las de las 10:00",
         "En la reunión del 18 nov, mirar en el panel si las visitas y los clics en «Pedir plaza» se mueven esa semana frente a la del 2 al 6 nov",
         "Hecho por marketing el 2026-11-07: nueve historias en identidad 2, revisadas a tamaño real y encoladas (10:00 del 17 al 21 y 20:00 del 17 al 20 nov), con la cuenta atrás del 18 copiada en las plantillas. Queda para ti: nada; las 19:30 de esa semana las preparo yo.",
-        "Hecho por marketing el 2026-11-08: carrusel «Tu versión mínima» (6 imágenes, identidad 2, revisadas) encolado para el martes 17 a las 19:30, con los seis ejemplos tal como salen en la app y el cierre con el dorsal del grupo 02 (salida 30·11·26). Las 19:30 del 18, 20 y 21 siguen reservadas para tus vídeos («Fallaste un día», «Mi primer hábito 3/3», «Mi semana 1 de verdad»); el 19 lo dejo libre por si el carrusel «Detrás de Lock21» se mueve allí. Si llegado el lunes 16 no has grabado, preparo piezas de texto para esos huecos. Queda para ti: nada."
+        "Hecho por marketing el 2026-11-08: carrusel «Tu versión mínima» (6 imágenes, identidad 2, revisadas) encolado para el martes 17 a las 19:30, con los seis ejemplos tal como salen en la app y el cierre con el dorsal del grupo 02 (salida 30·11·26). Las 19:30 del 18, 20 y 21 siguen reservadas para tus vídeos («Fallaste un día», «Mi primer hábito 3/3», «Mi semana 1 de verdad»); el 19 lo dejo libre por si el carrusel «Detrás de Lock21» se mueve allí. Si llegado el lunes 16 no has grabado, preparo piezas de texto para esos huecos. Queda para ti: nada.",
+        "Hecho por marketing el 2026-11-09: la cola seguía cortada tras el sábado 21, así que he encolado cuatro historias más en identidad 2, revisadas a tamaño real: misión del grupo 01 a las 10:00 del domingo 22 («Día 7. Una semana dentro.») y del lunes 23 («Día 8. Este lunes no empiezas: sigues.»), y cuenta atrás del grupo 02 a las 20:00 del 22 (8 días) y del 23 (7 días). Si el grupo 01 no sale el 16, retiro también estas. Queda para ti: nada."
       ],
       "materiales": [
         {
@@ -48,6 +74,10 @@
         {
           "nombre": "Carrusel «Tu versión mínima» (mar 17 nov, 19:30), portada",
           "archivo": "/marketing/plantillas/carrusel-version-minima-portada.jpg"
+        },
+        {
+          "nombre": "Misión del día 8 del grupo 01 (lun 23 nov, 10:00)",
+          "archivo": "/redes/2026-11-23/historias/1000_calentamiento.jpg"
         }
       ]
     },
@@ -299,7 +329,8 @@
         "Hecho por marketing el 2026-11-05: las últimas cifras (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola. Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
         "Hecho por marketing el 2026-11-06: las últimas cifras del panel (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
         "Hecho por marketing el 2026-11-07: las cifras del 6 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
-        "Hecho por marketing el 2026-11-08: las últimas cifras del panel (6 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
+        "Hecho por marketing el 2026-11-08: las últimas cifras del panel (6 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
+        "Hecho por marketing el 2026-11-09: las últimas cifras del panel (6 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
       ],
       "materiales": [
         {
@@ -751,6 +782,19 @@
         "Y si no llegas, el 30 sale otro grupo."
       ],
       "como": "Vertical, a la altura de los ojos, en la calle o en casa con luz de día. Una sola toma de 12-15 s. Sticker de enlace a lock21.netlify.app.",
+      "estado": "pendiente"
+    },
+    {
+      "id": "g-juanma-directo-domingo",
+      "titulo": "El domingo, en directo",
+      "quien": "Juanma",
+      "para": "tus historias de @juanma89pr, el sábado 14 nov (no va en la cola de @reto.lock21)",
+      "guion": [
+        "Mañana domingo, a las nueve de la noche, hago un directo de diez minutos en @reto.lock21.",
+        "Es la última noche para pedir plaza en el primer grupo.",
+        "Si tienes una duda, tráela y te la contesto en el momento."
+      ],
+      "como": "Vertical, a la altura de los ojos, con luz de día. Una sola toma de 12-15 s. Sticker de mención a @reto.lock21 y sticker de enlace a lock21.netlify.app.",
       "estado": "pendiente"
     }
   ],
