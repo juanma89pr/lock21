@@ -1,6 +1,25 @@
 {
-  "actualizado": "2026-11-09",
+  "actualizado": "2026-11-10",
   "propuestas": [
+    {
+      "id": "posts-que-encuentra-google",
+      "fecha": "2026-11-10",
+      "titulo": "Que Google encuentre los posts de @reto.lock21: una línea clara en cada pie",
+      "categoria": "contenido",
+      "idea": "Desde julio de 2025, Google y Bing pueden mostrar en sus resultados las publicaciones públicas de cuentas profesionales de Instagram, y lo que leen es sobre todo el texto del pie. Los pies de @reto.lock21 empiezan con un gancho («Las ganas van y vienen…») que funciona en Instagram pero no dice a un buscador de qué va la cuenta. La propuesta: sin tocar los ganchos, cada publicación del feed lleva una línea fija y verdadera antes del enlace: «Lock21 es un reto de 21 días gratis para crear un hábito, desde Gran Canaria.», con las palabras que alguien escribiría en Google («reto 21 días gratis», «crear un hábito», «Gran Canaria»). Así cada post deja de ser solo para quien ya sigue la cuenta y suma una puerta más, la misma idea que la página de «reto 21 días gratis» pero sin pagar ni programar. Para el Claude principal, cuando le toque: que el publicador mande también el texto alternativo de cada imagen (si la API de Instagram lo admite para las imágenes, que lo compruebe él), con la misma frase y lo que se lee en la pieza.",
+      "porQue": "Cifras reales (9 nov): 158 visitas en 30 días, de las que 62 vinieron del anuncio; desde que se paró el 2 nov solo han entrado 5 visitas más (153 a 158) y siguen 2 plazas, las dos importadas. Sin anuncio, el tráfico depende de quien ya sigue la cuenta, y para el grupo 02 (30 nov) y los siguientes hace falta una puerta que siga abierta sin pagar. Instagram empezó el 10 de julio de 2025 a dejar que los motores de búsqueda indexen las publicaciones públicas de cuentas profesionales de mayores de 18 años, con el ajuste activado de serie (PPC Land, «Instagram content becomes searchable on Google starting July 10»: https://ppc.land/instagram-content-becomes-searchable-on-google-starting-july-10/). Lo honesto: no sé cuánto tardará Google en enseñar estos posts ni si traerán visitas este mes; es una línea por post, no cuesta nada y no inventa nada.",
+      "esfuerzo": "1 min, una sola vez (comprobar un ajuste)",
+      "coste": "0 €",
+      "cuando": "Desde ya; las publicaciones del feed del 11 al 17 nov ya llevan la línea",
+      "pasos": [
+        "Solo una vez, si quieres: en la configuración de @reto.lock21 (privacidad de la cuenta), comprueba que está activado el ajuste que deja que las fotos y vídeos públicos salgan en los resultados de búsqueda (viene activado de serie en cuentas profesionales)",
+        "Desde aquí, cada publicación del feed que prepare llevará la línea «Lock21 es un reto de 21 días gratis para crear un hábito, desde Gran Canaria.» justo antes del enlace",
+        "Pendiente del Claude principal, cuando le toque el publicador: mandar el texto alternativo de cada imagen",
+        "En la reunión del 2 dic, mirar en el panel si aparece tráfico de Google o «directo» que no venga del anuncio, y buscar «reto 21 días gratis Gran Canaria» en Google para ver si sale algún post",
+        "Hecho por marketing el 2026-11-10: añadida la línea a los siete pies del feed programados del 11 al 17 nov (entre el texto y «Pide tu plaza gratis en lock21.netlify.app»), sin tocar ganchos ni imágenes. Queda para ti: solo comprobar el ajuste, si quieres."
+      ],
+      "materiales": []
+    },
     {
       "id": "directo-ultima-noche-15",
       "fecha": "2026-11-09",
@@ -60,7 +79,8 @@
         "En la reunión del 18 nov, mirar en el panel si las visitas y los clics en «Pedir plaza» se mueven esa semana frente a la del 2 al 6 nov",
         "Hecho por marketing el 2026-11-07: nueve historias en identidad 2, revisadas a tamaño real y encoladas (10:00 del 17 al 21 y 20:00 del 17 al 20 nov), con la cuenta atrás del 18 copiada en las plantillas. Queda para ti: nada; las 19:30 de esa semana las preparo yo.",
         "Hecho por marketing el 2026-11-08: carrusel «Tu versión mínima» (6 imágenes, identidad 2, revisadas) encolado para el martes 17 a las 19:30, con los seis ejemplos tal como salen en la app y el cierre con el dorsal del grupo 02 (salida 30·11·26). Las 19:30 del 18, 20 y 21 siguen reservadas para tus vídeos («Fallaste un día», «Mi primer hábito 3/3», «Mi semana 1 de verdad»); el 19 lo dejo libre por si el carrusel «Detrás de Lock21» se mueve allí. Si llegado el lunes 16 no has grabado, preparo piezas de texto para esos huecos. Queda para ti: nada.",
-        "Hecho por marketing el 2026-11-09: la cola seguía cortada tras el sábado 21, así que he encolado cuatro historias más en identidad 2, revisadas a tamaño real: misión del grupo 01 a las 10:00 del domingo 22 («Día 7. Una semana dentro.») y del lunes 23 («Día 8. Este lunes no empiezas: sigues.»), y cuenta atrás del grupo 02 a las 20:00 del 22 (8 días) y del 23 (7 días). Si el grupo 01 no sale el 16, retiro también estas. Queda para ti: nada."
+        "Hecho por marketing el 2026-11-09: la cola seguía cortada tras el sábado 21, así que he encolado cuatro historias más en identidad 2, revisadas a tamaño real: misión del grupo 01 a las 10:00 del domingo 22 («Día 7. Una semana dentro.») y del lunes 23 («Día 8. Este lunes no empiezas: sigues.»), y cuenta atrás del grupo 02 a las 20:00 del 22 (8 días) y del 23 (7 días). Si el grupo 01 no sale el 16, retiro también estas. Queda para ti: nada.",
+        "Hecho por marketing el 2026-11-10: la cola terminaba el lunes 23, así que he encolado dos historias más en identidad 2, revisadas a tamaño real: misión del grupo 01 a las 10:00 del martes 24 («Día 9. Hazlo antes de pensarlo.», en lila) y cuenta atrás del grupo 02 a las 20:00 del mismo día (6 días, en tomate). Si el grupo 01 no sale el 16, retiro también estas. Queda para ti: nada."
       ],
       "materiales": [
         {
@@ -330,7 +350,8 @@
         "Hecho por marketing el 2026-11-06: las últimas cifras del panel (3 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
         "Hecho por marketing el 2026-11-07: las cifras del 6 nov siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
         "Hecho por marketing el 2026-11-08: las últimas cifras del panel (6 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
-        "Hecho por marketing el 2026-11-09: las últimas cifras del panel (6 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
+        "Hecho por marketing el 2026-11-09: las últimas cifras del panel (6 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 9, 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal.",
+        "Hecho por marketing el 2026-11-10: las últimas cifras del panel (9 nov) siguen en 2 plazas, así que el 03 sigue siendo real y no hace falta otra versión. Si entra alguien, preparo el dorsal siguiente para el primer hueco libre de la cola (quedan libres las 20:01 del 10 y 14 nov). Queda para ti, solo si quieres: la versión con mención en tu perfil personal."
       ],
       "materiales": [
         {
