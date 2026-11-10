@@ -9,7 +9,11 @@ function horaCanarias(d) {
   return Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Atlantic/Canary', hour: '2-digit', hourCycle: 'h23' }).format(d));
 }
 
+import config from '../../src/config.js';
+
 export default async function handler() {
+  // Lock21 en pausa (10 nov 2026): no sale ningún correo de la secuencia.
+  if (config.pausa && config.pausa.activa) { return new Response('en pausa'); }
   if (!correoListo()) { return new Response('sin configurar'); }
   var fire = await obtenerDb();
   if (!fire) { return new Response('sin firestore'); }

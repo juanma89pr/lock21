@@ -1,0 +1,16 @@
+{
+  "tipo": "carrusel",
+  "pie": "Lock21 se pausa. El grupo 01 no sale el lunes 16.\n\nUn reto en grupo necesita grupo, y todavía somos pocos. Prefiero pararlo a hacerlo a medias: antes que el gancho, la verdad.\n\nLa idea sigue viva. Un hábito, una señal fija y nunca dos fallos seguidos. Lock21 volverá más adelante desde @balancet.fit.\n\nGracias a quienes pidieron su dorsal y a quienes nos leyeron estas semanas. Si quieren que les avise cuando vuelva, déjenlo en lock21.netlify.app (el enlace está en la bio).",
+  "estado": "borrador",
+  "origen": "cierre_pausa.py (pendiente de que Juanma lo apruebe: estado -> programado)",
+  "archivos": [
+    "redes/cierre/carrusel/01.jpg",
+    "redes/cierre/carrusel/02.jpg",
+    "redes/cierre/carrusel/03.jpg",
+    "redes/cierre/carrusel/04.jpg"
+  ],
+  "colaboradores": [
+    "juanma89pr"
+  ],
+  "fecha": "2026-11-12T19:30:00+00:00"
+}

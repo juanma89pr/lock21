@@ -8,6 +8,7 @@ import { obtenerDb } from '../lib/admin.js';
 import { inscribir, emailValido, leerConToken, resumen } from '../lib/inscritos.js';
 import { enviar, anotar } from '../lib/correos.js';
 import { fechaEnZona } from '../../src/lib/grupos.js';
+import config from '../../src/config.js';
 
 var CANALES = ['historia', 'publicacion', 'whatsapp', 'enlace', 'texto', 'descarga', 'nativo'];
 
@@ -35,6 +36,9 @@ export default async function handler(req) {
     await c.ref.update(cambios);
     return json(200, { ok: true });
   }
+
+  // Lock21 en pausa (10 nov 2026): no se aceptan inscripciones nuevas.
+  if (config.pausa && config.pausa.activa) { return json(409, { error: 'en_pausa' }); }
 
   // Trampa para robots: se responde como si nada.
   if (d.empresa) { return json(200, { ok: true, guardado: false }); }

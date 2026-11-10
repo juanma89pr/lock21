@@ -2,6 +2,8 @@
 
 # Campaña Instagram Lock21 v3: la historia del creador (24 oct - 13 dic 2026)
 
+> **EN PAUSA desde el 10 de noviembre de 2026.** Ver `docs/pausa.md`. Volverá lanzada desde @balancet.fit.
+
 **Qué cambia respecto a la v2.** Juanma no se presenta como profesional titulado. Es el creador del reto: alguien que cambió su vida hábito a hábito. Todo el marketing gira en torno a esa historia: **"Lo hice yo, de uno en uno. Esto es el método que me hubiera gustado tener."** El embudo final ya no lleva a un servicio: al terminar el reto, la app ofrece apuntarse a una lista de interesados en acompañamiento personalizado (opcional, y de pago cuando exista).
 
 **La historia, tal como la cuenta Juanma (y solo esto):** fumaba, bebía en exceso todos los fines de semana y dejaba de lado sus prioridades. Lo fue cambiando de uno en uno, aprendiendo en sí mismo. No se inventa nada más: ni años, ni cifras, ni cómo dejó cada cosa, ni recaídas. Donde una pieza necesite un detalle personal hay un marcador **[JUANMA: ...]** para que lo rellene él; si no lo rellena, la pieza está escrita para funcionar sin ese detalle.

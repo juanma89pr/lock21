@@ -20,8 +20,9 @@
 [functions."publicar-instagram"]
   schedule = "*/5 * * * *"
 
-[functions."correos-programados"]
-  schedule = "7 * * * *"
+# En pausa desde el 10 nov 2026: sin horario (y la función sale sin enviar nada).
+# [functions."correos-programados"]
+#   schedule = "7 * * * *"
 
 [functions."renovar-token-instagram"]
   schedule = "17 4 * * 1"

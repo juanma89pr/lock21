@@ -6,9 +6,10 @@
 name: Cifras e historia del sábado
 
 on:
-  schedule:
-    - cron: '5 8 * * *'
-    - cron: '30 16 * * 6'
+  # Lock21 en pausa desde el 10 nov 2026: sin horario, solo a mano.
+  # schedule:
+  #   - cron: '5 8 * * *'
+  #   - cron: '30 16 * * 6'
   workflow_dispatch:
     inputs:
       fecha:
