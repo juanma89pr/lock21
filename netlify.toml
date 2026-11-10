@@ -2,6 +2,11 @@
   command = "npm run lint && npm run test:frases && npm run test:grupos && npm run test:publicador && npm run test:correos && npm run build"
   publish = "dist"
   functions = "netlify/functions"
+  # 10 nov 2026 (Juanma): cada deploy cuesta 15 créditos de Netlify, que
+  # comparte con Balancet. No se compila si el commit solo toca lo que la
+  # web no usa (docs/, .github/, herramientas/, contenido/cifras.json, .md):
+  # así no gastan las cifras diarias ni las ideas para grabar. Ver el guion.
+  ignore = "sh scripts/netlify-ignorar.sh"
 
 # La clave web de Firebase es pública por diseño; se excluye del escáner de secretos de Netlify.
 [build.environment]
