@@ -35,7 +35,7 @@ def piezas():
         frase('rosa', 3, 'Lo que no caduca', 'La idea sigue viva.',
               'Un hábito, una señal fija y nunca dos fallos seguidos. Lock21 volverá más adelante desde @balancet.fit.'),
         frase('cobalto', 4, 'Gracias', 'Gracias por estar.',
-              'A quienes pidieron su dorsal y a quienes nos leyeron estas semanas. Si quieren saber cuándo vuelve, déjenlo en lock21.netlify.app.', size=150),
+              'A quienes nos leyeron y siguieron estas semanas. Si quieren saber cuándo vuelve, déjenlo en lock21.netlify.app.', size=150),
     ]
 
 

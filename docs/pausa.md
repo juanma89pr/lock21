@@ -12,18 +12,16 @@ desde la cuenta de Balancet (@balancet.fit), con su público.
 - **Inscripciones:** `netlify/functions/inscripcion.js` responde 409 `en_pausa`.
 - **Correos:** `correos-programados` sin horario en `netlify.toml` y, si se lanza, sale sin enviar.
 - **Instagram:** las 40 piezas del 10 al 24 nov se movieron a `contenido/pausa/` (no se publican).
-  En la cola quedan solo el carrusel y la historia de cierre en estado `borrador`
-  (12 nov, 19:30 y 20:00): el publicador solo lanza `programado`.
+  Última publicación: el carrusel y la historia de cierre, aprobados por Juanma y programados
+  para el martes 10 nov a las 19:30 y 20:00 (Canarias).
 - **Cifras e historia del sábado** (GitHub Actions): sin horario, solo a mano.
 - **Tareas programadas de Claude** de Lock21 (marketing diario, ideas para grabar y reunión de
   los miércoles): desactivadas. La reunión de marketing de Balancet sigue.
 
 ## Lo que hace Juanma
 
-1. **Hablar con los 2 inscritos antes de publicar el cierre** (texto abajo).
+1. Los 2 inscritos son Juanma y una familiar: no hace falta mensaje aparte.
 2. **Parar los anuncios de Meta** de Lock21.
-3. **Aprobar el cierre** (o pedir cambios). Para publicarlo: estado `programado` en
-   `contenido/cola/2026-11-12_*-pausa.json`.
 4. **Bio de @reto.lock21:** «En pausa. Volverá desde @balancet.fit». Y fijar el carrusel de cierre.
    La cuenta se deja dormida, sin borrarla.
 

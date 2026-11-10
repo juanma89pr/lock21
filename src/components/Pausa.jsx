@@ -46,7 +46,7 @@ export default function Pausa() {
           Un reto en grupo necesita grupo, y todavía somos pocos. Prefiero pararlo a hacerlo a medias. El grupo del lunes 16 de noviembre no sale.
         </p>
         <p className="mt-4 text-lg sm:text-xl leading-relaxed text-white/90">
-          La idea sigue viva: un hábito, una señal fija y nunca dos fallos seguidos. {config.marca} volverá más adelante desde {config.pausa.vuelveDesde}. Gracias a quienes pidieron su plaza.
+          La idea sigue viva: un hábito, una señal fija y nunca dos fallos seguidos. {config.marca} volverá más adelante desde {config.pausa.vuelveDesde}..
         </p>
 
         {fase === 'hecho' ? (
